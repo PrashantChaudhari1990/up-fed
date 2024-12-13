@@ -1,0 +1,22 @@
+import 'package:base_mobile_app/config/theme_colors_config.dart';
+import 'package:base_mobile_app/services/interceptor_service.dart';
+import 'package:easy_localization/easy_localization.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'package:flutter/material.dart';
+import 'app.dart';
+import 'config/localization_config.dart';
+import 'config/notification_config.dart';
+
+Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await ThemeColorsConfig().fetch();
+  await Firebase.initializeApp();
+  NotificationConfig().setupFirebaseMessaging();
+  await EasyLocalization.ensureInitialized();
+  InterceptorService().initialize();
+  runApp(EasyLocalization(
+      path: LocalizationConfig.translationPath,
+      supportedLocales: LocalizationConfig.supportedLocales,
+      fallbackLocale: LocalizationConfig.supportedLocales.first,
+      child: const MyApp()));
+}

@@ -1,0 +1,41 @@
+{
+  "title": "Karma Health Dealer",
+  "select_your_pref_lang": "Select your preferred language",
+  "continue": "Continue",
+  "sign_up": "Sign Up",
+  "get_started": "Get Started",
+  "submit": "Submit",
+  "welcome": "Welcome,",
+  "login":{
+    "header": "Let’s get started!",
+    "description": "Please provide your phone number, and we'll send a confirmation code your way.",
+    "user_type": "(Vendor’s)",
+    "phone_number": "Phone Number",
+    "phone_number_with_user": "Phone Number @:login.user_type",
+    "send_otp": "Send OTP",
+    "phone_number_hint": "E.g; 12345 67890",
+    "otp": "OTP",
+    "pin": "PIN",
+    "login_with": "Login With : "
+  },
+  "otp_verification": {
+    "header": "4-Digit Code",
+    "description": "Code has been sent to your entered phone number",
+    "otp": "OTP",
+    "resend_otp": "Resend OTP",
+    "in_sec_count": "in {} sec"
+  },
+  "validate_pin": {
+    "header": "Validate PIN",
+    "description": "Enter your 4 digit PIN and verify.",
+    "pin": "PIN",
+    "forgot_pin": "Forgot PIN?",
+    "verify": "Verify"
+  },
+  "home_screen": {
+    "home": "Home",
+    "credit": "Credit",
+    "orders": "Orders",
+    "profile": "Profile"
+  }
+}
