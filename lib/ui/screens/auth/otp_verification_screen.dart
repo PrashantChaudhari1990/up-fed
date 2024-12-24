@@ -2,11 +2,12 @@ import 'dart:async';
 import 'dart:convert';
 import 'package:base_mobile_app/constant/session_keys.dart';
 import 'package:base_mobile_app/models/auth/validate_otp_request.dart';
-import 'package:base_mobile_app/models/auth/validate_otp_response.dart';
+import 'package:base_mobile_app/models/user.dart';
 import 'package:base_mobile_app/routes.dart';
 import 'package:base_mobile_app/services/auth/auth_service.dart';
 import 'package:base_mobile_app/themes/styles/theme_colors.dart';
 import 'package:base_mobile_app/ui/shared_widget/pin_input_field.dart';
+import 'package:base_mobile_app/utils/app_session.dart';
 import 'package:base_mobile_app/utils/app_session_storage.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
@@ -57,12 +58,12 @@ class _OtpVerificationScreenState extends State<OtpVerificationScreen> {
 
   _onSubmitOtp(String phoneNumber) async {
     final fcmToken =  await NotificationConfig.fcmToken;
-    final validateOtpRequest  = ValidateOtpRequest(phoneNumber: phoneNumber,otp: _otpController.text,fcmToken: fcmToken);
-   _authService.validateOtp(validateOtpRequest).then((response){
+    final validateOtpRequest  = ValidateOtpRequest(phoneNumber: "+91$phoneNumber",otp: _otpController.text,fcmToken: fcmToken);
+   _authService.validateOtp(validateOtpRequest).then((response) async {
      if(response != null){
-       final validateOtpResponse = ValidateOtpResponse.fromJson(response.data);
-       if(validateOtpResponse.flag != null && validateOtpResponse.flag==1){
-         AppSessionStorage().setString(SessionKeys.user, jsonEncode(response.data));
+       final userResponse = User.fromJson(response.data);
+       if(userResponse.existingUser??false){
+         await AppSessionStorage().setString(SessionKeys.user, jsonEncode(response.data));
          if(mounted){
           Navigator.pushNamedAndRemoveUntil(context, Routes.home, (route)=>false);
          }
@@ -76,7 +77,6 @@ class _OtpVerificationScreenState extends State<OtpVerificationScreen> {
   _onResendOtp(){
     _resendOtpCountDown.value=59;
     _startOtpCountdown();
-    debugPrint('On resend otp clicked.....');
   }
 
 

@@ -1,21 +1,21 @@
 class GenerateOtpResponse {
   String? otp;
   String? phoneNumber;
-  bool? flag;
+  bool? existingUser;
 
-  GenerateOtpResponse({this.otp, this.phoneNumber, this.flag});
+  GenerateOtpResponse({this.otp, this.phoneNumber, this.existingUser});
 
   GenerateOtpResponse.fromJson(Map<String, dynamic> json) {
     otp = json['otp'];
     phoneNumber = json['phoneNumber'];
-    flag = json['flag'];
+    existingUser = json['existingUser'];
   }
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['otp'] = this.otp;
-    data['phoneNumber'] = this.phoneNumber;
-    data['flag'] = this.flag;
+    data['otp'] = otp;
+    data['phoneNumber'] = phoneNumber;
+    data['existingUser'] = existingUser;
     return data;
   }
 }

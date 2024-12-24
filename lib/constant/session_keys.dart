@@ -3,4 +3,6 @@ abstract class SessionKeys{
   static const user = 'user';
   static const authToken = "authToken";
   static const isLogin = "isLogin";
+  static const deviceDetails = "deviceDetails";
+
 }

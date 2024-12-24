@@ -1,5 +1,6 @@
 import 'package:base_mobile_app/routes.dart';
 import 'package:base_mobile_app/themes/styles/theme_colors.dart';
+import 'package:base_mobile_app/utils/app_session.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -16,17 +17,15 @@ class _SplashScreenState extends State<SplashScreen> {
   
   @override
   void initState() {
-    printFcmToken();
-    Future.delayed(const Duration(seconds: 2),()=>{
-      if(mounted)
-      Navigator.of(context).pushReplacementNamed(Routes.sliderScreen)
+   Future.delayed(const Duration(seconds: 2),() async {
+      final bool isLoggedIn = await AppSession().isLogin;
+      final routeName = isLoggedIn ? Routes.home : Routes.sliderScreen;
+      if(!mounted) return;
+      Navigator.of(context).pushReplacementNamed(routeName);
     });
     super.initState();
   }
-  printFcmToken() async {
-    print(await NotificationConfig.fcmToken);
 
-  }
   @override
   Widget build(BuildContext context) {
     final screenSize = MediaQuery.of(context).size;

@@ -1,3 +1,6 @@
+import 'dart:convert';
+
+import 'package:base_mobile_app/models/config_response.dart';
 import 'package:base_mobile_app/routes.dart';
 import 'package:base_mobile_app/services/common_service.dart';
 import 'package:base_mobile_app/themes/styles/theme_colors.dart';
@@ -27,11 +30,13 @@ class _SliderScreenState extends State<SliderScreen> {
 
   @override
   void initState() {
-    commonService.getUiConstantByKey('SLIDER_DETAILS').then((response){
-      if(response?.data != null && response?.data?.runtimeType == List){
-      response.data.forEach((detail){
+    commonService.getConfigByKey('MOBILE_APP_SLIDER_DETAILS').then((response){
+      if(response?.data != null){
+        ConfigResponse configResponse = ConfigResponse.fromJson(response.data);
+        List sliders = jsonDecode(configResponse.value??"[]");
+        for (var detail in sliders) {
         _carouselDataList.add(SliderDetails.fromJson(detail));
-      });
+      }
       setState(() {});
       }
     });
@@ -119,7 +124,7 @@ class _SliderScreenState extends State<SliderScreen> {
                     Flexible(
                         child: ElevatedButton(
                             onPressed: () async {
-                              Navigator.of(context).pushNamed(Routes.home);
+                              Navigator.of(context).pushNamed(Routes.signUp);
                             },
                             child: const Text('sign_up').tr()))
                   ],

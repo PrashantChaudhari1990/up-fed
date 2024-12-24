@@ -5,7 +5,6 @@ import 'package:base_mobile_app/models/auth/generate_otp_request.dart';
 import 'package:base_mobile_app/models/auth/generate_otp_response.dart';
 import 'package:base_mobile_app/services/auth/auth_service.dart';
 import 'package:base_mobile_app/themes/styles/theme_colors.dart';
-import 'package:base_mobile_app/utils/app_loader.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -32,12 +31,13 @@ class _LoginScreenState extends State<LoginScreen> {
 
 
   _onSubmitClick(){
+    FocusScope.of(context).unfocus();
     if(_loginWith  == LoginWith.otp){
-      final generateOtpRequest = GenerateOtpRequest(phoneNumber: _phoneNumberController.text);
+      final generateOtpRequest = GenerateOtpRequest(phoneNumber: "+91${_phoneNumberController.text}");
       _authService.generateOtp(generateOtpRequest).then((response){
         if(response != null && response.data != null){
           GenerateOtpResponse generateOtpResponse = GenerateOtpResponse.fromJson(response.data);
-          if(generateOtpResponse.flag??false){
+          if(generateOtpResponse.existingUser??false){
             if(mounted){
               Navigator.of(context).pushNamed(Routes.otpVerification,arguments: _phoneNumberController.text);
             }
@@ -63,10 +63,9 @@ class _LoginScreenState extends State<LoginScreen> {
         ),
       ),
       body: GestureDetector(
-        onTap: (){
-          FocusScope.of(context).unfocus();
-        },
+        onTap: ()=>FocusScope.of(context).unfocus(),
         child: Container(
+          color: theme.scaffoldBackgroundColor,
           padding: const EdgeInsets.symmetric(horizontal: 20,vertical: 10),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,

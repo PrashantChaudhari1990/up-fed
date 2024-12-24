@@ -5,9 +5,11 @@ class AppLoader {
   static final AppLoader _instance = AppLoader._internal();
   factory AppLoader() => _instance;
   AppLoader._internal();
+  bool _loaderVisible = false;
 
-  static show(){
-    if(MyApp.navigatorKey.currentContext != null){
+  show(){
+    if(MyApp.navigatorKey.currentContext != null && !_loaderVisible){
+      _loaderVisible=true;
       showDialog(
           context: MyApp.navigatorKey.currentContext!, builder: (context){
         return Scaffold(
@@ -17,16 +19,19 @@ class AppLoader {
               child: Center(
                 child: SizedBox(
                     width: MediaQuery.of(context).size.width/2,
-                    child: FittedBox(child: Image.asset('assets/images/loader.gif',))),
+                    child: Image.asset('assets/images/loader.gif',)),
               )),
         );
       });
     }
   }
 
-  static hide(){
-    if(MyApp.navigatorKey.currentContext != null) {
-      Navigator.of(MyApp.navigatorKey.currentContext!).pop();
+  hide(){
+    if(_loaderVisible){
+      if(MyApp.navigatorKey.currentContext != null) {
+        _loaderVisible = false;
+        Navigator.of(MyApp.navigatorKey.currentContext!).pop();
+      }
     }
   }
 }

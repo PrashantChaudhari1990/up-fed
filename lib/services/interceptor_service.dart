@@ -1,4 +1,6 @@
 import 'package:base_mobile_app/config/server_config.dart';
+import 'package:base_mobile_app/constant/common_constants.dart';
+import 'package:base_mobile_app/utils/app_loader.dart';
 import 'package:dio/dio.dart';
 
 class InterceptorService{
@@ -10,8 +12,8 @@ class InterceptorService{
       baseUrl: environment.baseUrl,
       contentType: "application/json",
     headers: {
-        "x-visibility-scope":"M-PORTAL",
-      "x-tenant-id":1
+        "x-visibility-scope": CommonConstants.xVisibilityScope,
+        "x-tenant-id": CommonConstants.xTenantId
     }
   ));
 
@@ -19,16 +21,24 @@ class InterceptorService{
   initialize(){
     dio.interceptors.add(InterceptorsWrapper(
       onRequest:(requestOptions,requestInterceptorHandler){
+        if(requestOptions.extra['showLoader']??true){
+          AppLoader().show();
+        }
         requestInterceptorHandler.next(requestOptions);
       },
       onResponse: (response,responseInterceptorHandler){
+        if(response.requestOptions.extra['showLoader']??true){
+          AppLoader().hide();
+        }
         responseInterceptorHandler.next(response);
       },
       onError: (dioException,errorInterceptorHandler){
+        if(dioException.requestOptions.extra['showLoader']??true){
+          AppLoader().hide();
+        }
         return;
-        // errorInterceptorHandler.next(dioException);
+        // return errorInterceptorHandler.next(dioException);
       }
     ));
   }
-
 }

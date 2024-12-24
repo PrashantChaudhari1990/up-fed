@@ -1,7 +1,10 @@
-import 'dart:async';
-import 'package:base_mobile_app/constant/session_keys.dart';
+import 'dart:convert';
+import 'package:base_mobile_app/constant/web_app_routes.dart';
+import 'package:base_mobile_app/routes.dart';
 import 'package:base_mobile_app/themes/styles/theme_colors.dart';
-import 'package:base_mobile_app/utils/app_session_storage.dart';
+import 'package:base_mobile_app/utils/app_loader.dart';
+import 'package:base_mobile_app/utils/device_info.dart';
+import 'package:base_mobile_app/utils/webview_controller_utils.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_inappwebview/flutter_inappwebview.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -20,13 +23,14 @@ class WebViewContainer extends StatefulWidget {
 
 class _WebViewContainerState extends State<WebViewContainer> {
 
-  InAppWebViewController? _inAppWebViewController;
-
   PullToRefreshController? _pullToRefreshController;
+  InAppWebViewController? _inAppWebViewController;
 
   final InAppWebViewSettings _inAppWebViewSettings = InAppWebViewSettings(
     isTextInteractionEnabled: false,
+    useShouldOverrideUrlLoading: true
   );
+
 
   @override
   void initState() {
@@ -61,42 +65,64 @@ class _WebViewContainerState extends State<WebViewContainer> {
     _inAppWebViewController?.loadUrl(urlRequest: URLRequest(url: WebUri("${environment.webAppUrl}${widget.url}")));
   }
 
+  _onWebViewCreated(InAppWebViewController controller) async {
+    widget.onWebViewCreated?.call(controller);
+    _inAppWebViewController = controller;
+    controller.addJavaScriptHandler(handlerName: 'getDeviceDetail', callback: (dynamic data) async {
+      final deviceDetail = jsonEncode(await DeviceInfo.getDetail());
+      return deviceDetail;
+    });
+    WebViewControllerUtils.controller = controller;
+  }
+
+  _onPopInvoked(didPop, _) async {
+    if (didPop) {
+      return;
+    }
+    final canWebGoBack = await _inAppWebViewController?.canGoBack();
+    if (mounted) {
+      if (canWebGoBack ?? false) {
+        _inAppWebViewController?.goBack();
+      } else if (Navigator.canPop(context)) {
+        Navigator.pop(context);
+      }
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return PopScope(
         canPop: false,
-        onPopInvokedWithResult: (didPop,_) async {
-          if (didPop) {
-            return;
-          }
-          final canWebGoBack = await _inAppWebViewController?.canGoBack();
-          if(canWebGoBack??false){
-            _inAppWebViewController?.goBack();
-          }else if(Navigator.canPop(context)){
-            Navigator.pop(context);
-          }
-        },
+        onPopInvokedWithResult: _onPopInvoked,
     child: InAppWebView(
       initialSettings: _inAppWebViewSettings,
-      pullToRefreshController: widget.enablePullToRefresh ? _pullToRefreshController : null,
-      onWebViewCreated: (controller) async {
-        widget.onWebViewCreated?.call(controller);
-        _inAppWebViewController  = controller;
-        final session = await AppSessionStorage().getString(SessionKeys.user);
-        await _inAppWebViewController?.webStorage.localStorage.setItem(key: SessionKeys.user, value: session);
-      },
+      pullToRefreshController: _pullToRefreshController,
+      onWebViewCreated: _onWebViewCreated,
       onReceivedError: (webController,res,error){
         debugPrint(error.description);
       },
-      onLoadStart: (c,u) async {
-
+      onLoadStart: (controller,uri) async {
+        AppLoader().show();
       },
-      onProgressChanged: (controller,progress){
-        // double.parse((progress*0.01).toStringAsFixed(1));
-
+      onLoadStop: (controller,uri){
+        AppLoader().hide();
       },
-      onUpdateVisitedHistory: (webViewController,uri,value){
+      onProgressChanged: (controller,progress){},
+      onUpdateVisitedHistory: (webViewController,uri,value) async {
+        String? currentRouteName = ModalRoute.of(context)?.settings.name;
+        if(uri?.path == WebAppRoutes.categoryScreen && currentRouteName != Routes.category){
+          Navigator.of(context).pushNamed(Routes.category);
+          if(await webViewController.canGoBack()){
+            webViewController.goBack();
+          }
+        }
         debugPrint(uri?.rawValue);
+      },
+      onConsoleMessage: (c,m){
+        print(m);
+      },
+      onNavigationResponse: (webController,navigationAction) async {
+         return NavigationResponseAction.ALLOW;
       },
       shouldOverrideUrlLoading: (webController,navigationAction)async{
         if(!navigationAction.request.url.toString().contains(environment.webAppUrl)) {

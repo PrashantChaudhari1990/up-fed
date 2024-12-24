@@ -1,13 +1,15 @@
-import 'package:base_mobile_app/constant/session_keys.dart';
-import 'package:base_mobile_app/routes.dart';
+import 'package:base_mobile_app/constant/web_app_routes.dart';
 import 'package:base_mobile_app/themes/styles/theme_colors.dart';
 import 'package:base_mobile_app/themes/styles/typography.dart';
+import 'package:base_mobile_app/ui/shared_widget/kh_app_bar.dart';
 import 'package:base_mobile_app/ui/shared_widget/web_view_container.dart';
-import 'package:base_mobile_app/utils/app_session_storage.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_inappwebview/flutter_inappwebview.dart';
 import 'package:flutter_svg/svg.dart';
+
+import '../../constant/session_keys.dart';
+import '../../utils/app_session_storage.dart';
 
 class HomeScreen extends StatefulWidget {
 
@@ -19,46 +21,20 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   final List<Map<String, String>> _bottomNavigationTabs = [
-    {"iconUrl": 'assets/icons/home.svg', "label": "home_screen.home".tr(),"routeName":"/profile/user"},
-    {"iconUrl": 'assets/icons/credits.svg', "label": "home_screen.credit".tr(),"routeName":"/profile/user"},
-    {"iconUrl": 'assets/icons/orders.svg', "label": "home_screen.orders".tr(),"routeName":"/profile/user"},
-    {"iconUrl": 'assets/icons/profile.svg', "label": "home_screen.profile".tr(),"routeName":"/profile/user"}
+    {"iconUrl": 'assets/icons/home.svg', "label": "home_screen.home".tr(),"routeName":WebAppRoutes.dashboard},
+    {"iconUrl": 'assets/icons/credits.svg', "label": "home_screen.credit".tr(),"routeName":WebAppRoutes.credit},
+    {"iconUrl": 'assets/icons/orders.svg', "label": "home_screen.orders".tr(),"routeName":WebAppRoutes.orders},
+    {"iconUrl": 'assets/icons/profile.svg', "label": "home_screen.profile".tr(),"routeName":WebAppRoutes.profile}
   ];
 
    int _currentTabIndex = 0;
    InAppWebViewController? _inAppWebViewController;
-  _openNotification(){
-    AppSessionStorage().remove(SessionKeys.user);
-    _inAppWebViewController?.webStorage.localStorage.clear();
-    debugPrint("On open notification icon click");
-  }
-
-  _onClickUserIcon() async {
-   Navigator.of(context).pushNamed(Routes.profile);
-  }
-
 
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     return Scaffold(
-      appBar: AppBar(
-        centerTitle: true,
-        automaticallyImplyLeading: false,
-        title: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Text("welcome",style: theme.textTheme.titleMedium?.copyWith(fontWeight: FontWeight.bold),).tr(),
-            SvgPicture.asset('assets/images/svg/app_header_logo.svg'),
-            Row(
-              children: [
-                IconButton(onPressed: _openNotification, icon: SvgPicture.asset('assets/icons/notification_icon.svg')),
-                IconButton(onPressed: _onClickUserIcon,icon: SvgPicture.asset('assets/icons/user_icon.svg')),
-              ],
-            )
-          ],
-        )
-      ),
+      appBar: const KhAppBar(showLogo: true,notificationAction: true,cartAction: true,),
       bottomNavigationBar: BottomNavigationBar(
         onTap: (value) async {
           setState(() {
@@ -82,8 +58,11 @@ class _HomeScreenState extends State<HomeScreen> {
       ),
       body: WebViewContainer(
           url: _bottomNavigationTabs[_currentTabIndex]['routeName'],
+        enablePullToRefresh: true,
         onWebViewCreated: (controller) async {
-            _inAppWebViewController = controller;
+          final session = await AppSessionStorage().getString(SessionKeys.user);
+          await controller.webStorage.localStorage.setItem(key: SessionKeys.user, value: session);
+          _inAppWebViewController = controller;
         },
       ),
     );
