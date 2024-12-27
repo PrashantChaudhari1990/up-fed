@@ -6,6 +6,8 @@
   "get_started": "Get Started",
   "submit": "Submit",
   "welcome": "Welcome,",
+  "enter_otp": "Enter OTP",
+  "send_otp": "Send OTP",
   "login":{
     "header": "Let’s get started!",
     "description": "Please provide your phone number, and we'll send a confirmation code your way.",
@@ -37,5 +39,17 @@
     "credit": "Credit",
     "orders": "Orders",
     "profile": "Profile"
+  },
+  "forgot_pin": {
+    "forgot_pin":"Forgot PIN",
+    "phone_number": "Phone Number",
+    "phone_number_hint": "E.g; 12345 67890"
+  },
+  "set_pin": {
+    "header": "Set PIN",
+    "description": "Secure your account by creating a 4-digit PIN for quick and safe access.",
+    "enter_pin": "Enter PIN",
+    "confirm_pin": "Confirm PIN",
+    "set_pin": "Set PIN"
   }
 }

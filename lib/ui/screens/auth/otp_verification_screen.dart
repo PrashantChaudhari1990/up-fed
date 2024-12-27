@@ -7,7 +7,6 @@ import 'package:base_mobile_app/routes.dart';
 import 'package:base_mobile_app/services/auth/auth_service.dart';
 import 'package:base_mobile_app/themes/styles/theme_colors.dart';
 import 'package:base_mobile_app/ui/shared_widget/pin_input_field.dart';
-import 'package:base_mobile_app/utils/app_session.dart';
 import 'package:base_mobile_app/utils/app_session_storage.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
@@ -82,7 +81,7 @@ class _OtpVerificationScreenState extends State<OtpVerificationScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final String phoneNumber = ModalRoute.of(context)?.settings.arguments as String;
+    final String phoneNumber = (ModalRoute.of(context)?.settings.arguments??'') as String;
     final theme = Theme.of(context);
     return Scaffold(
       appBar: AppBar(

@@ -1,8 +1,8 @@
 import 'dart:convert';
-
 import 'package:base_mobile_app/models/auth/login_request.dart';
 import 'package:base_mobile_app/services/auth/auth_service.dart';
 import 'package:base_mobile_app/themes/styles/theme_colors.dart';
+import 'package:base_mobile_app/ui/shared_widget/kh_app_bar.dart';
 import 'package:base_mobile_app/utils/device_info.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
@@ -11,7 +11,6 @@ import 'package:flutter_svg/svg.dart';
 import '../../../constant/session_keys.dart';
 import '../../../models/user.dart';
 import '../../../routes.dart';
-import '../../../themes/styles/typography.dart';
 import '../../../utils/app_session_storage.dart';
 import '../../shared_widget/pin_input_field.dart';
 
@@ -52,25 +51,12 @@ class _ValidatePinScreenState extends State<ValidatePinScreen> {
     });
   }
 
-  _onForgotPin(){
-    debugPrint('On forgot Pin click....');
-  }
-
   @override
   Widget build(BuildContext context) {
-    final String phoneNumber = ModalRoute.of(context)?.settings.arguments as String;
+    final String phoneNumber = (ModalRoute.of(context)?.settings.arguments??'') as String;
     final theme = Theme.of(context);
     return Scaffold(
-      appBar: AppBar(
-        leading: GestureDetector(
-            onTap: ()=>Navigator.pop(context),
-            child: SvgPicture.asset("assets/icons/back_arrow.svg",fit: BoxFit.scaleDown,)),
-        systemOverlayStyle: SystemUiOverlayStyle(
-            statusBarColor: theme.scaffoldBackgroundColor,
-            statusBarIconBrightness: Brightness.dark,
-            systemNavigationBarColor: theme.scaffoldBackgroundColor
-        ),
-      ),
+      appBar:const KhAppBar(title: '',),
       body: Container(
         padding: const EdgeInsets.only(left: 20,right: 20,bottom: 10),
         child: Column(
@@ -92,14 +78,7 @@ class _ValidatePinScreenState extends State<ValidatePinScreen> {
                         controller: _pinController,
                       obscureText: true,
                     ),
-                    const SizedBox(height: 4,),
-                    Align(
-                      alignment: Alignment.bottomRight,
-                      child: TextButton(onPressed:_onForgotPin,
-                          style: TextButton.styleFrom(
-                              textStyle: linkTextStyleSmall),
-                          child: const Text('validate_pin.forgot_pin').tr()),
-                    ),
+                    const SizedBox(height: 4,)
                   ],
                 )
               ],

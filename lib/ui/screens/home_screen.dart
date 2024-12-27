@@ -34,7 +34,7 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     return Scaffold(
-      appBar: const KhAppBar(showLogo: true,notificationAction: true,cartAction: true,),
+      appBar:  KhAppBar(showLogo: true,notificationAction: true,cartAction: true,systemNavigationBarColor: ThemeColors.white,),
       bottomNavigationBar: BottomNavigationBar(
         onTap: (value) async {
           setState(() {

@@ -1,9 +1,9 @@
 import 'package:base_mobile_app/constant/session_keys.dart';
 import 'package:base_mobile_app/routes.dart';
-import 'package:base_mobile_app/utils/web_session.dart';
 import 'package:base_mobile_app/utils/webview_controller_utils.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:restart_app/restart_app.dart';
 
@@ -13,14 +13,14 @@ class KhAppBar extends StatelessWidget implements PreferredSizeWidget  {
   final bool? notificationAction;
   final bool? cartAction;
   final bool? showLogo;
+  final Color? systemNavigationBarColor;
 
-  const KhAppBar({super.key, this.title, this.notificationAction, this.cartAction,this.showLogo});
+  const KhAppBar({super.key, this.title, this.notificationAction, this.cartAction,this.showLogo,this.systemNavigationBarColor});
 
   _openNotification(BuildContext context){
-    Navigator.pushNamed(context, Routes.pendingVerification);
-    // AppSession().loginUser = null;
-    // WebViewControllerUtils.controller?.webStorage.localStorage.clear();
-    // Restart.restartApp();
+    AppSession().loginUser = null;
+    WebViewControllerUtils.controller?.webStorage.localStorage.clear();
+    Restart.restartApp();
   }
 
   _onClickCart(BuildContext context) async {
@@ -31,6 +31,7 @@ class KhAppBar extends StatelessWidget implements PreferredSizeWidget  {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     return AppBar(
+      systemOverlayStyle: SystemUiOverlayStyle(systemNavigationBarColor: systemNavigationBarColor),
         centerTitle: true,
         title: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,

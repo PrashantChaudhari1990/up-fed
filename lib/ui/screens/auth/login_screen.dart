@@ -10,6 +10,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import '../../../routes.dart';
 import '../../../themes/styles/typography.dart';
+import 'forgot_pin_bottom_sheet.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -44,10 +45,18 @@ class _LoginScreenState extends State<LoginScreen> {
           }
         }
       });
-      // Navigator.of(context).pushNamed(Routes.otpVerification,arguments: _phoneNumberController.text);
     }else{
       Navigator.of(context).pushNamed(Routes.validatePin,arguments: _phoneNumberController.text);
     }
+  }
+
+  _onForgotPin(BuildContext context){
+    showModalBottomSheet(
+      isScrollControlled: true,
+        isDismissible: false,
+        context: context, builder: (context){
+      return const ForgotPinModel();
+    });
   }
 
   @override
@@ -97,6 +106,7 @@ class _LoginScreenState extends State<LoginScreen> {
                           const SizedBox(width: 8,),
                           Flexible(
                             child: TextField(
+                              autofocus: false,
                               controller: _phoneNumberController,
                               keyboardType: TextInputType.number,
                               maxLength: 10,
@@ -166,7 +176,14 @@ class _LoginScreenState extends State<LoginScreen> {
                         ],
                       ),
                     ),
-                  )
+                  ),
+                  Align(
+                    alignment: Alignment.bottomRight,
+                    child: TextButton(onPressed:()=>_onForgotPin(context),
+                        style: TextButton.styleFrom(
+                            textStyle: linkTextStyleSmall),
+                        child: const Text('validate_pin.forgot_pin').tr()),
+                  ),
                 ],
               ),
               ValueListenableBuilder(
