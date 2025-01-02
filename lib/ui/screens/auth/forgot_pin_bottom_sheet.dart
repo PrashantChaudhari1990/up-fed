@@ -1,10 +1,10 @@
-import 'package:base_mobile_app/models/auth/generate_otp_request.dart';
-import 'package:base_mobile_app/models/auth/generate_otp_response.dart';
-import 'package:base_mobile_app/models/auth/validate_otp_request.dart';
-import 'package:base_mobile_app/services/auth/auth_service.dart';
-import 'package:base_mobile_app/themes/styles/theme_colors.dart';
-import 'package:base_mobile_app/ui/screens/auth/set_pin_screen.dart';
-import 'package:base_mobile_app/ui/shared_widget/pin_input_field.dart';
+import 'package:kh_dealer_app/models/auth/generate_otp_request.dart';
+import 'package:kh_dealer_app/models/auth/generate_otp_response.dart';
+import 'package:kh_dealer_app/models/auth/validate_otp_request.dart';
+import 'package:kh_dealer_app/services/auth/auth_service.dart';
+import 'package:kh_dealer_app/themes/styles/theme_colors.dart';
+import 'package:kh_dealer_app/ui/screens/auth/set_pin_screen.dart';
+import 'package:kh_dealer_app/ui/shared_widget/pin_input_field.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';

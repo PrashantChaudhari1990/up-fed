@@ -35,7 +35,7 @@ class User {
     validUserDetails = json['validUserDetails'];
     sessionExpire = json['sessionExpire'];
     refreshExpire = json['refreshExpire'];
-    authorities = json['authorities'].cast<String>();
+    authorities = json['authorities']?.cast<String>();
   }
 
   Map<String, dynamic> toJson() {

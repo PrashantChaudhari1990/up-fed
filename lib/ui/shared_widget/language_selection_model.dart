@@ -1,5 +1,5 @@
-import 'package:base_mobile_app/config/localization_config.dart';
-import 'package:base_mobile_app/themes/styles/theme_colors.dart';
+import 'package:kh_dealer_app/config/localization_config.dart';
+import 'package:kh_dealer_app/themes/styles/theme_colors.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 class LanguageSelectionModel extends StatefulWidget {

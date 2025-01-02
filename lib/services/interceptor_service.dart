@@ -1,11 +1,11 @@
 import 'dart:convert';
 import 'dart:io';
-import 'package:base_mobile_app/config/server_config.dart';
-import 'package:base_mobile_app/constant/common_constants.dart';
-import 'package:base_mobile_app/models/user.dart';
-import 'package:base_mobile_app/utils/app_loader.dart';
-import 'package:base_mobile_app/utils/app_session.dart';
-import 'package:base_mobile_app/utils/toast_message.dart';
+import 'package:kh_dealer_app/config/server_config.dart';
+import 'package:kh_dealer_app/constant/common_constants.dart';
+import 'package:kh_dealer_app/models/user.dart';
+import 'package:kh_dealer_app/utils/app_loader.dart';
+import 'package:kh_dealer_app/utils/app_session.dart';
+import 'package:kh_dealer_app/utils/toast_message.dart';
 import 'package:dio/dio.dart';
 
 class InterceptorService{
@@ -49,6 +49,8 @@ class InterceptorService{
         if(dioException.response?.statusCode == 500){
           ToastMessage.show(dioException.response?.data?['message']);
           return dioException.response?.data;
+        }else if(dioException.response?.statusCode == 400){
+          ToastMessage.show(dioException.response?.data?['message']);
         }else if(dioException.error.runtimeType == SocketException){
           ToastMessage.show((dioException.error as SocketException).message);
         }

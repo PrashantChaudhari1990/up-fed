@@ -1,6 +1,6 @@
-import 'package:base_mobile_app/themes/styles/fonts.dart';
-import 'package:base_mobile_app/themes/styles/typography.dart';
-import 'package:base_mobile_app/themes/styles/theme_colors.dart';
+import 'package:kh_dealer_app/themes/styles/fonts.dart';
+import 'package:kh_dealer_app/themes/styles/typography.dart';
+import 'package:kh_dealer_app/themes/styles/theme_colors.dart';
 import 'package:flutter/material.dart';
 
 ThemeData lightTheme = ThemeData(

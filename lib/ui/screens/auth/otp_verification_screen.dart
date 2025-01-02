@@ -1,13 +1,13 @@
 import 'dart:async';
 import 'dart:convert';
-import 'package:base_mobile_app/constant/session_keys.dart';
-import 'package:base_mobile_app/models/auth/validate_otp_request.dart';
-import 'package:base_mobile_app/models/user.dart';
-import 'package:base_mobile_app/routes.dart';
-import 'package:base_mobile_app/services/auth/auth_service.dart';
-import 'package:base_mobile_app/themes/styles/theme_colors.dart';
-import 'package:base_mobile_app/ui/shared_widget/pin_input_field.dart';
-import 'package:base_mobile_app/utils/app_session_storage.dart';
+import 'package:kh_dealer_app/constant/session_keys.dart';
+import 'package:kh_dealer_app/models/auth/validate_otp_request.dart';
+import 'package:kh_dealer_app/models/user.dart';
+import 'package:kh_dealer_app/routes.dart';
+import 'package:kh_dealer_app/services/auth/auth_service.dart';
+import 'package:kh_dealer_app/themes/styles/theme_colors.dart';
+import 'package:kh_dealer_app/ui/shared_widget/pin_input_field.dart';
+import 'package:kh_dealer_app/utils/app_session_storage.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -65,6 +65,10 @@ class _OtpVerificationScreenState extends State<OtpVerificationScreen> {
          await AppSessionStorage().setString(SessionKeys.user, jsonEncode(response.data));
          if(mounted){
           Navigator.pushNamedAndRemoveUntil(context, Routes.home, (route)=>false);
+         }
+       }else{
+         if(mounted){
+           Navigator.pushReplacementNamed(context, Routes.signUp,arguments: phoneNumber);
          }
        }
      }

@@ -1,5 +1,5 @@
-import 'package:base_mobile_app/utils/color_extensions.dart';
-import 'package:base_mobile_app/utils/color_utility.dart';
+import 'package:kh_dealer_app/utils/color_extensions.dart';
+import 'package:kh_dealer_app/utils/color_utility.dart';
 import 'package:flutter/material.dart';
 
 class ThemeColors {

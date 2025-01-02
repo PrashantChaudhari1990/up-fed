@@ -1,6 +1,6 @@
-import 'package:base_mobile_app/environment/develop.dart';
-import 'package:base_mobile_app/environment/production.dart';
-import 'package:base_mobile_app/environment/staging.dart';
+import 'package:kh_dealer_app/environment/develop.dart';
+import 'package:kh_dealer_app/environment/production.dart';
+import 'package:kh_dealer_app/environment/staging.dart';
 import '../environment/environment.dart';
 
 const EnvironmentType _environmentType = EnvironmentType.develop;

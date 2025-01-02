@@ -1,5 +1,5 @@
-import 'package:base_mobile_app/config/theme_colors_config.dart';
-import 'package:base_mobile_app/services/interceptor_service.dart';
+import 'package:kh_dealer_app/config/theme_colors_config.dart';
+import 'package:kh_dealer_app/services/interceptor_service.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';

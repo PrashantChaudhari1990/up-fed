@@ -1,6 +1,6 @@
-import 'package:base_mobile_app/routes.dart';
-import 'package:base_mobile_app/themes/styles/theme_colors.dart';
-import 'package:base_mobile_app/utils/app_session.dart';
+import 'package:kh_dealer_app/routes.dart';
+import 'package:kh_dealer_app/themes/styles/theme_colors.dart';
+import 'package:kh_dealer_app/utils/app_session.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/flutter_svg.dart';

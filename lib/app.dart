@@ -1,9 +1,9 @@
-import 'package:base_mobile_app/constant/web_app_routes.dart';
-import 'package:base_mobile_app/routes.dart';
-import 'package:base_mobile_app/themes/dart_theme.dart';
-import 'package:base_mobile_app/themes/light_theme.dart';
-import 'package:base_mobile_app/ui/screens/auth/sign_up_screen.dart';
-import 'package:base_mobile_app/ui/screens/slider/slider_screen.dart';
+import 'package:kh_dealer_app/constant/web_app_routes.dart';
+import 'package:kh_dealer_app/routes.dart';
+import 'package:kh_dealer_app/themes/dart_theme.dart';
+import 'package:kh_dealer_app/themes/light_theme.dart';
+import 'package:kh_dealer_app/ui/screens/auth/sign_up_screen.dart';
+import 'package:kh_dealer_app/ui/screens/slider/slider_screen.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'ui/screens/auth/login_screen.dart';
@@ -33,6 +33,7 @@ class MyApp extends StatelessWidget {
           Routes.home : (context)=>  const HomeScreen(),
           Routes.login : (context)=>  const LoginScreen(),
           Routes.signUp : (context)=>   SignUpScreen(),
+          Routes.signUpWithMobile : (context)=>   const LoginScreen.register(),
           Routes.otpVerification : (context)=>  const OtpVerificationScreen(),
           Routes.validatePin : (context)=>  const ValidatePinScreen(),
           Routes.cart:(context)=>  const WebViewScreen(routeName: WebAppRoutes.cartScreen,title: "Cart",),

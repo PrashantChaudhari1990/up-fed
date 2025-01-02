@@ -1,10 +1,8 @@
-import 'dart:convert';
-
-import 'package:base_mobile_app/enums/enums.dart';
-import 'package:base_mobile_app/models/auth/generate_otp_request.dart';
-import 'package:base_mobile_app/models/auth/generate_otp_response.dart';
-import 'package:base_mobile_app/services/auth/auth_service.dart';
-import 'package:base_mobile_app/themes/styles/theme_colors.dart';
+import 'package:kh_dealer_app/enums/enums.dart';
+import 'package:kh_dealer_app/models/auth/generate_otp_request.dart';
+import 'package:kh_dealer_app/models/auth/generate_otp_response.dart';
+import 'package:kh_dealer_app/services/auth/auth_service.dart';
+import 'package:kh_dealer_app/themes/styles/theme_colors.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -13,7 +11,11 @@ import '../../../themes/styles/typography.dart';
 import 'forgot_pin_bottom_sheet.dart';
 
 class LoginScreen extends StatefulWidget {
-  const LoginScreen({super.key});
+
+  final bool isRegistration;
+  const LoginScreen({super.key}):isRegistration=false;
+
+  const LoginScreen.register({super.key}):isRegistration=true;
 
   @override
   State<LoginScreen> createState() => _LoginScreenState();
@@ -38,10 +40,8 @@ class _LoginScreenState extends State<LoginScreen> {
       _authService.generateOtp(generateOtpRequest).then((response){
         if(response != null && response.data != null){
           GenerateOtpResponse generateOtpResponse = GenerateOtpResponse.fromJson(response.data);
-          if(generateOtpResponse.existingUser??false){
-            if(mounted){
-              Navigator.of(context).pushNamed(Routes.otpVerification,arguments: _phoneNumberController.text);
-            }
+          if(mounted){
+            Navigator.of(context).pushNamed(Routes.otpVerification,arguments: _phoneNumberController.text);
           }
         }
       });
@@ -130,6 +130,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     ],
                   ),
                   const SizedBox(height: 25,),
+                  if(!widget.isRegistration)
                   Card(
                     elevation: 0,
                     color: ThemeColors.gray1,
@@ -177,6 +178,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       ),
                     ),
                   ),
+                  if(!widget.isRegistration)
                   Align(
                     alignment: Alignment.bottomRight,
                     child: TextButton(onPressed:()=>_onForgotPin(context),

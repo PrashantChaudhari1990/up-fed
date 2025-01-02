@@ -1,8 +1,8 @@
-import 'package:base_mobile_app/constant/web_app_routes.dart';
-import 'package:base_mobile_app/themes/styles/theme_colors.dart';
-import 'package:base_mobile_app/themes/styles/typography.dart';
-import 'package:base_mobile_app/ui/shared_widget/kh_app_bar.dart';
-import 'package:base_mobile_app/ui/shared_widget/web_view_container.dart';
+import 'package:kh_dealer_app/constant/web_app_routes.dart';
+import 'package:kh_dealer_app/themes/styles/theme_colors.dart';
+import 'package:kh_dealer_app/themes/styles/typography.dart';
+import 'package:kh_dealer_app/ui/shared_widget/kh_app_bar.dart';
+import 'package:kh_dealer_app/ui/shared_widget/web_view_container.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_inappwebview/flutter_inappwebview.dart';
@@ -60,8 +60,6 @@ class _HomeScreenState extends State<HomeScreen> {
           url: _bottomNavigationTabs[_currentTabIndex]['routeName'],
         enablePullToRefresh: true,
         onWebViewCreated: (controller) async {
-          final session = await AppSessionStorage().getString(SessionKeys.user);
-          await controller.webStorage.localStorage.setItem(key: SessionKeys.user, value: session);
           _inAppWebViewController = controller;
         },
       ),

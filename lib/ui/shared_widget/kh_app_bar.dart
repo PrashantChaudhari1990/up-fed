@@ -1,6 +1,7 @@
-import 'package:base_mobile_app/constant/session_keys.dart';
-import 'package:base_mobile_app/routes.dart';
-import 'package:base_mobile_app/utils/webview_controller_utils.dart';
+import 'package:kh_dealer_app/constant/session_keys.dart';
+import 'package:kh_dealer_app/routes.dart';
+import 'package:kh_dealer_app/utils/toast_message.dart';
+import 'package:kh_dealer_app/utils/webview_controller_utils.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -18,9 +19,7 @@ class KhAppBar extends StatelessWidget implements PreferredSizeWidget  {
   const KhAppBar({super.key, this.title, this.notificationAction, this.cartAction,this.showLogo,this.systemNavigationBarColor});
 
   _openNotification(BuildContext context){
-    AppSession().loginUser = null;
-    WebViewControllerUtils.controller?.webStorage.localStorage.clear();
-    Restart.restartApp();
+    ToastMessage.show('Notification Clicked');
   }
 
   _onClickCart(BuildContext context) async {

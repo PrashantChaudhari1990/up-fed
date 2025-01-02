@@ -1,4 +1,4 @@
-import 'package:base_mobile_app/app.dart';
+import 'package:kh_dealer_app/app.dart';
 import 'package:flutter/material.dart';
 
 class AppLoader {
