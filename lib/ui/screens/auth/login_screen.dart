@@ -112,6 +112,7 @@ class _LoginScreenState extends State<LoginScreen> {
                               maxLength: 10,
                               inputFormatters: <TextInputFormatter>[
                                 FilteringTextInputFormatter.digitsOnly,
+                                FilteringTextInputFormatter.deny(RegExp(r'^[0]'))
                               ],
                               style: inputTextStyle.copyWith(color: theme.colorScheme.onTertiaryContainer),
                               decoration: InputDecoration(

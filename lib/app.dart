@@ -32,7 +32,7 @@ class MyApp extends StatelessWidget {
           Routes.sliderScreen:(context)=> const SliderScreen(),
           Routes.home : (context)=>  const HomeScreen(),
           Routes.login : (context)=>  const LoginScreen(),
-          Routes.signUp : (context)=>   SignUpScreen(),
+          Routes.signUp : (context)=>   const SignUpScreen(),
           Routes.signUpWithMobile : (context)=>   const LoginScreen.register(),
           Routes.otpVerification : (context)=>  const OtpVerificationScreen(),
           Routes.validatePin : (context)=>  const ValidatePinScreen(),

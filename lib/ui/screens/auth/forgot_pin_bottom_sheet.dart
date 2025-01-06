@@ -113,6 +113,7 @@ class _ForgotPinModelState extends State<ForgotPinModel> {
                             enabled: !otpVisible,
                             inputFormatters: <TextInputFormatter>[
                               FilteringTextInputFormatter.digitsOnly,
+                              FilteringTextInputFormatter.deny(RegExp(r'^[0]'))
                             ],
                             style: inputTextStyle.copyWith(color: theme.colorScheme.onTertiaryContainer),
                             decoration: InputDecoration(

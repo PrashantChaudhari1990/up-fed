@@ -29,8 +29,8 @@ class _WebViewContainerState extends State<WebViewContainer> {
 
   final InAppWebViewSettings _inAppWebViewSettings = InAppWebViewSettings(
     isTextInteractionEnabled: false,
-    useShouldOverrideUrlLoading: true
-
+    useShouldOverrideUrlLoading: true,
+    clearCache: true,
   );
 
 

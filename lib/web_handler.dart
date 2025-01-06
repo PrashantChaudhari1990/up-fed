@@ -5,9 +5,12 @@ import 'package:kh_dealer_app/routes.dart';
 import 'package:kh_dealer_app/utils/app_loader.dart';
 import 'package:kh_dealer_app/utils/app_session.dart';
 import 'package:kh_dealer_app/utils/app_session_storage.dart';
+import 'package:kh_dealer_app/utils/toast_message.dart';
 import 'package:kh_dealer_app/utils/webview_controller_utils.dart';
 import 'constant/session_keys.dart';
 import 'utils/device_info.dart';
+
+bool _isUnderApprovalScreen = false;
 
 Future<dynamic> getDeviceDetails(dynamic data) async {
   final deviceDetail = jsonEncode(await DeviceInfo.getDetail());
@@ -44,13 +47,16 @@ appLoader(BuildContext context, List<dynamic> data) async {
   }
 }
 
-onApprovalStatus(BuildContext context, List<dynamic> data) {
+onApprovalStatus(BuildContext context, List<dynamic> data) async {
   if (data.isNotEmpty) {
+    String? currentRouteName = ModalRoute.of(context)?.settings.name;
     if(context.mounted && data[0]==true){
+      _isUnderApprovalScreen = false;
       Navigator.pushNamedAndRemoveUntil(context, Routes.home, (route)=>false);
-    }else{
+    }else if(currentRouteName != Routes.pendingVerification && !_isUnderApprovalScreen){
+      _isUnderApprovalScreen = true;
+      ToastMessage.show(data[1]??'');
       Navigator.pushNamedAndRemoveUntil(context, Routes.pendingVerification, (route)=>false);
     }
   }
-
 }

@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'dart:convert';
 import 'package:kh_dealer_app/constant/session_keys.dart';
+import 'package:kh_dealer_app/models/auth/generate_otp_request.dart';
 import 'package:kh_dealer_app/models/auth/validate_otp_request.dart';
 import 'package:kh_dealer_app/models/user.dart';
 import 'package:kh_dealer_app/routes.dart';
@@ -12,6 +13,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:kh_dealer_app/utils/toast_message.dart';
 import '../../../config/notification_config.dart';
 import '../../../themes/styles/typography.dart';
 
@@ -77,9 +79,14 @@ class _OtpVerificationScreenState extends State<OtpVerificationScreen> {
   _onEditPhoneNumber(){
     Navigator.pop(context);
   }
-  _onResendOtp(){
+  _onResendOtp(String phoneNumber){
     _resendOtpCountDown.value=59;
     _startOtpCountdown();
+    _authService.generateOtp(GenerateOtpRequest(phoneNumber: "91$phoneNumber")).then((response){
+      if(response != null && response.data != null){
+        ToastMessage.show(tr('otp_verification.resend_message'));
+      }
+    });
   }
 
 
@@ -131,14 +138,17 @@ class _OtpVerificationScreenState extends State<OtpVerificationScreen> {
                       label: 'otp_verification.otp',
                       controller: _otpController
                     ),
-                    const SizedBox(height: 4,),
+                    const SizedBox(height: 10,),
+                    Align(
+                        alignment: Alignment.center,
+                        child: Text('otp_verification.hint',style: theme.textTheme.bodyMedium?.copyWith(color: ThemeColors.black),).tr()),
                     ValueListenableBuilder(
                         valueListenable: _resendOtpCountDown,
                         builder: (context,value,_) {
                           return Row(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
-                              TextButton(onPressed:value > 0 ? null : _onResendOtp,
+                              TextButton(onPressed:value > 0 ? null : ()=>_onResendOtp(phoneNumber),
                                   style: TextButton.styleFrom(
                                       textStyle: linkTextStyleSmall),
                                   child: const Text('otp_verification.resend_otp').tr()),

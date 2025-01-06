@@ -77,8 +77,8 @@ class _SliderScreenState extends State<SliderScreen> {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           SvgPicture.asset('assets/images/svg/app_header_logo.svg'),
-                          IconButton(onPressed: ()=>LocalizationConfig.changeLang(context),
-                              icon: SvgPicture.asset('assets/icons/translation_icon.svg'))
+                          // IconButton(onPressed: ()=>LocalizationConfig.changeLang(context),
+                          //     icon: SvgPicture.asset('assets/icons/translation_icon.svg'))
                         ],
                       ),
                     ),

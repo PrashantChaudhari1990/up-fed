@@ -53,6 +53,8 @@ class InterceptorService{
           ToastMessage.show(dioException.response?.data?['message']);
         }else if(dioException.error.runtimeType == SocketException){
           ToastMessage.show((dioException.error as SocketException).message);
+        }else if(dioException.response?.statusCode == 401){
+          ToastMessage.show(dioException.response?.data?['message']);
         }
         try{
           errorInterceptorHandler.next(dioException);

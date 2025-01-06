@@ -72,6 +72,8 @@ class NotificationConfig {
 
   void _handleMessage(RemoteMessage message) {
     final currentContext = MyApp.navigatorKey.currentContext;
-    if (currentContext != null) {}
+    if (currentContext != null) {
+
+    }
   }
 }
