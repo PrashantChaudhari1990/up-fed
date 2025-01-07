@@ -5,7 +5,16 @@
 	<key>CFBundleDevelopmentRegion</key>
 	<string>$(DEVELOPMENT_LANGUAGE)</string>
 	<key>CFBundleDisplayName</key>
-	<string>Base Mobile App</string>
+	<string>KH Dealer App</string>
+	<key>NSCameraUsageDescription</key>
+    <string>We need access to your camera for capturing images.</string>
+    <key>UIViewControllerBasedStatusBarAppearance</key>
+    <false/>
+	<key>NSAppTransportSecurity</key>
+    <dict>
+        <key>NSAllowsArbitraryLoads</key>
+        <true/>
+    </dict>
 	<key>CFBundleExecutable</key>
 	<string>$(EXECUTABLE_NAME)</string>
 	<key>CFBundleIdentifier</key>

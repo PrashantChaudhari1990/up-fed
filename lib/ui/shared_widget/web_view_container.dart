@@ -31,6 +31,8 @@ class _WebViewContainerState extends State<WebViewContainer> {
     isTextInteractionEnabled: false,
     useShouldOverrideUrlLoading: true,
     clearCache: true,
+    scrollsToTop: true,
+    allowsInlineMediaPlayback: true
   );
 
 
@@ -68,10 +70,10 @@ class _WebViewContainerState extends State<WebViewContainer> {
   }
 
   _onWebViewCreated(InAppWebViewController controller) async {
-    final session = await AppSessionStorage().getString(SessionKeys.user);
-    await controller.webStorage.localStorage.setItem(key: SessionKeys.user, value: session);
-    widget.onWebViewCreated?.call(controller);
     _inAppWebViewController = controller;
+    final session = await AppSessionStorage().getString(SessionKeys.user);
+    await _inAppWebViewController?.webStorage.localStorage.setItem(key: SessionKeys.user, value: session);
+    widget.onWebViewCreated?.call(controller);
     controller.addJavaScriptHandler(handlerName: 'getDeviceDetail', callback: (dynamic data) => getDeviceDetails(data));
     controller.addJavaScriptHandler(handlerName: 'logOut', callback: (dynamic data) => logout(context));
     controller.addJavaScriptHandler(handlerName: 'handleRegisterSuccess', callback: (dynamic data) => handleRegisterSuccess(context,data));

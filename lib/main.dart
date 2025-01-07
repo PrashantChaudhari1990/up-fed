@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter_inappwebview/flutter_inappwebview.dart';
 import 'package:kh_dealer_app/config/theme_colors_config.dart';
 import 'package:kh_dealer_app/services/interceptor_service.dart';
@@ -13,7 +14,9 @@ Future<void> main() async {
   await ThemeColorsConfig().fetch();
   await Firebase.initializeApp();
   NotificationConfig().setupFirebaseMessaging();
-  await InAppWebViewController.setWebContentsDebuggingEnabled(true);
+  if(!kIsWeb && defaultTargetPlatform == TargetPlatform.android){
+     await InAppWebViewController.setWebContentsDebuggingEnabled(true);
+  }
   await EasyLocalization.ensureInitialized();
   InterceptorService().initialize();
   runApp(EasyLocalization(
