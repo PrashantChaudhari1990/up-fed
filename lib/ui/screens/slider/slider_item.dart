@@ -11,9 +11,24 @@ class SliderItem extends StatelessWidget {
     final theme =  Theme.of(context);
     return Stack(
       children: [
-        Image.network(carouselSliderData.imageUrl??'',width: screenSize.width,fit: BoxFit.fill,
-        errorBuilder: (context,object,stacktrace)=>const Center(child: Text('Slider Image')),
+        SizedBox(
+          height: screenSize.height,
+          child: Image.network(carouselSliderData.imageUrl??'',width: screenSize.width,fit: BoxFit.fill,
+          errorBuilder: (context,object,stacktrace)=>const Center(child: Text('Slider Image')),
+          ),
         ),
+        Positioned(
+            bottom: 0,
+            child: Container(
+              width: screenSize.width,
+              height: 100,
+              decoration: const BoxDecoration(
+                gradient: LinearGradient(
+                  begin: Alignment.topCenter,
+                    end: Alignment.bottomCenter,
+                    colors: [Colors.white10,Colors.white38,Colors.white60,Colors.white])
+              ),
+            )),
         if(carouselSliderData.description != null)
         Positioned(
           bottom: 10,

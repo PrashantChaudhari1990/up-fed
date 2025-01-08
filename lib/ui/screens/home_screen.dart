@@ -8,9 +8,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_inappwebview/flutter_inappwebview.dart';
 import 'package:flutter_svg/svg.dart';
 
-import '../../constant/session_keys.dart';
-import '../../utils/app_session_storage.dart';
-
 class HomeScreen extends StatefulWidget {
 
   const HomeScreen({super.key});
@@ -27,6 +24,7 @@ class _HomeScreenState extends State<HomeScreen> {
     {"iconUrl": 'assets/icons/profile.svg', "label": "home_screen.profile".tr(),"routeName":WebAppRoutes.profile}
   ];
 
+  final GlobalKey<WebViewContainerState> _globalKey = GlobalKey();
    int _currentTabIndex = 0;
    InAppWebViewController? _inAppWebViewController;
 
@@ -37,9 +35,13 @@ class _HomeScreenState extends State<HomeScreen> {
       appBar:  KhAppBar(showLogo: true,notificationAction: true,cartAction: true,systemNavigationBarColor: ThemeColors.white,),
       bottomNavigationBar: BottomNavigationBar(
         onTap: (value) async {
-          setState(() {
-            _currentTabIndex = value;
-          });
+          if(_currentTabIndex == value){
+            _globalKey.currentState?.loadWebView();
+          }else{
+            setState(() {
+              _currentTabIndex = value;
+            });
+          }
         },
         currentIndex: _currentTabIndex,
           type: BottomNavigationBarType.fixed,
@@ -57,6 +59,7 @@ class _HomeScreenState extends State<HomeScreen> {
           })
       ),
       body: WebViewContainer(
+        key: _globalKey,
           url: _bottomNavigationTabs[_currentTabIndex]['routeName'],
         enablePullToRefresh: true,
         onWebViewCreated: (controller) async {
