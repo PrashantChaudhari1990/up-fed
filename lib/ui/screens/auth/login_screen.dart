@@ -83,9 +83,10 @@ class _LoginScreenState extends State<LoginScreen> {
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text('login.header'.tr(),style: theme.textTheme.headlineSmall,),
+                  Text.rich(TextSpan(text: 'login.header'.tr(), children: [TextSpan(text:' ${'login.header1'.tr()}',style: const TextStyle().copyWith(color: ThemeColors.primaryColor))] ),style: theme.textTheme.headlineSmall?.copyWith(fontWeight: FontWeight.bold)),
                   const SizedBox(height: 10,),
-                  Text('login.description',style: theme.textTheme.titleSmall?.copyWith(color: ThemeColors.gray4),).tr(),
+                  Text(_loginWith == LoginWith.otp ? 'login.description.otp' : 'login.description.pin',
+                    style: theme.textTheme.titleSmall?.copyWith(color: ThemeColors.gray4),).tr(),
                   const SizedBox(height: 40,),
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,

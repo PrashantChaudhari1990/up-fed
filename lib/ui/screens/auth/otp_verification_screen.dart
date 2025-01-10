@@ -114,7 +114,7 @@ class _OtpVerificationScreenState extends State<OtpVerificationScreen> {
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text('otp_verification.header'.tr(),style: theme.textTheme.headlineSmall,),
+                Text.rich(TextSpan(text: 'otp_verification.enter'.tr(), children: [TextSpan(text:' ${'otp_verification.otp'.tr()}',style: const TextStyle().copyWith(color: ThemeColors.primaryColor))] ),style: theme.textTheme.headlineSmall?.copyWith(fontWeight: FontWeight.bold)),
                 const SizedBox(height: 10,),
                 Text('otp_verification.description',style: theme.textTheme.titleSmall?.copyWith(color: ThemeColors.gray4),).tr(),
                 InkWell(
@@ -126,7 +126,7 @@ class _OtpVerificationScreenState extends State<OtpVerificationScreen> {
                     children: [
                       Text('+91 $phoneNumber',style: linkTextStyleSmall,),
                       const SizedBox(width: 8,),
-                      SvgPicture.asset('assets/icons/edit_icon.svg',)
+                      SvgPicture.asset('assets/icons/edit_icon.svg',color: ThemeColors.primaryColor,)
                     ],
                   ),
                 ),

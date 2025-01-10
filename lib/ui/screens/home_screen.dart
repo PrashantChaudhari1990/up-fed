@@ -17,26 +17,24 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  final List<Map<String, String>> _bottomNavigationTabs = [
-    {"iconUrl": 'assets/icons/home.svg', "label": "home_screen.home".tr(),"routeName":WebAppRoutes.dashboard},
-    {"iconUrl": 'assets/icons/credits.svg', "label": "home_screen.credit".tr(),"routeName":WebAppRoutes.credit},
-    {"iconUrl": 'assets/icons/orders.svg', "label": "home_screen.orders".tr(),"routeName":WebAppRoutes.orders},
-    {"iconUrl": 'assets/icons/profile.svg', "label": "home_screen.profile".tr(),"routeName":WebAppRoutes.profile}
-  ];
 
-  final GlobalKey<WebViewContainerState> _globalKey = GlobalKey();
+  final List<NavigationBarItem> _bottomNavigationTabs = [
+    NavigationBarItem(iconUrl: 'assets/icons/home.svg', label: "home_screen.home".tr(),routeName:WebAppRoutes.dashboard),
+    NavigationBarItem(iconUrl: 'assets/icons/credits.svg', label: "home_screen.credit".tr(),routeName:WebAppRoutes.credit),
+    NavigationBarItem(iconUrl: 'assets/icons/orders.svg', label: "home_screen.orders".tr(),routeName:WebAppRoutes.orders),
+    NavigationBarItem(iconUrl: 'assets/icons/profile.svg', label: "home_screen.profile".tr(),routeName:WebAppRoutes.profile),
+  ];
    int _currentTabIndex = 0;
-   InAppWebViewController? _inAppWebViewController;
 
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     return Scaffold(
-      appBar:  KhAppBar(showLogo: true,notificationAction: true,cartAction: true,systemNavigationBarColor: ThemeColors.white,),
+      appBar:  KhAppBar.multiLine(showLogo: true,notificationAction: true,cartAction: true,systemNavigationBarColor: ThemeColors.white,statusBarColor: ThemeColors.white,statusBrightness: Brightness.dark,),
       bottomNavigationBar: BottomNavigationBar(
         onTap: (value) async {
           if(_currentTabIndex == value){
-            _globalKey.currentState?.loadWebView();
+            _bottomNavigationTabs[_currentTabIndex].key.currentState?.loadWebView();
           }else{
             setState(() {
               _currentTabIndex = value;
@@ -53,19 +51,28 @@ class _HomeScreenState extends State<HomeScreen> {
           unselectedLabelStyle: menuTabTextStyle,
           items: List.generate(_bottomNavigationTabs.length, (index){
             final navigationTab = _bottomNavigationTabs[index];
-            return BottomNavigationBarItem(icon: SvgPicture.asset(navigationTab['iconUrl']!,
+            return BottomNavigationBarItem(icon: SvgPicture.asset(navigationTab.iconUrl,
               colorFilter: index == _currentTabIndex ? ColorFilter.mode(ThemeColors.primaryColor, BlendMode.srcIn):null,),
-                label: navigationTab['label']);
+                label: navigationTab.label);
           })
       ),
       body: WebViewContainer(
-        key: _globalKey,
-          url: _bottomNavigationTabs[_currentTabIndex]['routeName'],
+        key: _bottomNavigationTabs[_currentTabIndex].key,
+          url: _bottomNavigationTabs[_currentTabIndex].routeName,
         enablePullToRefresh: true,
         onWebViewCreated: (controller) async {
-          _inAppWebViewController = controller;
         },
       ),
     );
   }
+}
+
+
+class NavigationBarItem{
+  final String iconUrl;
+  final String? label;
+  final String routeName;
+  final GlobalKey<WebViewContainerState> key = GlobalKey();
+
+  NavigationBarItem({required this.iconUrl, this.label,required this.routeName});
 }

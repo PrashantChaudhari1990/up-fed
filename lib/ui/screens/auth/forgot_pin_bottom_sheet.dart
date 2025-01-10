@@ -83,7 +83,7 @@ class _ForgotPinModelState extends State<ForgotPinModel> {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Text('forgot_pin.forgot_pin'.tr(),style: theme.textTheme.titleMedium?.copyWith(fontWeight: FontWeight.bold)),
+                    Text.rich(TextSpan(text: 'forgot_pin.forgot'.tr(), children: [TextSpan(text:' ${'forgot_pin.pin'.tr()}',style: const TextStyle().copyWith(color: ThemeColors.primaryColor))] ),style: theme.textTheme.titleMedium?.copyWith(fontWeight: FontWeight.bold)),
                     IconButton(onPressed: ()=>Navigator.pop(context), icon: const Icon(Icons.close_rounded,color: Colors.black,),padding: EdgeInsets.zero,)
                   ],
                 ),
