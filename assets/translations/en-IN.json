@@ -12,8 +12,8 @@
     "header": "Enter Mobile",
     "header1": "Number",
     "description": {
-      "otp":"Please provide your phone number, and we'll send a confirmation OTP your way.",
-      "pin": "Please provide your phone number, and enter your 4 digit security PIN."
+      "otp":"Please provide your phone number and we'll send a confirmation OTP your way.",
+      "pin": "Please provide your phone number and enter your 4 digit security PIN."
     },
     "user_type": "(Vendor’s)",
     "phone_number": "Phone Number",
