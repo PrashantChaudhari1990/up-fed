@@ -6,8 +6,6 @@ import 'package:kh_dealer_app/ui/shared_widget/kh_app_bar.dart';
 import 'package:kh_dealer_app/utils/device_info.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-import 'package:flutter_svg/svg.dart';
 import '../../../constant/session_keys.dart';
 import '../../../models/user.dart';
 import '../../../routes.dart';
@@ -66,7 +64,7 @@ class _ValidatePinScreenState extends State<ValidatePinScreen> {
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text('validate_pin.header'.tr(),style: theme.textTheme.headlineSmall,),
+                Text.rich(TextSpan(text: 'validate_pin.validate'.tr(), children: [TextSpan(text:' ${'validate_pin.pin'.tr()}',style: const TextStyle().copyWith(color: ThemeColors.primaryColor))] ),style: theme.textTheme.headlineSmall?.copyWith(fontWeight: FontWeight.bold)),
                 const SizedBox(height: 10,),
                 Text('validate_pin.description',style: theme.textTheme.titleSmall?.copyWith(color: ThemeColors.gray4),).tr(),
                 const SizedBox(height: 40,),

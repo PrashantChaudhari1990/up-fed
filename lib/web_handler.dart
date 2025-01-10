@@ -60,3 +60,8 @@ onApprovalStatus(BuildContext context, List<dynamic> data) async {
     }
   }
 }
+
+getCurrentUser()async{
+  final currentUser = await AppSession().loginUser;
+  return currentUser;
+}

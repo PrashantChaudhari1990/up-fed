@@ -22,9 +22,8 @@ class PinInputField extends StatelessWidget {
 
 
   final _defaultPinTheme = PinTheme(
-      width: double.maxFinite,
       padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
-      decoration: BoxDecoration(border: Border.all(color: ThemeColors.gray3),borderRadius: BorderRadius.circular(4), color: ThemeColors.gray1));
+      decoration: BoxDecoration(border: Border.all(color: ThemeColors.gray3),borderRadius: BorderRadius.circular(8), color: ThemeColors.gray1));
 
 
   @override
@@ -50,6 +49,7 @@ class PinInputField extends StatelessWidget {
                       Pinput(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         obscureText: !pinVisible && obscureText,
+                        separatorBuilder: (index)=>SizedBox(width: boxConstraints.maxWidth*0.05,),
                         controller: controller,
                         onChanged: onChanged,
                         pinAnimationType: PinAnimationType.slide,

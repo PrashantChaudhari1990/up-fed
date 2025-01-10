@@ -59,7 +59,7 @@ class ResetPinScreen extends StatelessWidget {
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text('set_pin.header',style: theme.textTheme.headlineSmall?.copyWith(fontWeight: FontWeight.bold)).tr(),
+                    Text.rich(TextSpan(text: 'set_pin.set'.tr(), children: [TextSpan(text:' ${'set_pin.pin'.tr()}',style: const TextStyle().copyWith(color: ThemeColors.primaryColor))] ),style: theme.textTheme.headlineSmall?.copyWith(fontWeight: FontWeight.bold)),
                     const SizedBox(height: 8,),
                     Text('set_pin.description',style: theme.textTheme.titleSmall?.copyWith(color: ThemeColors.gray4),).tr(),
                     const SizedBox(height: 35,),

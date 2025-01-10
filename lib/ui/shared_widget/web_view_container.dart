@@ -10,6 +10,7 @@ import 'package:flutter_inappwebview/flutter_inappwebview.dart';
 import 'package:url_launcher/url_launcher.dart';
 import '../../config/server_config.dart';
 import '../../constant/session_keys.dart';
+import '../../utils/app_session.dart';
 import '../../utils/app_session_storage.dart';
 
 class WebViewContainer extends StatefulWidget {
@@ -81,24 +82,28 @@ class WebViewContainerState extends State<WebViewContainer> {
   }
 
   loadWebView() async {
+    await _inAppWebViewController?.clearHistory();
     String webPageUrl = environment.webAppUrl;
     if(widget.url != null){
       webPageUrl =  "$webPageUrl${widget.url}";
     }
-    _inAppWebViewController?.loadUrl(urlRequest: URLRequest(url: WebUri("${environment.webAppUrl}${widget.url}")));
+    _inAppWebViewController?.loadUrl(urlRequest: URLRequest(url: WebUri("${environment.webAppUrl}${widget.url}"))).then((value) async {
+      await _inAppWebViewController?.clearHistory();
+    });
   }
 
   _onWebViewCreated(InAppWebViewController controller) async {
-    _inAppWebViewController = controller;
     final session = await AppSessionStorage().getString(SessionKeys.user);
     await controller.webStorage.localStorage.setItem(key: SessionKeys.user, value: session);
-    widget.onWebViewCreated?.call(controller);
-    controller.addJavaScriptHandler(handlerName: 'getDeviceDetail', callback: (dynamic data) => getDeviceDetails(data));
-    controller.addJavaScriptHandler(handlerName: 'logOut', callback: (dynamic data) => logout(context));
-    controller.addJavaScriptHandler(handlerName: 'handleRegisterSuccess', callback: (dynamic data) => handleRegisterSuccess(context,data));
-    controller.addJavaScriptHandler(handlerName: 'appLoader', callback: (dynamic data) => appLoader(context,data));
-    controller.addJavaScriptHandler(handlerName: 'onApprovalStatus', callback: (dynamic data) => onApprovalStatus(context,data));
+    _inAppWebViewController = controller;
+    _inAppWebViewController?.addJavaScriptHandler(handlerName: 'getDeviceDetail', callback: (dynamic data) => getDeviceDetails(data));
+    _inAppWebViewController?.addJavaScriptHandler(handlerName: 'logOut', callback: (dynamic data) => logout(context));
+    _inAppWebViewController?.addJavaScriptHandler(handlerName: 'handleRegisterSuccess', callback: (dynamic data) => handleRegisterSuccess(context,data));
+    _inAppWebViewController?.addJavaScriptHandler(handlerName: 'appLoader', callback: (dynamic data) => appLoader(context,data));
+    _inAppWebViewController?.addJavaScriptHandler(handlerName: 'onApprovalStatus', callback: (dynamic data) => onApprovalStatus(context,data));
+    _inAppWebViewController?.addJavaScriptHandler(handlerName: 'getCurrentUser', callback: (dynamic data) => getCurrentUser());
     WebViewControllerUtils.controller = controller;
+    widget.onWebViewCreated?.call(controller);
   }
 
   _onPopInvoked(didPop, _) async {
@@ -115,6 +120,19 @@ class WebViewContainerState extends State<WebViewContainer> {
     }
   }
 
+  _checkWebSession(InAppWebViewController inAppWebViewController, WebUri? webUri)async{
+    if(webUri?.path == '/auth/login'){
+      AppLoader().show();
+      Future.delayed(const Duration(milliseconds: 500),()async{
+        final userSession = await _inAppWebViewController?.webStorage.localStorage.getItem(key: SessionKeys.user);
+        if(userSession != null){
+          loadWebView();
+        }
+        AppLoader().show();
+      });
+    }
+  }
+
 
   @override
   Widget build(BuildContext context) {
@@ -122,7 +140,6 @@ class WebViewContainerState extends State<WebViewContainer> {
       canPop: false,
       onPopInvokedWithResult: _onPopInvoked,
       child: InAppWebView(
-        key: webViewKey,
         initialSettings: inAppWebViewSettings,
         pullToRefreshController: _pullToRefreshController,
         onWebViewCreated: _onWebViewCreated,
@@ -134,14 +151,17 @@ class WebViewContainerState extends State<WebViewContainer> {
         },
         onLoadStop: (controller,uri) async {
           final session = await AppSessionStorage().getString(SessionKeys.user);
-          await _inAppWebViewController?.webStorage.localStorage.setItem(key: SessionKeys.user, value: session);
+          await controller.webStorage.localStorage.setItem(key: SessionKeys.user, value: session);
           AppLoader().hide();
         },
         onProgressChanged: (controller,progress){},
         onUpdateVisitedHistory: (webViewController,uri,value) async {
+          _checkWebSession(webViewController,uri);
           String? currentRouteName = ModalRoute.of(context)?.settings.name;
           if(uri?.path == WebAppRoutes.categoryScreen && currentRouteName != Routes.category){
-            Navigator.of(context).pushNamed(Routes.category);
+            if(context.mounted) {
+              Navigator.of(context).pushNamed(Routes.category);
+            }
             if(await webViewController.canGoBack()){
               webViewController.goBack();
             }
