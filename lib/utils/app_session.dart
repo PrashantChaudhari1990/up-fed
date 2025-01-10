@@ -1,5 +1,5 @@
-import 'package:base_mobile_app/constant/session_keys.dart';
-import 'package:base_mobile_app/utils/app_session_storage.dart';
+import 'package:kh_dealer_app/constant/session_keys.dart';
+import 'package:kh_dealer_app/utils/app_session_storage.dart';
 
 class AppSession {
   static final AppSession _instance = AppSession._internal();
@@ -9,11 +9,7 @@ class AppSession {
   final _sessionStorage = AppSessionStorage();
 
   Future<bool> get isLogin async{
-    return await _sessionStorage.getBool(SessionKeys.isLogin);
-  }
-
-  set isLogin(value) {
-    _sessionStorage.setBool(SessionKeys.isLogin,value);
+    return (await loginUser) != null;
   }
 
   Future<String?> get loginUser async{
@@ -21,7 +17,11 @@ class AppSession {
   }
 
   set loginUser(value) {
-    _sessionStorage.setString(SessionKeys.user,value);
+    if(value != null){
+      _sessionStorage.setString(SessionKeys.user,value);
+    }else{
+      _sessionStorage.remove(SessionKeys.user);
+    }
   }
 
 }

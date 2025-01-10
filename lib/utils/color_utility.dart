@@ -1,4 +1,4 @@
-import 'package:base_mobile_app/utils/color_extensions.dart';
+import 'package:kh_dealer_app/utils/color_extensions.dart';
 import 'package:flutter/material.dart';
 
 jsonToColor(dynamic colorData ,Color defaultColor, {bool isMaterialColor = false}) {

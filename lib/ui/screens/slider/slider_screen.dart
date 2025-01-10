@@ -1,7 +1,8 @@
-import 'package:base_mobile_app/routes.dart';
-import 'package:base_mobile_app/services/common_service.dart';
-import 'package:base_mobile_app/themes/styles/theme_colors.dart';
-import 'package:base_mobile_app/ui/screens/slider/slider_item.dart';
+import 'package:kh_dealer_app/models/config_response.dart';
+import 'package:kh_dealer_app/routes.dart';
+import 'package:kh_dealer_app/services/common_service.dart';
+import 'package:kh_dealer_app/themes/styles/theme_colors.dart';
+import 'package:kh_dealer_app/ui/screens/slider/slider_item.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
@@ -27,11 +28,13 @@ class _SliderScreenState extends State<SliderScreen> {
 
   @override
   void initState() {
-    commonService.getUiConstantByKey('SLIDER_DETAILS').then((response){
-      if(response?.data != null && response?.data?.runtimeType == List){
-      response.data.forEach((detail){
+    commonService.getConfigByKey('MOBILE_APP_SLIDER_DETAILS').then((response){
+      if(response?.data != null){
+        ConfigResponse configResponse = ConfigResponse.fromJson(response.data);
+        List sliders = configResponse.value??[];
+        for (var detail in sliders) {
         _carouselDataList.add(SliderDetails.fromJson(detail));
-      });
+      }
       setState(() {});
       }
     });
@@ -74,8 +77,8 @@ class _SliderScreenState extends State<SliderScreen> {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           SvgPicture.asset('assets/images/svg/app_header_logo.svg'),
-                          IconButton(onPressed: ()=>LocalizationConfig.changeLang(context),
-                              icon: SvgPicture.asset('assets/icons/translation_icon.svg'))
+                          // IconButton(onPressed: ()=>LocalizationConfig.changeLang(context),
+                          //     icon: SvgPicture.asset('assets/icons/translation_icon.svg'))
                         ],
                       ),
                     ),
@@ -119,7 +122,7 @@ class _SliderScreenState extends State<SliderScreen> {
                     Flexible(
                         child: ElevatedButton(
                             onPressed: () async {
-                              Navigator.of(context).pushNamed(Routes.home);
+                              Navigator.of(context).pushNamed(Routes.signUpWithMobile);
                             },
                             child: const Text('sign_up').tr()))
                   ],

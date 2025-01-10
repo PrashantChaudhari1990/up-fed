@@ -1,5 +1,7 @@
-import 'package:base_mobile_app/config/theme_colors_config.dart';
-import 'package:base_mobile_app/services/interceptor_service.dart';
+import 'package:flutter/foundation.dart';
+import 'package:flutter_inappwebview/flutter_inappwebview.dart';
+import 'package:kh_dealer_app/config/theme_colors_config.dart';
+import 'package:kh_dealer_app/services/interceptor_service.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
@@ -12,6 +14,9 @@ Future<void> main() async {
   await ThemeColorsConfig().fetch();
   await Firebase.initializeApp();
   NotificationConfig().setupFirebaseMessaging();
+  if(!kIsWeb && defaultTargetPlatform == TargetPlatform.android){
+     await InAppWebViewController.setWebContentsDebuggingEnabled(true);
+  }
   await EasyLocalization.ensureInitialized();
   InterceptorService().initialize();
   runApp(EasyLocalization(

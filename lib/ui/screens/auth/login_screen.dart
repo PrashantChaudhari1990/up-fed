@@ -1,19 +1,21 @@
-import 'dart:convert';
-
-import 'package:base_mobile_app/enums/enums.dart';
-import 'package:base_mobile_app/models/auth/generate_otp_request.dart';
-import 'package:base_mobile_app/models/auth/generate_otp_response.dart';
-import 'package:base_mobile_app/services/auth/auth_service.dart';
-import 'package:base_mobile_app/themes/styles/theme_colors.dart';
-import 'package:base_mobile_app/utils/app_loader.dart';
+import 'package:kh_dealer_app/enums/enums.dart';
+import 'package:kh_dealer_app/models/auth/generate_otp_request.dart';
+import 'package:kh_dealer_app/models/auth/generate_otp_response.dart';
+import 'package:kh_dealer_app/services/auth/auth_service.dart';
+import 'package:kh_dealer_app/themes/styles/theme_colors.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import '../../../routes.dart';
 import '../../../themes/styles/typography.dart';
+import 'forgot_pin_bottom_sheet.dart';
 
 class LoginScreen extends StatefulWidget {
-  const LoginScreen({super.key});
+
+  final bool isRegistration;
+  const LoginScreen({super.key}):isRegistration=false;
+
+  const LoginScreen.register({super.key}):isRegistration=true;
 
   @override
   State<LoginScreen> createState() => _LoginScreenState();
@@ -32,22 +34,29 @@ class _LoginScreenState extends State<LoginScreen> {
 
 
   _onSubmitClick(){
+    FocusScope.of(context).unfocus();
     if(_loginWith  == LoginWith.otp){
-      final generateOtpRequest = GenerateOtpRequest(phoneNumber: _phoneNumberController.text);
+      final generateOtpRequest = GenerateOtpRequest(phoneNumber: "+91${_phoneNumberController.text}");
       _authService.generateOtp(generateOtpRequest).then((response){
         if(response != null && response.data != null){
           GenerateOtpResponse generateOtpResponse = GenerateOtpResponse.fromJson(response.data);
-          if(generateOtpResponse.flag??false){
-            if(mounted){
-              Navigator.of(context).pushNamed(Routes.otpVerification,arguments: _phoneNumberController.text);
-            }
+          if(mounted){
+            Navigator.of(context).pushNamed(Routes.otpVerification,arguments: _phoneNumberController.text);
           }
         }
       });
-      // Navigator.of(context).pushNamed(Routes.otpVerification,arguments: _phoneNumberController.text);
     }else{
       Navigator.of(context).pushNamed(Routes.validatePin,arguments: _phoneNumberController.text);
     }
+  }
+
+  _onForgotPin(BuildContext context){
+    showModalBottomSheet(
+      isScrollControlled: true,
+        isDismissible: false,
+        context: context, builder: (context){
+      return const ForgotPinModel();
+    });
   }
 
   @override
@@ -63,10 +72,9 @@ class _LoginScreenState extends State<LoginScreen> {
         ),
       ),
       body: GestureDetector(
-        onTap: (){
-          FocusScope.of(context).unfocus();
-        },
+        onTap: ()=>FocusScope.of(context).unfocus(),
         child: Container(
+          color: theme.scaffoldBackgroundColor,
           padding: const EdgeInsets.symmetric(horizontal: 20,vertical: 10),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -75,9 +83,10 @@ class _LoginScreenState extends State<LoginScreen> {
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text('login.header'.tr(),style: theme.textTheme.headlineSmall,),
+                  Text.rich(TextSpan(text: 'login.header'.tr(), children: [TextSpan(text:' ${'login.header1'.tr()}',style: const TextStyle().copyWith(color: ThemeColors.primaryColor))] ),style: theme.textTheme.headlineSmall?.copyWith(fontWeight: FontWeight.bold)),
                   const SizedBox(height: 10,),
-                  Text('login.description',style: theme.textTheme.titleSmall?.copyWith(color: ThemeColors.gray4),).tr(),
+                  Text(_loginWith == LoginWith.otp ? 'login.description.otp' : 'login.description.pin',
+                    style: theme.textTheme.titleSmall?.copyWith(color: ThemeColors.gray4),).tr(),
                   const SizedBox(height: 40,),
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -98,11 +107,13 @@ class _LoginScreenState extends State<LoginScreen> {
                           const SizedBox(width: 8,),
                           Flexible(
                             child: TextField(
+                              autofocus: false,
                               controller: _phoneNumberController,
                               keyboardType: TextInputType.number,
                               maxLength: 10,
                               inputFormatters: <TextInputFormatter>[
                                 FilteringTextInputFormatter.digitsOnly,
+                                FilteringTextInputFormatter.deny(RegExp(r'^[0]'))
                               ],
                               style: inputTextStyle.copyWith(color: theme.colorScheme.onTertiaryContainer),
                               decoration: InputDecoration(
@@ -121,6 +132,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     ],
                   ),
                   const SizedBox(height: 25,),
+                  if(!widget.isRegistration)
                   Card(
                     elevation: 0,
                     color: ThemeColors.gray1,
@@ -167,7 +179,15 @@ class _LoginScreenState extends State<LoginScreen> {
                         ],
                       ),
                     ),
-                  )
+                  ),
+                  if(!widget.isRegistration)
+                  Align(
+                    alignment: Alignment.bottomRight,
+                    child: TextButton(onPressed:()=>_onForgotPin(context),
+                        style: TextButton.styleFrom(
+                            textStyle: linkTextStyleSmall),
+                        child: const Text('validate_pin.forgot_pin').tr()),
+                  ),
                 ],
               ),
               ValueListenableBuilder(
