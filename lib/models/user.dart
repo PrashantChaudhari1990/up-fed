@@ -1,7 +1,8 @@
 class User {
   int? userId;
   String? username;
-  String? phoneNumber1;
+  String? phoneNumber;
+  String? secondaryPhoneNumber;
   String? email;
   bool? existingUser;
   String? sessionToken;
@@ -14,7 +15,8 @@ class User {
   User(
       {this.userId,
         this.username,
-        this.phoneNumber1,
+        this.phoneNumber,
+        this.secondaryPhoneNumber,
         this.email,
         this.existingUser,
         this.sessionToken,
@@ -27,7 +29,8 @@ class User {
   User.fromJson(Map<String, dynamic> json) {
     userId = json['userId'];
     username = json['username'];
-    phoneNumber1 = json['phoneNumber1'];
+    phoneNumber = json['phoneNumber'];
+    secondaryPhoneNumber = json['secondaryPhoneNumber'];
     email = json['email'];
     existingUser = json['existingUser'];
     sessionToken = json['sessionToken'];
@@ -42,7 +45,8 @@ class User {
     final Map<String, dynamic> data = new Map<String, dynamic>();
     data['userId'] = userId;
     data['username'] = username;
-    data['phoneNumber1'] = phoneNumber1;
+    data['phoneNumber'] = phoneNumber;
+    data['secondaryPhoneNumber'] = secondaryPhoneNumber;
     data['email'] = email;
     data['existingUser'] = existingUser;
     data['sessionToken'] = sessionToken;
