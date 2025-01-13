@@ -1,8 +1,10 @@
 import 'package:flutter/foundation.dart';
+import 'package:flutter/services.dart';
 import 'package:kh_dealer_app/constant/web_app_routes.dart';
 import 'package:kh_dealer_app/routes.dart';
 import 'package:kh_dealer_app/themes/styles/theme_colors.dart';
 import 'package:kh_dealer_app/utils/app_loader.dart';
+import 'package:kh_dealer_app/utils/toast_message.dart';
 import 'package:kh_dealer_app/utils/webview_controller_utils.dart';
 import 'package:kh_dealer_app/web_handler.dart';
 import 'package:flutter/material.dart';
@@ -10,7 +12,6 @@ import 'package:flutter_inappwebview/flutter_inappwebview.dart';
 import 'package:url_launcher/url_launcher.dart';
 import '../../config/server_config.dart';
 import '../../constant/session_keys.dart';
-import '../../utils/app_session.dart';
 import '../../utils/app_session_storage.dart';
 
 class WebViewContainer extends StatefulWidget {
@@ -28,7 +29,8 @@ class WebViewContainerState extends State<WebViewContainer> {
 
   PullToRefreshController? _pullToRefreshController;
   InAppWebViewController? _inAppWebViewController;
-  final GlobalKey webViewKey = GlobalKey();
+
+  DateTime? backPressTime;
 
   InAppWebViewSettings inAppWebViewSettings = InAppWebViewSettings(
     useShouldOverrideUrlLoading: true,
@@ -116,6 +118,13 @@ class WebViewContainerState extends State<WebViewContainer> {
         _inAppWebViewController?.goBack();
       } else if (Navigator.canPop(context)) {
         Navigator.pop(context);
+      }else{
+        if(backPressTime != null && DateTime.now().difference(backPressTime!)<const Duration(seconds: 2)){
+          SystemNavigator.pop(animated: true);
+        }else{
+          ToastMessage.show("Press again to exit.");
+        }
+        backPressTime = DateTime.now();
       }
     }
   }
