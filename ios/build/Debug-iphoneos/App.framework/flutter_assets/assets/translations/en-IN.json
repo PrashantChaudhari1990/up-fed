@@ -1,0 +1,63 @@
+{
+  "title": "Karma Health Dealer",
+  "select_your_pref_lang": "Select your preferred language",
+  "continue": "Continue",
+  "sign_up": "Sign Up",
+  "get_started": "Get Started",
+  "submit": "Submit",
+  "welcome": "Welcome,",
+  "enter_otp": "Enter OTP",
+  "send_otp": "Send OTP",
+  "login": {
+    "header": "Enter Mobile",
+    "header1": "Number",
+    "description": {
+      "otp":"Please provide your phone number and we'll send a confirmation OTP your way.",
+      "pin": "Please provide your phone number and enter your 4 digit security PIN."
+    },
+    "user_type": "(Vendor’s)",
+    "phone_number": "Phone Number",
+    "phone_number_with_user": "Phone Number @:login.user_type",
+    "send_otp": "Send OTP",
+    "phone_number_hint": "Enter Phone Number",
+    "otp": "OTP",
+    "pin": "PIN",
+    "login_with": "Login With : "
+  },
+  "otp_verification": {
+    "enter": "Enter",
+    "description": "OTP has been sent to your entered phone number",
+    "otp": "OTP",
+    "hint": "In case you have not received it",
+    "resend_otp": "Resend OTP",
+    "in_sec_count": "in {} sec",
+    "resend_message": "OTP has been resent successfully."
+  },
+  "validate_pin": {
+    "validate": "Validate",
+    "description": "Enter your 4 digit PIN and verify.",
+    "pin": "PIN",
+    "forgot_pin": "Forgot PIN?",
+    "verify": "Verify"
+  },
+  "home_screen": {
+    "home": "Home",
+    "credit": "Credit",
+    "orders": "Orders",
+    "profile": "Profile"
+  },
+  "forgot_pin": {
+    "forgot":"Forgot",
+    "pin": "PIN",
+    "phone_number": "Phone Number",
+    "phone_number_hint": "@:login.phone_number_hint"
+  },
+  "set_pin": {
+    "set": "Set",
+    "pin": "PIN",
+    "description": "Secure your account by creating a 4-digit PIN for quick and safe access.",
+    "enter_pin": "Enter PIN",
+    "confirm_pin": "Confirm PIN",
+    "set_pin": "Set PIN"
+  }
+}

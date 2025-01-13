@@ -26,7 +26,7 @@ class ResetPinScreen extends StatelessWidget {
       ToastMessage.show('PIN & confirm PIN mismatch.');
     } else{
       SetPinRequest setPinRequest = SetPinRequest(
-        phoneNumber: userResponse.phoneNumber1,
+        phoneNumber: userResponse.phoneNumber,
         password: _pinController.text
       );
       _authService.setPin(setPinRequest, userResponse.sessionToken).then((response){

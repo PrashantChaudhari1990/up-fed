@@ -1,0 +1,55 @@
+{
+  "title": "कर्मा हेल्थ डीलर",
+  "select_your_pref_lang": "अपनी पसंदीदा भाषा चुनें",
+  "continue": "जारी रखें",
+  "sign_up": "साइन अप करें",
+  "get_started": "शुरू करें",
+  "submit": "जमा करें",
+  "welcome": "स्वागत है,",
+  "enter_otp": "ओटीपी दर्ज करें",
+  "send_otp": "ओटीपी भेजें",
+  "login": {
+    "header": "चलिए शुरू करते हैं!",
+    "description": "कृपया अपना फ़ोन नंबर प्रदान करें, और हम आपको एक पुष्टि कोड भेजेंगे।",
+    "user_type": "(विक्रेता का)",
+    "phone_number": "फ़ोन नंबर",
+    "phone_number_with_user": "फ़ोन नंबर @:login.user_type",
+    "send_otp": "ओटीपी भेजें",
+    "phone_number_hint": "उदाहरण: 12345 67890",
+    "otp": "ओटीपी",
+    "pin": "पिन",
+    "login_with": "लॉगिन करें : "
+  },
+  "otp_verification": {
+    "header": "4-अंकों का कोड",
+    "description": "आपके दर्ज किए गए फ़ोन नंबर पर कोड भेजा गया है",
+    "otp": "ओटीपी",
+    "resend_otp": "ओटीपी फिर से भेजें",
+    "in_sec_count": "{} सेकंड में"
+  },
+  "validate_pin": {
+    "header": "पिन सत्यापित करें",
+    "description": "अपना 4-अंकों का पिन दर्ज करें और सत्यापित करें।",
+    "pin": "पिन",
+    "forgot_pin": "पिन भूल गए?",
+    "verify": "सत्यापित करें"
+  },
+  "home_screen": {
+    "home": "होम",
+    "credit": "क्रेडिट",
+    "orders": "ऑर्डर",
+    "profile": "प्रोफ़ाइल"
+  },
+  "forgot_pin": {
+    "forgot_pin": "पिन भूल गए",
+    "phone_number": "फ़ोन नंबर",
+    "phone_number_hint": "उदाहरण: 12345 67890"
+  },
+  "set_pin": {
+    "header": "पिन सेट करें",
+    "description": "तेज़ और सुरक्षित पहुँच के लिए 4-अंकों का पिन बनाकर अपना खाता सुरक्षित करें।",
+    "enter_pin": "पिन दर्ज करें",
+    "confirm_pin": "पिन की पुष्टि करें",
+    "set_pin": "पिन सेट करें"
+  }
+}
