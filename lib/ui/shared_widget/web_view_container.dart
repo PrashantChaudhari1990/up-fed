@@ -84,13 +84,14 @@ class WebViewContainerState extends State<WebViewContainer> {
   }
 
   loadWebView() async {
-    await _inAppWebViewController?.clearHistory();
     String webPageUrl = environment.webAppUrl;
     if(widget.url != null){
       webPageUrl =  "$webPageUrl${widget.url}";
     }
     _inAppWebViewController?.loadUrl(urlRequest: URLRequest(url: WebUri("${environment.webAppUrl}${widget.url}"))).then((value) async {
-      await _inAppWebViewController?.clearHistory();
+      if(defaultTargetPlatform == TargetPlatform.android){
+        await _inAppWebViewController?.clearHistory();
+      }
     });
   }
 
