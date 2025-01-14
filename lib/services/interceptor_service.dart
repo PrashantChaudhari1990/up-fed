@@ -46,7 +46,9 @@ class InterceptorService{
         if(dioException.requestOptions.extra['showLoader']??true){
           AppLoader().hide();
         }
-        if(dioException.response?.statusCode == 500){
+        if(dioException.type == DioExceptionType.connectionError){
+          ToastMessage.show('No internet connection.');
+        }else if(dioException.response?.statusCode == 500){
           ToastMessage.show(dioException.response?.data?['message']);
           return dioException.response?.data;
         }else if(dioException.response?.statusCode == 400){
