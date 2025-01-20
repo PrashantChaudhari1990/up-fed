@@ -191,9 +191,9 @@ class WebViewContainerState extends State<WebViewContainer> {
         shouldOverrideUrlLoading: (webController,navigationAction)async{
           if(!navigationAction.request.url.toString().contains(environment.webAppUrl)) {
             final requestUri = Uri.parse(navigationAction.request.url.toString());
-            if(await canLaunchUrl(requestUri)){
+            try{
               await launchUrl(requestUri);
-            }
+            }catch(e){}
             return NavigationActionPolicy.CANCEL;
           }
           return NavigationActionPolicy.ALLOW;
