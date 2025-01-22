@@ -65,3 +65,11 @@ getCurrentUser()async{
   final currentUser = await AppSession().loginUser;
   return currentUser;
 }
+updateUserDetail(data)async{
+  if (data.isNotEmpty) {
+    final userData = data[0];
+    if(userData != null){
+      AppSession().loginUser = jsonEncode(userData);
+    }
+  }
+}

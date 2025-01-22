@@ -27,6 +27,8 @@ class WebViewContainer extends StatefulWidget {
 
 class WebViewContainerState extends State<WebViewContainer> {
 
+  final String _customSchema = 'kh-dealer-app:';
+
   PullToRefreshController? _pullToRefreshController;
   InAppWebViewController? _inAppWebViewController;
 
@@ -72,6 +74,7 @@ class WebViewContainerState extends State<WebViewContainer> {
     _inAppWebViewController?.removeJavaScriptHandler(handlerName: 'handleRegisterSuccess');
     _inAppWebViewController?.removeJavaScriptHandler(handlerName: 'appLoader');
     _inAppWebViewController?.removeJavaScriptHandler(handlerName: 'onApprovalStatus');
+    _inAppWebViewController?.removeJavaScriptHandler(handlerName: 'updateUserDetail');
     super.dispose();
   }
 
@@ -95,6 +98,16 @@ class WebViewContainerState extends State<WebViewContainer> {
     });
   }
 
+  handleCustomSchemaRoute(BuildContext context, String url) {
+    switch (url.replaceFirst(_customSchema, '')) {
+      case "dashboard":
+        Navigator.pushNamedAndRemoveUntil(context, Routes.home, (route) => false);
+        break;
+      default:
+        return;
+    }
+  }
+
   _onWebViewCreated(InAppWebViewController controller) async {
     final session = await AppSessionStorage().getString(SessionKeys.user);
     await controller.webStorage.localStorage.setItem(key: SessionKeys.user, value: session);
@@ -105,6 +118,7 @@ class WebViewContainerState extends State<WebViewContainer> {
     _inAppWebViewController?.addJavaScriptHandler(handlerName: 'appLoader', callback: (dynamic data) => appLoader(context,data));
     _inAppWebViewController?.addJavaScriptHandler(handlerName: 'onApprovalStatus', callback: (dynamic data) => onApprovalStatus(context,data));
     _inAppWebViewController?.addJavaScriptHandler(handlerName: 'getCurrentUser', callback: (dynamic data) => getCurrentUser());
+    _inAppWebViewController?.addJavaScriptHandler(handlerName: 'updateUserDetail', callback: (dynamic data) => updateUserDetail(data));
     WebViewControllerUtils.controller = controller;
     widget.onWebViewCreated?.call(controller);
   }
@@ -188,12 +202,16 @@ class WebViewContainerState extends State<WebViewContainer> {
           print(resourceRequest);
           print(resourceResponse);
         },
-        shouldOverrideUrlLoading: (webController,navigationAction)async{
-          if(!navigationAction.request.url.toString().contains(environment.webAppUrl)) {
+        shouldOverrideUrlLoading: (webController, navigationAction) async {
+          if (navigationAction.request.url.toString().contains(_customSchema)) {
+            handleCustomSchemaRoute(context, navigationAction.request.url.toString());
+            return NavigationActionPolicy.CANCEL;
+          }
+          if (!navigationAction.request.url.toString().contains(environment.webAppUrl)) {
             final requestUri = Uri.parse(navigationAction.request.url.toString());
-            try{
+            try {
               await launchUrl(requestUri);
-            }catch(e){}
+            } catch (e) {}
             return NavigationActionPolicy.CANCEL;
           }
           return NavigationActionPolicy.ALLOW;
