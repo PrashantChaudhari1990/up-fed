@@ -1,6 +1,9 @@
+import 'dart:convert';
+
 import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
 import 'package:kh_dealer_app/constant/web_app_routes.dart';
+import 'package:kh_dealer_app/models/app_bar_config.dart';
 import 'package:kh_dealer_app/routes.dart';
 import 'package:kh_dealer_app/themes/styles/theme_colors.dart';
 import 'package:kh_dealer_app/utils/app_loader.dart';
@@ -13,6 +16,7 @@ import 'package:url_launcher/url_launcher.dart';
 import '../../config/server_config.dart';
 import '../../constant/session_keys.dart';
 import '../../utils/app_session_storage.dart';
+import '../../utils/global_notifier.dart';
 
 class WebViewContainer extends StatefulWidget {
   final String? url;
@@ -37,6 +41,8 @@ class WebViewContainerState extends State<WebViewContainer> {
   InAppWebViewSettings inAppWebViewSettings = InAppWebViewSettings(
     useShouldOverrideUrlLoading: true,
     clearCache: true,
+    cacheEnabled: false,
+    clearSessionCache: true,
     allowsInlineMediaPlayback: true,
       isInspectable: kDebugMode,
       mediaPlaybackRequiresUserGesture: false,
@@ -56,7 +62,7 @@ class WebViewContainerState extends State<WebViewContainer> {
             if (defaultTargetPlatform == TargetPlatform.android) {
               await _inAppWebViewController?.reload();
             } else if (defaultTargetPlatform == TargetPlatform.iOS) {
-              _inAppWebViewController?.loadUrl(
+              await _inAppWebViewController?.loadUrl(
                   urlRequest:
                   URLRequest(url: await _inAppWebViewController?.getUrl()));
             }
@@ -123,14 +129,14 @@ class WebViewContainerState extends State<WebViewContainer> {
     widget.onWebViewCreated?.call(controller);
   }
 
-  _onPopInvoked(didPop, _) async {
+  onPopInvoked(didPop, _) async {
     if (didPop) {
       return;
     }
     final canWebGoBack = await _inAppWebViewController?.canGoBack();
     if (mounted) {
       if (canWebGoBack ?? false) {
-        _inAppWebViewController?.goBack();
+        await _inAppWebViewController?.goBack();
       } else if (Navigator.canPop(context)) {
         Navigator.pop(context);
       }else{
@@ -162,7 +168,7 @@ class WebViewContainerState extends State<WebViewContainer> {
   Widget build(BuildContext context) {
     return PopScope(
       canPop: false,
-      onPopInvokedWithResult: _onPopInvoked,
+      onPopInvokedWithResult: onPopInvoked,
       child: InAppWebView(
         initialSettings: inAppWebViewSettings,
         pullToRefreshController: _pullToRefreshController,
@@ -181,26 +187,15 @@ class WebViewContainerState extends State<WebViewContainer> {
         onProgressChanged: (controller,progress){},
         onUpdateVisitedHistory: (webViewController,uri,value) async {
           _checkWebSession(webViewController,uri);
-          String? currentRouteName = ModalRoute.of(context)?.settings.name;
-          if(uri?.path == WebAppRoutes.categoryScreen && currentRouteName != Routes.category){
-            if(context.mounted) {
-              Navigator.of(context).pushNamed(Routes.category);
-            }
-            if(await webViewController.canGoBack()){
-              webViewController.goBack();
-            }
-          }
+          updateBottomNavigationBar(uri);
+          updateAppBar(uri);
           debugPrint(uri?.rawValue);
-        },
-        onConsoleMessage: (c,m){
-          print(m);
         },
         onNavigationResponse: (webController,navigationAction) async {
           return NavigationResponseAction.ALLOW;
         },
-        onReceivedHttpError: (controller,resourceRequest,resourceResponse){
-          print(resourceRequest);
-          print(resourceResponse);
+        onTitleChanged:(controller,title) async {
+          titleNotifier.value = title??'';
         },
         shouldOverrideUrlLoading: (webController, navigationAction) async {
           if (navigationAction.request.url.toString().contains(_customSchema)) {
@@ -223,4 +218,34 @@ class WebViewContainerState extends State<WebViewContainer> {
       ),
     );
   }
-}
+  updateBottomNavigationBar(Uri? uri){
+    if([WebAppRoutes.dashboard,WebAppRoutes.credit,WebAppRoutes.profile,WebAppRoutes.orders].contains(uri?.path)){
+      homeBottomBarVisible.value = true;
+    }else{
+      homeBottomBarVisible.value = false;
+    }
+  }
+  updateAppBar(Uri? uri)async{
+    AppBarConfig? appBarConfig;
+    if(uri?.queryParameters != null){
+      try{
+        appBarConfig = AppBarConfig.fromJson(uri?.queryParameters??{});
+      }catch(e){}
+    }
+    appBarVisibleNotifier.value = appBarConfig?.appBarVisible??true;
+    titleAppBarNotifier.value = !_isTitleBar(uri);
+    userNameVisibleNotifier.value = _isUserNameVisible(uri);
+    notificationVisibleNotifier.value = appBarConfig?.notificationVisible??false;
+    cartVisibleNotifier.value = _isCartVisible(appBarConfig,uri);
+    titleVisibleNotifier.value = appBarConfig?.titleVisible??true;
+  }
+  _isTitleBar(Uri? uri){
+    return [WebAppRoutes.dashboard,WebAppRoutes.credit,WebAppRoutes.profile,WebAppRoutes.orders].contains(uri?.path.toString());
+  }
+  _isUserNameVisible(Uri? uri){
+    return [WebAppRoutes.dashboard,WebAppRoutes.credit,WebAppRoutes.orders].contains(uri?.path.toString());
+  }
+  _isCartVisible(AppBarConfig? appBarConfig,Uri? uri){
+    return (appBarConfig?.cartVisible??false) || [WebAppRoutes.dashboard,WebAppRoutes.credit,WebAppRoutes.profile,WebAppRoutes.orders].contains(uri?.path.toString());
+  }
+  }

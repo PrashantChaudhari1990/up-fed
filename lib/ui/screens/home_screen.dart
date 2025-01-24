@@ -1,12 +1,14 @@
+import 'package:flutter/services.dart';
 import 'package:kh_dealer_app/constant/web_app_routes.dart';
 import 'package:kh_dealer_app/themes/styles/theme_colors.dart';
 import 'package:kh_dealer_app/themes/styles/typography.dart';
+import 'package:kh_dealer_app/ui/shared_widget/dynamic_app_bar.dart';
 import 'package:kh_dealer_app/ui/shared_widget/kh_app_bar.dart';
 import 'package:kh_dealer_app/ui/shared_widget/web_view_container.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_inappwebview/flutter_inappwebview.dart';
 import 'package:flutter_svg/svg.dart';
+import '../../utils/global_notifier.dart';
 
 class HomeScreen extends StatefulWidget {
 
@@ -30,38 +32,56 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     return Scaffold(
-      appBar:  KhAppBar.multiLine(showLogo: true,notificationAction: true,cartAction: true,systemNavigationBarColor: ThemeColors.white,statusBarColor: ThemeColors.white,statusBrightness: Brightness.dark,),
-      bottomNavigationBar: BottomNavigationBar(
-        onTap: (value) async {
-          if(_currentTabIndex == value){
-            _bottomNavigationTabs[_currentTabIndex].key.currentState?.loadWebView();
-          }else{
-            setState(() {
-              _currentTabIndex = value;
-            });
-          }
-        },
-        currentIndex: _currentTabIndex,
-          type: BottomNavigationBarType.fixed,
-          showUnselectedLabels: true,
-          selectedItemColor: ThemeColors.primaryColor,
-          enableFeedback: false,
-          unselectedItemColor: ThemeColors.gray4,
-          selectedLabelStyle: menuTabTextStyle.copyWith(fontWeight: FontWeight.bold),
-          unselectedLabelStyle: menuTabTextStyle,
-          items: List.generate(_bottomNavigationTabs.length, (index){
-            final navigationTab = _bottomNavigationTabs[index];
-            return BottomNavigationBarItem(icon: SvgPicture.asset(navigationTab.iconUrl,
-              colorFilter: index == _currentTabIndex ? ColorFilter.mode(ThemeColors.primaryColor, BlendMode.srcIn):null,),
-                label: navigationTab.label);
-          })
+      appBar:
+      KhAppBar(systemNavigationBarColor: ThemeColors.white,statusBarColor: ThemeColors.white,statusBrightness: Brightness.dark,),
+      bottomNavigationBar: ValueListenableBuilder<bool>(
+        valueListenable: homeBottomBarVisible,
+        builder: (context,value,_) {
+          return value ? BottomNavigationBar(
+            onTap: (value) async {
+              if(_currentTabIndex == value){
+                _bottomNavigationTabs[_currentTabIndex].key.currentState?.loadWebView();
+              }else{
+                setState(() {
+                  _currentTabIndex = value;
+                });
+              }
+            },
+            currentIndex: _currentTabIndex,
+              type: BottomNavigationBarType.fixed,
+              showUnselectedLabels: true,
+              selectedItemColor: ThemeColors.primaryColor,
+              enableFeedback: false,
+              unselectedItemColor: ThemeColors.gray4,
+              selectedLabelStyle: menuTabTextStyle.copyWith(fontWeight: FontWeight.bold),
+              unselectedLabelStyle: menuTabTextStyle,
+              items: List.generate(value ? _bottomNavigationTabs.length:2, (index){
+                final navigationTab = _bottomNavigationTabs[index];
+                return BottomNavigationBarItem(icon: SvgPicture.asset(navigationTab.iconUrl,
+                  colorFilter: index == _currentTabIndex ? ColorFilter.mode(ThemeColors.primaryColor, BlendMode.srcIn):null,),
+                    label: navigationTab.label);
+              })
+          ):Container(height: 0);
+        }
       ),
-      body: WebViewContainer(
-        key: _bottomNavigationTabs[_currentTabIndex].key,
-          url: _bottomNavigationTabs[_currentTabIndex].routeName,
-        enablePullToRefresh: true,
-        onWebViewCreated: (controller) async {
-        },
+      body: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          DynamicAppBar(
+            onBackButton: (){
+              _bottomNavigationTabs[_currentTabIndex].key.currentState?.onPopInvoked(false,null);
+            },
+          ),
+          Flexible(
+            child: WebViewContainer(
+              key: _bottomNavigationTabs[_currentTabIndex].key,
+                url: _bottomNavigationTabs[_currentTabIndex].routeName,
+              enablePullToRefresh: true,
+              onWebViewCreated: (controller) async {
+              },
+            ),
+          ),
+        ],
       ),
     );
   }
