@@ -16,11 +16,11 @@ class ValidateOtpRequest {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['phoneNumber'] = this.phoneNumber;
-    data['otp'] = this.otp;
-    data['flag'] = this.flag;
-    data['fcmToken'] = this.fcmToken;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['phoneNumber'] = phoneNumber;
+    data['otp'] = otp;
+    data['flag'] = flag;
+    data['fcmToken'] = fcmToken;
     return data;
   }
 }

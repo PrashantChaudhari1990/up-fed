@@ -9,16 +9,16 @@ class LoginRequest {
     username = json['username'];
     password = json['password'];
     deviceDetails = json['deviceDetails'] != null
-        ? new DeviceDetails.fromJson(json['deviceDetails'])
+        ? DeviceDetails.fromJson(json['deviceDetails'])
         : null;
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['username'] = this.username;
-    data['password'] = this.password;
-    if (this.deviceDetails != null) {
-      data['deviceDetails'] = this.deviceDetails!.toJson();
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['username'] = username;
+    data['password'] = password;
+    if (deviceDetails != null) {
+      data['deviceDetails'] = deviceDetails!.toJson();
     }
     return data;
   }
@@ -62,17 +62,17 @@ class DeviceDetails {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['os'] = this.os;
-    data['name'] = this.name;
-    data['model'] = this.model;
-    data['timeZone'] = this.timeZone;
-    data['uniqueId'] = this.uniqueId;
-    data['osVersion'] = this.osVersion;
-    data['appVersion'] = this.appVersion;
-    data['buildNumber'] = this.buildNumber;
-    data['manufacturer'] = this.manufacturer;
-    data['androidAPILevel'] = this.androidAPILevel;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['os'] = os;
+    data['name'] = name;
+    data['model'] = model;
+    data['timeZone'] = timeZone;
+    data['uniqueId'] = uniqueId;
+    data['osVersion'] = osVersion;
+    data['appVersion'] = appVersion;
+    data['buildNumber'] = buildNumber;
+    data['manufacturer'] = manufacturer;
+    data['androidAPILevel'] = androidAPILevel;
     return data;
   }
 }

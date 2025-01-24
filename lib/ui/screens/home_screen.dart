@@ -1,4 +1,3 @@
-import 'package:flutter/services.dart';
 import 'package:kh_dealer_app/constant/web_app_routes.dart';
 import 'package:kh_dealer_app/themes/styles/theme_colors.dart';
 import 'package:kh_dealer_app/themes/styles/typography.dart';
@@ -30,7 +29,6 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final theme = Theme.of(context);
     return Scaffold(
       appBar:
       KhAppBar(systemNavigationBarColor: ThemeColors.white,statusBarColor: ThemeColors.white,statusBrightness: Brightness.dark,),

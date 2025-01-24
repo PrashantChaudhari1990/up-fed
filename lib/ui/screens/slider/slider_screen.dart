@@ -9,7 +9,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
-import '../../../config/localization_config.dart';
 import '../../../models/slider_details.dart';
 
 class SliderScreen extends StatefulWidget {

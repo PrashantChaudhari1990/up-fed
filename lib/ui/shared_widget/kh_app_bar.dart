@@ -1,13 +1,5 @@
-import 'dart:convert';
-import 'package:kh_dealer_app/models/user.dart';
-import 'package:kh_dealer_app/routes.dart';
-import 'package:kh_dealer_app/utils/toast_message.dart';
-import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_svg/svg.dart';
-import '../../themes/styles/theme_colors.dart';
-import '../../utils/app_session.dart';
 
 class KhAppBar extends StatelessWidget implements PreferredSizeWidget {
   final String? title;
@@ -37,6 +29,6 @@ class KhAppBar extends StatelessWidget implements PreferredSizeWidget {
   @override
 
   Size get preferredSize{
-    return  Size.fromHeight(0);
+    return  const Size.fromHeight(0);
   }
 }

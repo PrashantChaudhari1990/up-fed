@@ -30,15 +30,15 @@ class AppBarConfig {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['appBarVisible'] = this.appBarVisible;
-    data['titleAppBar'] = this.titleAppBar;
-    data['userNameVisible'] = this.userNameVisible;
-    data['allowBack'] = this.allowBack;
-    data['title'] = this.title;
-    data['cartVisible'] = this.cartVisible;
-    data['notificationVisible'] = this.notificationVisible;
-    data['titleVisible'] = this.titleVisible;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['appBarVisible'] = appBarVisible;
+    data['titleAppBar'] = titleAppBar;
+    data['userNameVisible'] = userNameVisible;
+    data['allowBack'] = allowBack;
+    data['title'] = title;
+    data['cartVisible'] = cartVisible;
+    data['notificationVisible'] = notificationVisible;
+    data['titleVisible'] = titleVisible;
     return data;
   }
 }

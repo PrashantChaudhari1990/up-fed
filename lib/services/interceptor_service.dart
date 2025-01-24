@@ -50,7 +50,6 @@ class InterceptorService{
           ToastMessage.show('No internet connection.');
         }else if(dioException.response?.statusCode == 500){
           ToastMessage.show(dioException.response?.data?['message']);
-          return dioException.response?.data;
         }else if(dioException.response?.statusCode == 400){
           ToastMessage.show(dioException.response?.data?['message']);
         }else if(dioException.error.runtimeType == SocketException){
