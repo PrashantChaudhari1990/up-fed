@@ -233,7 +233,7 @@ class WebViewContainerState extends State<WebViewContainer> {
     appBarVisibleNotifier.value = appBarConfig?.appBarVisible??true;
     titleAppBarNotifier.value = !_isTitleBar(uri);
     userNameVisibleNotifier.value = _isUserNameVisible(uri);
-    notificationVisibleNotifier.value = appBarConfig?.notificationVisible??false;
+    notificationVisibleNotifier.value = _isNotificationVisible(appBarConfig,uri);
     cartVisibleNotifier.value = _isCartVisible(appBarConfig,uri);
     titleVisibleNotifier.value = appBarConfig?.titleVisible??true;
   }
@@ -245,5 +245,8 @@ class WebViewContainerState extends State<WebViewContainer> {
   }
   _isCartVisible(AppBarConfig? appBarConfig,Uri? uri){
     return (appBarConfig?.cartVisible??false) || [WebAppRoutes.dashboard,WebAppRoutes.credit,WebAppRoutes.profile,WebAppRoutes.orders].contains(uri?.path.toString());
+  }
+  _isNotificationVisible(AppBarConfig? appBarConfig,Uri? uri){
+    return (appBarConfig?.notificationVisible??false) || [WebAppRoutes.dashboard,WebAppRoutes.credit,WebAppRoutes.profile,WebAppRoutes.orders].contains(uri?.path.toString());
   }
   }
