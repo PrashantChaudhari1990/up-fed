@@ -59,7 +59,7 @@ class _OtpVerificationScreenState extends State<OtpVerificationScreen> {
 
   _onSubmitOtp(String phoneNumber) async {
     final deviceDetails = await DeviceInfo.getDetail();
-    final validateOtpRequest  = ValidateOtpRequest(phoneNumber: "+91$phoneNumber",otp: _otpController.text,deviceDetails: deviceDetails);
+    final validateOtpRequest  = ValidateOtpRequest(phoneNumber: "+91$phoneNumber",otp: _otpController.text,deviceDetail: deviceDetails);
    _authService.validateOtp(validateOtpRequest).then((response) async {
      if(response != null){
        final userResponse = User.fromJson(response.data);

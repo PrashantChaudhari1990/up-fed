@@ -34,7 +34,7 @@ class _ValidatePinScreenState extends State<ValidatePinScreen> {
     LoginRequest loginRequest = LoginRequest(
       username: "+91$phoneNumber",
       password: _pinController.text,
-      deviceDetails: deviceDetails
+      deviceDetail: deviceDetails
     );
     _authService.login(loginRequest).then((response) async {
       if(response != null){

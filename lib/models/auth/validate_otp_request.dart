@@ -4,16 +4,16 @@ class ValidateOtpRequest {
   String? phoneNumber;
   String? otp;
   bool? flag;
-  DeviceDetails? deviceDetails;
+  DeviceDetails? deviceDetail;
 
-  ValidateOtpRequest({this.phoneNumber, this.otp, this.flag, this.deviceDetails});
+  ValidateOtpRequest({this.phoneNumber, this.otp, this.flag, this.deviceDetail});
 
   ValidateOtpRequest.fromJson(Map<String, dynamic> json) {
     phoneNumber = json['phoneNumber'];
     otp = json['otp'];
     flag = json['flag'];
-    deviceDetails = json['deviceDetails'] != null
-        ? DeviceDetails.fromJson(json['deviceDetails'])
+    deviceDetail = json['deviceDetail'] != null
+        ? DeviceDetails.fromJson(json['deviceDetail'])
         : null;
   }
 
@@ -22,8 +22,8 @@ class ValidateOtpRequest {
     data['phoneNumber'] = phoneNumber;
     data['otp'] = otp;
     data['flag'] = flag;
-    if (deviceDetails != null) {
-      data['deviceDetails'] = deviceDetails!.toJson();
+    if (deviceDetail != null) {
+      data['deviceDetail'] = deviceDetail!.toJson();
     }
     return data;
   }
