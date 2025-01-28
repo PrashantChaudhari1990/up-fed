@@ -35,6 +35,7 @@ class DeviceDetails {
   String? buildNumber;
   String? manufacturer;
   String? androidAPILevel;
+  String? fcmToken;
 
   DeviceDetails(
       {this.os,
@@ -46,7 +47,9 @@ class DeviceDetails {
         this.appVersion,
         this.buildNumber,
         this.manufacturer,
-        this.androidAPILevel});
+        this.androidAPILevel,
+        this.fcmToken
+      });
 
   DeviceDetails.fromJson(Map<String, dynamic> json) {
     os = json['os'];
@@ -59,6 +62,7 @@ class DeviceDetails {
     buildNumber = json['buildNumber'];
     manufacturer = json['manufacturer'];
     androidAPILevel = json['androidAPILevel'];
+    fcmToken = json['fcmToken'];
   }
 
   Map<String, dynamic> toJson() {
@@ -73,6 +77,7 @@ class DeviceDetails {
     data['buildNumber'] = buildNumber;
     data['manufacturer'] = manufacturer;
     data['androidAPILevel'] = androidAPILevel;
+    data['fcmToken'] = fcmToken;
     return data;
   }
 }
