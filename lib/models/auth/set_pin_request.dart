@@ -14,11 +14,11 @@ class SetPinRequest {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['phoneNumber'] = this.phoneNumber;
-    data['email'] = this.email;
-    data['password'] = this.password;
-    data['otp'] = this.otp;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['phoneNumber'] = phoneNumber;
+    data['email'] = email;
+    data['password'] = password;
+    data['otp'] = otp;
     return data;
   }
 }

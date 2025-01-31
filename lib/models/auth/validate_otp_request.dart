@@ -1,26 +1,30 @@
-import 'dart:ffi';
+import 'login_request.dart';
 
 class ValidateOtpRequest {
   String? phoneNumber;
   String? otp;
-  Bool? flag;
-  String? fcmToken;
+  bool? flag;
+  DeviceDetails? deviceDetail;
 
-  ValidateOtpRequest({this.phoneNumber, this.otp, this.flag, this.fcmToken});
+  ValidateOtpRequest({this.phoneNumber, this.otp, this.flag, this.deviceDetail});
 
   ValidateOtpRequest.fromJson(Map<String, dynamic> json) {
     phoneNumber = json['phoneNumber'];
     otp = json['otp'];
     flag = json['flag'];
-    fcmToken = json['fcmToken'];
+    deviceDetail = json['deviceDetail'] != null
+        ? DeviceDetails.fromJson(json['deviceDetail'])
+        : null;
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['phoneNumber'] = this.phoneNumber;
-    data['otp'] = this.otp;
-    data['flag'] = this.flag;
-    data['fcmToken'] = this.fcmToken;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['phoneNumber'] = phoneNumber;
+    data['otp'] = otp;
+    data['flag'] = flag;
+    if (deviceDetail != null) {
+      data['deviceDetail'] = deviceDetail!.toJson();
+    }
     return data;
   }
 }

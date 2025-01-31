@@ -1,24 +1,24 @@
 class LoginRequest {
   String? username;
   String? password;
-  DeviceDetails? deviceDetails;
+  DeviceDetails? deviceDetail;
 
-  LoginRequest({this.username, this.password, this.deviceDetails});
+  LoginRequest({this.username, this.password, this.deviceDetail});
 
   LoginRequest.fromJson(Map<String, dynamic> json) {
     username = json['username'];
     password = json['password'];
-    deviceDetails = json['deviceDetails'] != null
-        ? new DeviceDetails.fromJson(json['deviceDetails'])
+    deviceDetail = json['deviceDetail'] != null
+        ? DeviceDetails.fromJson(json['deviceDetail'])
         : null;
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['username'] = this.username;
-    data['password'] = this.password;
-    if (this.deviceDetails != null) {
-      data['deviceDetails'] = this.deviceDetails!.toJson();
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['username'] = username;
+    data['password'] = password;
+    if (deviceDetail != null) {
+      data['deviceDetail'] = deviceDetail!.toJson();
     }
     return data;
   }
@@ -35,6 +35,7 @@ class DeviceDetails {
   String? buildNumber;
   String? manufacturer;
   String? androidAPILevel;
+  String? fcmToken;
 
   DeviceDetails(
       {this.os,
@@ -46,7 +47,9 @@ class DeviceDetails {
         this.appVersion,
         this.buildNumber,
         this.manufacturer,
-        this.androidAPILevel});
+        this.androidAPILevel,
+        this.fcmToken
+      });
 
   DeviceDetails.fromJson(Map<String, dynamic> json) {
     os = json['os'];
@@ -59,20 +62,22 @@ class DeviceDetails {
     buildNumber = json['buildNumber'];
     manufacturer = json['manufacturer'];
     androidAPILevel = json['androidAPILevel'];
+    fcmToken = json['fcmToken'];
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['os'] = this.os;
-    data['name'] = this.name;
-    data['model'] = this.model;
-    data['timeZone'] = this.timeZone;
-    data['uniqueId'] = this.uniqueId;
-    data['osVersion'] = this.osVersion;
-    data['appVersion'] = this.appVersion;
-    data['buildNumber'] = this.buildNumber;
-    data['manufacturer'] = this.manufacturer;
-    data['androidAPILevel'] = this.androidAPILevel;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['os'] = os;
+    data['name'] = name;
+    data['model'] = model;
+    data['timeZone'] = timeZone;
+    data['uniqueId'] = uniqueId;
+    data['osVersion'] = osVersion;
+    data['appVersion'] = appVersion;
+    data['buildNumber'] = buildNumber;
+    data['manufacturer'] = manufacturer;
+    data['androidAPILevel'] = androidAPILevel;
+    data['fcmToken'] = fcmToken;
     return data;
   }
 }

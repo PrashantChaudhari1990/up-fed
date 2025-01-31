@@ -37,8 +37,8 @@ class MyApp extends StatelessWidget {
           Routes.otpVerification : (context)=>  const OtpVerificationScreen(),
           Routes.validatePin : (context)=>  const ValidatePinScreen(),
           Routes.cart:(context)=>  const WebViewScreen(routeName: WebAppRoutes.cartScreen,title: "Cart",),
-          Routes.category:(context)=>  const WebViewScreen(routeName: WebAppRoutes.categoryScreen,title: "Category",showCart: true,showNotification: true,),
-          Routes.pendingVerification:(context)=>  const WebViewScreen(routeName: WebAppRoutes.pendingVerification,showAppBar: false,showCart: true,showNotification: true,),
+          Routes.category:(context)=>  const WebViewScreen(routeName: WebAppRoutes.categoryScreen,title: "Category",),
+          Routes.pendingVerification:(context)=>  const WebViewScreen(routeName: WebAppRoutes.pendingVerification,showAppBar: false,),
         }
     );
   }

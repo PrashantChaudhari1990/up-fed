@@ -12,7 +12,7 @@ class GenerateOtpResponse {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
+    final Map<String, dynamic> data = <String, dynamic>{};
     data['otp'] = otp;
     data['phoneNumber'] = phoneNumber;
     data['existingUser'] = existingUser;

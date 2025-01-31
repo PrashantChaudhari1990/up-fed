@@ -17,12 +17,12 @@ class ConfigResponse {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['id'] = this.id;
-    data['keyName'] = this.keyName;
-    data['value'] = this.value;
-    data['details'] = this.details;
-    data['dataType'] = this.dataType;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['id'] = id;
+    data['keyName'] = keyName;
+    data['value'] = value;
+    data['details'] = details;
+    data['dataType'] = dataType;
     return data;
   }
 }

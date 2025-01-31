@@ -13,8 +13,8 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:kh_dealer_app/utils/device_info.dart';
 import 'package:kh_dealer_app/utils/toast_message.dart';
-import '../../../config/notification_config.dart';
 import '../../../themes/styles/typography.dart';
 
 class OtpVerificationScreen extends StatefulWidget {
@@ -58,8 +58,8 @@ class _OtpVerificationScreenState extends State<OtpVerificationScreen> {
   }
 
   _onSubmitOtp(String phoneNumber) async {
-    final fcmToken =  await NotificationConfig.fcmToken;
-    final validateOtpRequest  = ValidateOtpRequest(phoneNumber: "+91$phoneNumber",otp: _otpController.text,fcmToken: fcmToken);
+    final deviceDetails = await DeviceInfo.getDetail();
+    final validateOtpRequest  = ValidateOtpRequest(phoneNumber: "+91$phoneNumber",otp: _otpController.text,deviceDetail: deviceDetails);
    _authService.validateOtp(validateOtpRequest).then((response) async {
      if(response != null){
        final userResponse = User.fromJson(response.data);

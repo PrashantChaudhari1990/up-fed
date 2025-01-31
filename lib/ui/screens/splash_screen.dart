@@ -4,7 +4,6 @@ import 'package:kh_dealer_app/utils/app_session.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import '../../config/notification_config.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});

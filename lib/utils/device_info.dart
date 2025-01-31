@@ -3,9 +3,12 @@ import 'package:device_info_plus/device_info_plus.dart';
 import 'package:flutter/foundation.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 
+import '../config/notification_config.dart';
+
 class DeviceInfo {
   static Future<DeviceDetails?> getDetail() async {
     final DeviceInfoPlugin deviceInfoPlugin = DeviceInfoPlugin();
+    final fcmToken =  await NotificationConfig.fcmToken;
     PackageInfo packageInfo = await PackageInfo.fromPlatform();
     switch (defaultTargetPlatform) {
       case TargetPlatform.android:
@@ -20,7 +23,9 @@ class DeviceInfo {
             manufacturer: androidDeviceInfo.manufacturer,
             appVersion: packageInfo.version,
             buildNumber: packageInfo.buildNumber,
-            timeZone: "");
+            timeZone: "",
+            fcmToken: fcmToken
+        );
       case TargetPlatform.fuchsia:
       // TODO: Handle this case.
       case TargetPlatform.iOS:
@@ -35,7 +40,8 @@ class DeviceInfo {
             manufacturer: iosDeviceInfo.systemName,
             appVersion: packageInfo.version,
             buildNumber: packageInfo.buildNumber,
-            timeZone: "");
+            timeZone: "",
+            fcmToken: fcmToken);
       case TargetPlatform.linux:
       // TODO: Handle this case.
       case TargetPlatform.macOS:
