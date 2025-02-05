@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:kh_dealer_app/config/server_config.dart';
 import '../../../models/slider_details.dart';
 class SliderItem extends StatelessWidget {
   final SliderDetails carouselSliderData;
@@ -14,7 +15,10 @@ class SliderItem extends StatelessWidget {
         SizedBox(
           height: screenSize.height,
           child: Image.network(carouselSliderData.imageUrl??'',width: screenSize.width,fit: BoxFit.fill,
-          errorBuilder: (context,object,stacktrace)=>const Center(child: Text('Slider Image')),
+          headers: {
+            "referer":"${environment.webAppUrl}/"
+          },
+          errorBuilder: (context,object,stacktrace)=>const Center(child: Text('Image'),),
           ),
         ),
         Positioned(

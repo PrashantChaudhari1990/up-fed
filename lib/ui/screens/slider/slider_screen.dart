@@ -44,7 +44,7 @@ class _SliderScreenState extends State<SliderScreen> {
   Widget build(BuildContext context) {
     final screenSize = MediaQuery.of(context).size;
     SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
-        statusBarIconBrightness: Brightness.dark,
+        statusBarIconBrightness: Brightness.light,
         statusBarColor: Colors.transparent,
         systemStatusBarContrastEnforced: false,
         systemNavigationBarIconBrightness: Brightness.dark,
