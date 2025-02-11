@@ -1,8 +1,9 @@
 import 'dart:convert';
+import 'package:flutter/services.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:kh_dealer_app/models/auth/login_request.dart';
 import 'package:kh_dealer_app/services/auth/auth_service.dart';
 import 'package:kh_dealer_app/themes/styles/theme_colors.dart';
-import 'package:kh_dealer_app/ui/shared_widget/kh_app_bar.dart';
 import 'package:kh_dealer_app/utils/device_info.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
@@ -54,7 +55,16 @@ class _ValidatePinScreenState extends State<ValidatePinScreen> {
     final String phoneNumber = (ModalRoute.of(context)?.settings.arguments??'') as String;
     final theme = Theme.of(context);
     return Scaffold(
-      appBar:const KhAppBar(title: '',),
+      appBar:AppBar(
+        leading: GestureDetector(
+            onTap: ()=>Navigator.pop(context),
+            child: SvgPicture.asset("assets/icons/back_arrow.svg",fit: BoxFit.scaleDown,)),
+        systemOverlayStyle: SystemUiOverlayStyle(
+            statusBarColor: theme.scaffoldBackgroundColor,
+            statusBarIconBrightness: Brightness.dark,
+            systemNavigationBarColor: theme.scaffoldBackgroundColor
+        ),
+      ),
       body: Container(
         padding: const EdgeInsets.only(left: 20,right: 20,bottom: 10),
         child: Column(
@@ -72,6 +82,7 @@ class _ValidatePinScreenState extends State<ValidatePinScreen> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     PinInputField.label(
+                      autofocus: true,
                       label: "validate_pin.pin",
                         controller: _pinController,
                       obscureText: true,

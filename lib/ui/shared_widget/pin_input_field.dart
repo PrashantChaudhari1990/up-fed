@@ -11,12 +11,13 @@ class PinInputField extends StatelessWidget {
   final String label;
   final bool _withLabel;
   final bool showPinIcon;
+  final bool autofocus;
   final void Function(String)? onChanged;
 
 
-  PinInputField({super.key, this.controller, this.obscureText = false,this.onChanged,this.showPinIcon=false}) : _withLabel = false,label="";
+  PinInputField({super.key, this.controller, this.obscureText = false,this.onChanged,this.showPinIcon=false,this.autofocus = false}) : _withLabel = false,label="";
 
-  PinInputField.label({super.key,this.controller, this.obscureText = false,required this.label,this.onChanged,this.showPinIcon=false}) : _withLabel = true;
+  PinInputField.label({super.key,this.controller, this.obscureText = false,required this.label,this.onChanged,this.showPinIcon=false,this.autofocus = false}) : _withLabel = true;
   
   final ValueNotifier<bool> _pinVisible = ValueNotifier<bool>(false);
 
@@ -47,6 +48,7 @@ class PinInputField extends StatelessWidget {
                       if(_withLabel)
                         const SizedBox(height: 4,),
                       Pinput(
+                        autofocus: autofocus,
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         obscureText: !pinVisible && obscureText,
                         separatorBuilder: (index)=>SizedBox(width: boxConstraints.maxWidth*0.05,),

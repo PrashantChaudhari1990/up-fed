@@ -135,6 +135,7 @@ class _OtpVerificationScreenState extends State<OtpVerificationScreen> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     PinInputField.label(
+                      autofocus: true,
                       label: 'otp_verification.otp',
                       controller: _otpController
                     ),
