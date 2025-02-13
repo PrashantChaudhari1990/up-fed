@@ -5,6 +5,7 @@ import 'package:kh_dealer_app/routes.dart';
 import 'package:kh_dealer_app/utils/app_loader.dart';
 import 'package:kh_dealer_app/utils/app_session.dart';
 import 'package:kh_dealer_app/utils/app_session_storage.dart';
+import 'package:kh_dealer_app/utils/global_notifier.dart';
 import 'package:kh_dealer_app/utils/toast_message.dart';
 import 'package:kh_dealer_app/utils/webview_controller_utils.dart';
 import 'constant/session_keys.dart';
@@ -70,6 +71,22 @@ updateUserDetail(data)async{
     final userData = data[0];
     if(userData != null){
       AppSession().loginUser = jsonEncode(userData);
+    }
+  }
+}
+toggleAppBar(data)async{
+  if (data.isNotEmpty) {
+    final appBarVisible = data[0];
+    if(appBarVisible != null){
+      appBarVisibleNotifier.value = appBarVisible;
+    }
+  }
+}
+toggleBottomNavigation(data)async{
+  if (data.isNotEmpty) {
+    final bottomNavigation = data[0];
+    if(bottomNavigation != null){
+      homeBottomBarVisible.value = bottomNavigation;
     }
   }
 }

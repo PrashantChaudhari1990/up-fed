@@ -79,6 +79,8 @@ class WebViewContainerState extends State<WebViewContainer> {
     _inAppWebViewController?.removeJavaScriptHandler(handlerName: 'appLoader');
     _inAppWebViewController?.removeJavaScriptHandler(handlerName: 'onApprovalStatus');
     _inAppWebViewController?.removeJavaScriptHandler(handlerName: 'updateUserDetail');
+    _inAppWebViewController?.removeJavaScriptHandler(handlerName: 'toggleAppBar');
+    _inAppWebViewController?.removeJavaScriptHandler(handlerName: 'toggleBottomNavigation');
     super.dispose();
   }
 
@@ -123,6 +125,8 @@ class WebViewContainerState extends State<WebViewContainer> {
     _inAppWebViewController?.addJavaScriptHandler(handlerName: 'onApprovalStatus', callback: (dynamic data) => onApprovalStatus(context,data));
     _inAppWebViewController?.addJavaScriptHandler(handlerName: 'getCurrentUser', callback: (dynamic data) => getCurrentUser());
     _inAppWebViewController?.addJavaScriptHandler(handlerName: 'updateUserDetail', callback: (dynamic data) => updateUserDetail(data));
+    _inAppWebViewController?.addJavaScriptHandler(handlerName: 'toggleAppBar', callback: (dynamic data) => toggleAppBar(data));
+    _inAppWebViewController?.addJavaScriptHandler(handlerName: 'toggleBottomNavigation', callback: (dynamic data) => toggleBottomNavigation(data));
     WebViewControllerUtils.controller = controller;
     widget.onWebViewCreated?.call(controller);
   }
@@ -196,12 +200,16 @@ class WebViewContainerState extends State<WebViewContainer> {
           titleNotifier.value = title??'';
         },
         shouldOverrideUrlLoading: (webController, navigationAction) async {
-          if (navigationAction.request.url.toString().contains(_customSchema)) {
-            handleCustomSchemaRoute(context, navigationAction.request.url.toString());
+          URLRequest urlRequest = navigationAction.request;
+          if (urlRequest.url.toString().contains(_customSchema)) {
+            handleCustomSchemaRoute(context, urlRequest.url.toString());
             return NavigationActionPolicy.CANCEL;
           }
-          if (!navigationAction.request.url.toString().contains(environment.webAppUrl)) {
-            final requestUri = Uri.parse(navigationAction.request.url.toString());
+          if(urlRequest.url.toString().contains("https://api.razorpay.com/")){
+            return NavigationActionPolicy.ALLOW;
+          }
+          if (!urlRequest.url.toString().contains(environment.webAppUrl)) {
+            final requestUri = Uri.parse(urlRequest.url.toString());
             try {
               await launchUrl(requestUri);
             } catch (e) {}
