@@ -29,7 +29,8 @@ class WebViewContainer extends StatefulWidget {
 
 class WebViewContainerState extends State<WebViewContainer> {
 
-  final String _customSchema = 'kh-dealer-app:';
+  //final String _customSchema = 'kh-dealer-app:';
+  final String _customSchema = 'vpa:';
 
   PullToRefreshController? _pullToRefreshController;
   InAppWebViewController? _inAppWebViewController;
@@ -41,6 +42,7 @@ class WebViewContainerState extends State<WebViewContainer> {
     clearCache: true,
     cacheEnabled: false,
     clearSessionCache: true,
+    incognito: true,
     allowsInlineMediaPlayback: true,
       isInspectable: kDebugMode,
       mediaPlaybackRequiresUserGesture: false,
@@ -197,6 +199,8 @@ class WebViewContainerState extends State<WebViewContainer> {
           return NavigationResponseAction.ALLOW;
         },
         onTitleChanged:(controller,title) async {
+          print('title--');
+          print(title);
           titleNotifier.value = title??'';
         },
         shouldOverrideUrlLoading: (webController, navigationAction) async {
@@ -225,7 +229,7 @@ class WebViewContainerState extends State<WebViewContainer> {
     );
   }
   updateBottomNavigationBar(Uri? uri){
-    if([WebAppRoutes.dashboard,WebAppRoutes.trips,WebAppRoutes.profile,WebAppRoutes.payments].contains(uri?.path)){
+    if([WebAppRoutes.dashboard,WebAppRoutes.trips,WebAppRoutes.payments,WebAppRoutes.contract].contains(uri?.path)){
       homeBottomBarVisible.value = true;
     }else{
       homeBottomBarVisible.value = false;
@@ -245,16 +249,20 @@ class WebViewContainerState extends State<WebViewContainer> {
     cartVisibleNotifier.value = _isCartVisible(appBarConfig,uri);
     titleVisibleNotifier.value = appBarConfig?.titleVisible??true;
   }
+  //welcome
   _isTitleBar(Uri? uri){
-    return [WebAppRoutes.dashboard,WebAppRoutes.trips,WebAppRoutes.payments,WebAppRoutes.dashboard].contains(uri?.path.toString());
+    return [WebAppRoutes.dashboard,WebAppRoutes.trips,WebAppRoutes.payments,WebAppRoutes.contract].contains(uri?.path.toString());
   }
+  //only username hide
   _isUserNameVisible(Uri? uri){
-    return [WebAppRoutes.dashboard,WebAppRoutes.trips,WebAppRoutes.payments].contains(uri?.path.toString());
+    return false;
+    return [WebAppRoutes.dashboard,WebAppRoutes.trips,WebAppRoutes.payments,WebAppRoutes.contract].contains(uri?.path.toString());
   }
+  //
   _isCartVisible(AppBarConfig? appBarConfig,Uri? uri){
-    return (appBarConfig?.cartVisible??false) || [WebAppRoutes.dashboard,WebAppRoutes.trips,WebAppRoutes.profile,WebAppRoutes.payments].contains(uri?.path.toString());
+    return (appBarConfig?.cartVisible??false) || [WebAppRoutes.dashboard,WebAppRoutes.trips,WebAppRoutes.contract,WebAppRoutes.payments].contains(uri?.path.toString());
   }
   _isNotificationVisible(AppBarConfig? appBarConfig,Uri? uri){
-    return (appBarConfig?.notificationVisible??false) || [WebAppRoutes.dashboard,WebAppRoutes.trips,WebAppRoutes.profile,WebAppRoutes.payments].contains(uri?.path.toString());
+    return (appBarConfig?.notificationVisible??false) || [WebAppRoutes.dashboard,WebAppRoutes.trips,WebAppRoutes.contract,WebAppRoutes.payments].contains(uri?.path.toString());
   }
   }
