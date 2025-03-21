@@ -18,7 +18,7 @@ class InterceptorService{
       contentType: "application/json",
     headers: {
         "x-visibility-scope": CommonConstants.xVisibilityScope,
-        "x-tenant-id": CommonConstants.xTenantId
+        //"x-tenant-id": CommonConstants.xTenantId
     }
   ));
 

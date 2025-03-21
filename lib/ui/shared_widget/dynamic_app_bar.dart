@@ -57,7 +57,7 @@ class DynamicAppBar extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.start,
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        SvgPicture.asset('assets/images/svg/app_header_logo.svg'),
+        SvgPicture.asset('assets/images/svg/app_header_logo1.svg'),
         ValueListenableBuilder(
           valueListenable: userNameVisibleNotifier,
           builder: (context, isVisible, _) {
@@ -159,7 +159,7 @@ class DynamicAppBar extends StatelessWidget {
 
             return IconButton(
               onPressed: () => _onClickCart(context),
-              icon: SvgPicture.asset('assets/icons/cart_icon.svg'),
+              icon: SvgPicture.asset('assets/icons/user_icon.svg'),
             );
           },
         ),
@@ -173,7 +173,7 @@ class DynamicAppBar extends StatelessWidget {
   }
 
   _onClickCart(BuildContext context) async {
-    WebViewControllerUtils.controller?.loadUrl(urlRequest: URLRequest(url: WebUri(environment.webAppUrl+WebAppRoutes.cartScreen)));
+    WebViewControllerUtils.controller?.loadUrl(urlRequest: URLRequest(url: WebUri(environment.webAppUrl+WebAppRoutes.reviewData)));
   }
 
   Future<String> getUser() async {
@@ -181,7 +181,7 @@ class DynamicAppBar extends StatelessWidget {
 
     if (loginUser != null) {
       final User user = User.fromJson(jsonDecode(loginUser));
-      return user.fullName ?? "";
+      return user.username ?? "";
     }
     return '';
   }

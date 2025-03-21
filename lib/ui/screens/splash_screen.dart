@@ -36,7 +36,7 @@ class _SplashScreenState extends State<SplashScreen> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Flexible(flex: 2, child: Center(child: SvgPicture.asset('assets/images/svg/splash_screen_logo.svg',width: screenSize.width/2,)))
+            Flexible(flex: 2, child: Center(child: SvgPicture.asset('assets/images/svg/app_header_logo.svg',width: screenSize.width/2,)))
           ],
         ),
       ),

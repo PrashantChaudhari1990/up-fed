@@ -71,13 +71,19 @@ class _SliderScreenState extends State<SliderScreen> {
                     child: Container(
                       width: screenSize.width,
                       padding: _contentPadding,
-                      child: Row(
+                      child: const Row(
                         mainAxisSize: MainAxisSize.max,
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          SvgPicture.asset('assets/images/svg/app_header_logo.svg'),
-                          // IconButton(onPressed: ()=>LocalizationConfig.changeLang(context),
-                          //     icon: SvgPicture.asset('assets/icons/translation_icon.svg'))
+                          //SvgPicture.asset('assets/images/svg/app_header_logo.svg')
+                          Text(
+                            'Partner',
+                            style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              color: Colors.blueAccent,
+                                fontSize: 32
+                            ),
+                          ),
                         ],
                       ),
                     ),

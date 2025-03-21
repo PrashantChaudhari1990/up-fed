@@ -1,5 +1,5 @@
 {
-  "title": "Karma Health Dealer",
+  "title": "Oorjaa Vendor App",
   "select_your_pref_lang": "Select your preferred language",
   "continue": "Continue",
   "sign_up": "Sign Up",
@@ -42,8 +42,8 @@
   },
   "home_screen": {
     "home": "Home",
-    "credit": "Credit",
-    "orders": "Orders",
+    "trips": "Trips",
+    "payments": "Payments",
     "profile": "Profile"
   },
   "forgot_pin": {

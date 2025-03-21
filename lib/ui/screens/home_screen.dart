@@ -21,8 +21,8 @@ class _HomeScreenState extends State<HomeScreen> {
 
   final List<NavigationBarItem> _bottomNavigationTabs = [
     NavigationBarItem(iconUrl: 'assets/icons/home.svg', label: "home_screen.home".tr(),routeName:WebAppRoutes.dashboard),
-    NavigationBarItem(iconUrl: 'assets/icons/credits.svg', label: "home_screen.credit".tr(),routeName:WebAppRoutes.credit),
-    NavigationBarItem(iconUrl: 'assets/icons/orders.svg', label: "home_screen.orders".tr(),routeName:WebAppRoutes.orders),
+    NavigationBarItem(iconUrl: 'assets/icons/credits.svg', label: "home_screen.trips".tr(),routeName:WebAppRoutes.trips),
+    NavigationBarItem(iconUrl: 'assets/icons/orders.svg', label: "home_screen.payments".tr(),routeName:WebAppRoutes.payments),
     NavigationBarItem(iconUrl: 'assets/icons/profile.svg', label: "home_screen.profile".tr(),routeName:WebAppRoutes.profile),
   ];
    int _currentTabIndex = 0;

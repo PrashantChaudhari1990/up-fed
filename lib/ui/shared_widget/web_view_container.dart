@@ -225,7 +225,7 @@ class WebViewContainerState extends State<WebViewContainer> {
     );
   }
   updateBottomNavigationBar(Uri? uri){
-    if([WebAppRoutes.dashboard,WebAppRoutes.credit,WebAppRoutes.profile,WebAppRoutes.orders].contains(uri?.path)){
+    if([WebAppRoutes.dashboard,WebAppRoutes.trips,WebAppRoutes.profile,WebAppRoutes.payments].contains(uri?.path)){
       homeBottomBarVisible.value = true;
     }else{
       homeBottomBarVisible.value = false;
@@ -246,15 +246,15 @@ class WebViewContainerState extends State<WebViewContainer> {
     titleVisibleNotifier.value = appBarConfig?.titleVisible??true;
   }
   _isTitleBar(Uri? uri){
-    return [WebAppRoutes.dashboard,WebAppRoutes.credit,WebAppRoutes.profile,WebAppRoutes.orders].contains(uri?.path.toString());
+    return [WebAppRoutes.dashboard,WebAppRoutes.trips,WebAppRoutes.payments,WebAppRoutes.dashboard].contains(uri?.path.toString());
   }
   _isUserNameVisible(Uri? uri){
-    return [WebAppRoutes.dashboard,WebAppRoutes.credit,WebAppRoutes.orders].contains(uri?.path.toString());
+    return [WebAppRoutes.dashboard,WebAppRoutes.trips,WebAppRoutes.payments].contains(uri?.path.toString());
   }
   _isCartVisible(AppBarConfig? appBarConfig,Uri? uri){
-    return (appBarConfig?.cartVisible??false) || [WebAppRoutes.dashboard,WebAppRoutes.credit,WebAppRoutes.profile,WebAppRoutes.orders].contains(uri?.path.toString());
+    return (appBarConfig?.cartVisible??false) || [WebAppRoutes.dashboard,WebAppRoutes.trips,WebAppRoutes.profile,WebAppRoutes.payments].contains(uri?.path.toString());
   }
   _isNotificationVisible(AppBarConfig? appBarConfig,Uri? uri){
-    return (appBarConfig?.notificationVisible??false) || [WebAppRoutes.dashboard,WebAppRoutes.credit,WebAppRoutes.profile,WebAppRoutes.orders].contains(uri?.path.toString());
+    return (appBarConfig?.notificationVisible??false) || [WebAppRoutes.dashboard,WebAppRoutes.trips,WebAppRoutes.profile,WebAppRoutes.payments].contains(uri?.path.toString());
   }
   }

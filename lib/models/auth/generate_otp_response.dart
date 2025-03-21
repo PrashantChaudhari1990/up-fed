@@ -1,5 +1,6 @@
 class GenerateOtpResponse {
   String? otp;
+  String? id;
   String? phoneNumber;
   bool? existingUser;
 

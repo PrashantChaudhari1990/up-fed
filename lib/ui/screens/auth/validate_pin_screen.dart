@@ -40,7 +40,7 @@ class _ValidatePinScreenState extends State<ValidatePinScreen> {
     _authService.login(loginRequest).then((response) async {
       if(response != null){
         final userResponse = User.fromJson(response.data);
-        if(userResponse.existingUser??false){
+        if(userResponse.id!=null){
           await AppSessionStorage().setString(SessionKeys.user, jsonEncode(response.data));
           if(mounted){
             Navigator.pushNamedAndRemoveUntil(context, Routes.home, (route)=>false);

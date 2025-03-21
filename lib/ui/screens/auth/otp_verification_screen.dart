@@ -30,6 +30,8 @@ class _OtpVerificationScreenState extends State<OtpVerificationScreen> {
   final _resendOtpCountDown = ValueNotifier<int>(59);
   final _authService = AuthService();
 
+  String userId='';
+
   @override
   void initState() {
     _startOtpCountdown();
@@ -59,18 +61,20 @@ class _OtpVerificationScreenState extends State<OtpVerificationScreen> {
 
   _onSubmitOtp(String phoneNumber) async {
     final deviceDetails = await DeviceInfo.getDetail();
-    final validateOtpRequest  = ValidateOtpRequest(phoneNumber: "+91$phoneNumber",otp: _otpController.text,deviceDetail: deviceDetails);
+    final validateOtpRequest  = ValidateOtpRequest(id: userId,otp: _otpController.text,deviceDetail: deviceDetails);
    _authService.validateOtp(validateOtpRequest).then((response) async {
      if(response != null){
-       final userResponse = User.fromJson(response.data);
-       if(userResponse.existingUser??false){
-         await AppSessionStorage().setString(SessionKeys.user, jsonEncode(response.data));
+       //Map<String, dynamic> parsedJson = response.data;
+       final userResponse = User.fromJson(response.data['data']);
+       if(userResponse.id!=null){
+         await AppSessionStorage().setString(SessionKeys.user, jsonEncode(response.data['data']));
          if(mounted){
           Navigator.pushNamedAndRemoveUntil(context, Routes.home, (route)=>false);
          }
        }else{
          if(mounted){
-           Navigator.pushReplacementNamed(context, Routes.signUp,arguments: phoneNumber);
+           //Dashboard
+           Navigator.pushReplacementNamed(context, Routes.home,arguments: phoneNumber);
          }
        }
      }
@@ -93,6 +97,7 @@ class _OtpVerificationScreenState extends State<OtpVerificationScreen> {
   @override
   Widget build(BuildContext context) {
     final String phoneNumber = (ModalRoute.of(context)?.settings.arguments??'') as String;
+    userId = (ModalRoute.of(context)?.settings.arguments??'') as String;
     final theme = Theme.of(context);
     return Scaffold(
       appBar: AppBar(

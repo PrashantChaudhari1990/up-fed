@@ -3,9 +3,9 @@ abstract class CommonConstants{
 
   static get xVisibilityScope{
     if(Platform.isAndroid){
-      return "kh-android-customer-app";
+      return "TMS_WEB";
     }else if(Platform.isIOS){
-      return "kh-ios-customer-app";
+      return "TMS_WEB";
     }else{
       return '';
     }

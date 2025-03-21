@@ -4,7 +4,8 @@ abstract class WebAppRoutes{
   static const signUp = '/auth/sign-up';
   static const dashboard = '/dashboard';
   static const profile = '/profile';
-  static const orders = '/orders';
-  static const credit = '/credit';
+  static const reviewData = '/review-data';
+  static const trips = '/trips-list';
+  static const payments = '/payment-list';
   static const pendingVerification = '/pending-verification';
 }

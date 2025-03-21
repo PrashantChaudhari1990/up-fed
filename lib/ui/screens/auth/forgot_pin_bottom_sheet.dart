@@ -50,7 +50,7 @@ class _ForgotPinModelState extends State<ForgotPinModel> {
     _authService.validateOtp(validateOtpRequest).then((response) async {
       if(response != null){
         final userResponse = User.fromJson(response.data);
-        if(userResponse.existingUser??false){
+        if(userResponse.id!=null){
           if(mounted){
             Navigator.pop(context);
             Navigator.push(context, MaterialPageRoute(builder: (context)=>ResetPinScreen(userResponse: userResponse,)));

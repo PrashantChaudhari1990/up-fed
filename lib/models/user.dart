@@ -1,60 +1,133 @@
 class User {
-  int? userId;
+  int? id;
   String? username;
-  String? phoneNumber;
-  String? secondaryPhoneNumber;
   String? email;
-  bool? existingUser;
   String? sessionToken;
-  String? fullName;
-  bool? validUserDetails;
-  dynamic sessionExpire;
-  dynamic refreshExpire;
+  String? phoneNumber;
+  String? firstName;
+  String? userType;
+  DeviceDetail? deviceDetail;
   List<String>? authorities;
+  int? clientId;
+  List<String>? userRoles;
+  List<String>? scopes;
+  String? refreshToken;
+  int? sessionExpire;
+  int? refreshExpire;
+  bool? validUserDetails;
 
   User(
-      {this.userId,
+      {this.id,
         this.username,
-        this.phoneNumber,
-        this.secondaryPhoneNumber,
         this.email,
-        this.existingUser,
         this.sessionToken,
-        this.fullName,
-        this.validUserDetails,
+        this.phoneNumber,
+        this.firstName,
+        this.userType,
+        this.deviceDetail,
+        this.authorities,
+        this.clientId,
+        this.userRoles,
+        this.scopes,
+        this.refreshToken,
         this.sessionExpire,
         this.refreshExpire,
-        this.authorities});
+        this.validUserDetails});
 
   User.fromJson(Map<String, dynamic> json) {
-    userId = json['userId'];
+    id = json['id'];
     username = json['username'];
-    phoneNumber = json['phoneNumber'];
-    secondaryPhoneNumber = json['secondaryPhoneNumber'];
     email = json['email'];
-    existingUser = json['existingUser'];
     sessionToken = json['sessionToken'];
-    fullName = json['fullName'];
-    validUserDetails = json['validUserDetails'];
+    phoneNumber = json['phoneNumber'];
+    firstName = json['firstName'];
+    userType = json['userType'];
+    deviceDetail = json['deviceDetail'] != null
+        ? new DeviceDetail.fromJson(json['deviceDetail'])
+        : null;
+    authorities = json['authorities']!=null?json['authorities'].cast<String>():[];
+    clientId = json['clientId'];
+    userRoles = json['userRoles']!=null? json['userRoles'].cast<String>():[];
+    scopes =  json['scopes']!=null?json['scopes'].cast<String>():[];
+    refreshToken = json['refreshToken'];
     sessionExpire = json['sessionExpire'];
     refreshExpire = json['refreshExpire'];
-    authorities = json['authorities']?.cast<String>();
+    validUserDetails = json['validUserDetails'];
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = <String, dynamic>{};
-    data['userId'] = userId;
-    data['username'] = username;
-    data['phoneNumber'] = phoneNumber;
-    data['secondaryPhoneNumber'] = secondaryPhoneNumber;
-    data['email'] = email;
-    data['existingUser'] = existingUser;
-    data['sessionToken'] = sessionToken;
-    data['fullName'] = fullName;
-    data['validUserDetails'] = validUserDetails;
-    data['sessionExpire'] = sessionExpire;
-    data['refreshExpire'] = refreshExpire;
-    data['authorities'] = authorities;
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['id'] = this.id;
+    data['username'] = this.username;
+    data['email'] = this.email;
+    data['sessionToken'] = this.sessionToken;
+    data['phoneNumber'] = this.phoneNumber;
+    data['firstName'] = this.firstName;
+    data['userType'] = this.userType;
+    if (this.deviceDetail != null) {
+      data['deviceDetail'] = this.deviceDetail!.toJson();
+    }
+    data['authorities'] = this.authorities;
+    data['clientId'] = this.clientId;
+    data['userRoles'] = this.userRoles;
+    data['scopes'] = this.scopes;
+    data['refreshToken'] = this.refreshToken;
+    data['sessionExpire'] = this.sessionExpire;
+    data['refreshExpire'] = this.refreshExpire;
+    data['validUserDetails'] = this.validUserDetails;
+    return data;
+  }
+}
+
+class DeviceDetail {
+  String? appVersion;
+  String? buildNumber;
+  String? manufacturer;
+  String? model;
+  String? name;
+  String? osVersion;
+  String? timeZone;
+  String? androidAPILevel;
+  String? uniqueId;
+  String? os;
+
+  DeviceDetail(
+      {this.appVersion,
+        this.buildNumber,
+        this.manufacturer,
+        this.model,
+        this.name,
+        this.osVersion,
+        this.timeZone,
+        this.androidAPILevel,
+        this.uniqueId,
+        this.os});
+
+  DeviceDetail.fromJson(Map<String, dynamic> json) {
+    appVersion = json['appVersion'];
+    buildNumber = json['buildNumber'];
+    manufacturer = json['manufacturer'];
+    model = json['model'];
+    name = json['name'];
+    osVersion = json['osVersion'];
+    timeZone = json['timeZone'];
+    androidAPILevel = json['androidAPILevel'];
+    uniqueId = json['uniqueId'];
+    os = json['os'];
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['appVersion'] = this.appVersion;
+    data['buildNumber'] = this.buildNumber;
+    data['manufacturer'] = this.manufacturer;
+    data['model'] = this.model;
+    data['name'] = this.name;
+    data['osVersion'] = this.osVersion;
+    data['timeZone'] = this.timeZone;
+    data['androidAPILevel'] = this.androidAPILevel;
+    data['uniqueId'] = this.uniqueId;
+    data['os'] = this.os;
     return data;
   }
 }

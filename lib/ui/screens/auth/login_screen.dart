@@ -36,12 +36,13 @@ class _LoginScreenState extends State<LoginScreen> {
   _onSubmitClick(){
     FocusScope.of(context).unfocus();
     if(_loginWith  == LoginWith.otp){
-      final generateOtpRequest = GenerateOtpRequest(phoneNumber: "+91${_phoneNumberController.text}");
+      final generateOtpRequest = GenerateOtpRequest(phoneNumber: _phoneNumberController.text);
       _authService.generateOtp(generateOtpRequest).then((response){
         if(response != null && response.data != null){
-          GenerateOtpResponse generateOtpResponse = GenerateOtpResponse.fromJson(response.data);
+          Map<String, dynamic> parsedJson = response.data;
+
           if(mounted){
-            Navigator.of(context).pushNamed(Routes.otpVerification,arguments: _phoneNumberController.text);
+            Navigator.of(context).pushNamed(Routes.otpVerification,arguments: '${ parsedJson["data"]["id"]}');
           }
         }
       });

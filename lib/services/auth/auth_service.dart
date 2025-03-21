@@ -17,7 +17,7 @@ class AuthService{
   }
 
   Future validateOtp(ValidateOtpRequest validateOtpRequest) async {
-    return _interceptorService.dio.post(ApiEndPoints.validateOtp,data: validateOtpRequest);
+    return _interceptorService.dio.put(ApiEndPoints.login,data: validateOtpRequest);
   }
   Future login(LoginRequest loginRequest) async {
     return _interceptorService.dio.post(ApiEndPoints.login,data: loginRequest);
