@@ -7,5 +7,6 @@ abstract class WebAppRoutes{
   static const reviewData = '/review-data';
   static const trips = '/trips-list';
   static const payments = '/payment-list';
+  static const contract = '/contract-list';
   static const pendingVerification = '/pending-verification';
 }

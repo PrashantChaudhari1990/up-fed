@@ -27,7 +27,7 @@ class _SliderScreenState extends State<SliderScreen> {
 
   @override
   void initState() {
-    commonService.getConfigByKey('MOBILE_APP_SLIDER_DETAILS').then((response){
+    commonService.getConfigByKey().then((response){
       if(response?.data != null){
         ConfigResponse configResponse = ConfigResponse.fromJson(response.data);
         List sliders = configResponse.value??[];

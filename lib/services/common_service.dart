@@ -6,7 +6,7 @@ class CommonService{
 
   final dio = InterceptorService().dio;
 
-  Future getConfigByKey(String key, {bool showLoader = false}) async {
-    return dio.get("${ApiEndPoints.config}/$key",options: Options(extra: {'showLoader':showLoader}));
+  Future getConfigByKey({bool showLoader = false}) async {
+    return dio.get(ApiEndPoints.config,options: Options(extra: {'showLoader':showLoader}));
   }
 }

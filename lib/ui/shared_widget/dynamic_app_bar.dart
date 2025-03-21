@@ -57,7 +57,7 @@ class DynamicAppBar extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.start,
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        SvgPicture.asset('assets/images/svg/app_header_logo1.svg'),
+        SvgPicture.asset('assets/images/svg/app_header_logo.svg'),
         ValueListenableBuilder(
           valueListenable: userNameVisibleNotifier,
           builder: (context, isVisible, _) {
@@ -181,7 +181,7 @@ class DynamicAppBar extends StatelessWidget {
 
     if (loginUser != null) {
       final User user = User.fromJson(jsonDecode(loginUser));
-      return user.username ?? "";
+      return user.firstName ?? "";
     }
     return '';
   }

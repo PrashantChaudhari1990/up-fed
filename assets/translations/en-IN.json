@@ -5,7 +5,7 @@
   "sign_up": "Sign Up",
   "get_started": "Get Started",
   "submit": "Submit",
-  "welcome": "Welcome,",
+  "WebAppRoutes.contract": "Welcome,",
   "enter_otp": "Enter OTP",
   "send_otp": "Send OTP",
   "login": {
@@ -44,7 +44,8 @@
     "home": "Home",
     "trips": "Trips",
     "payments": "Payments",
-    "profile": "Profile"
+    "profile": "Profile",
+    "contract": "Contracts"
   },
   "forgot_pin": {
     "forgot":"Forgot",
