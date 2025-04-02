@@ -42,10 +42,12 @@
   },
   "home_screen": {
     "home": "Home",
+    "vehicle": "Assets",
     "trips": "Trips",
     "payments": "Payments",
     "profile": "Profile",
-    "contract": "Contracts"
+    "contract": "Contracts",
+    "invoiceUpload": "Invoice"
   },
   "forgot_pin": {
     "forgot":"Forgot",

@@ -21,11 +21,13 @@ class _HomeScreenState extends State<HomeScreen> {
 
   final List<NavigationBarItem> _bottomNavigationTabs = [
     NavigationBarItem(iconUrl: 'assets/icons/home.svg', label: "home_screen.home".tr(),routeName:WebAppRoutes.dashboard),
-    NavigationBarItem(iconUrl: 'assets/icons/credits.svg', label: "home_screen.trips".tr(),routeName:WebAppRoutes.trips),
-    NavigationBarItem(iconUrl: 'assets/icons/orders.svg', label: "home_screen.payments".tr(),routeName:WebAppRoutes.payments),
-    NavigationBarItem(iconUrl: 'assets/icons/profile.svg', label: "home_screen.contract".tr(),routeName:WebAppRoutes.contract),
+    NavigationBarItem(iconUrl: 'assets/icons/assets.svg', label: "home_screen.vehicle".tr(),routeName:WebAppRoutes.vehicleModelsList),
+    NavigationBarItem(iconUrl: 'assets/icons/trips.svg', label: "home_screen.trips".tr(),routeName:WebAppRoutes.trips),
+    NavigationBarItem(iconUrl: 'assets/icons/invoice.svg', label: "home_screen.invoiceUpload".tr(),routeName:WebAppRoutes.invoiceUpload),
+    //NavigationBarItem(iconUrl: 'assets/icons/orders.svg', label: "home_screen.payments".tr(),routeName:WebAppRoutes.payments),
+    //NavigationBarItem(iconUrl: 'assets/icons/profile.svg', label: "home_screen.contract".tr(),routeName:WebAppRoutes.contract),
   ];
-   int _currentTabIndex = 0;
+  int _currentTabIndex = 0;
 
   @override
   Widget build(BuildContext context) {

@@ -6,6 +6,7 @@ import 'package:kh_dealer_app/themes/styles/theme_colors.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:kh_dealer_app/utils/app_loader.dart';
 import '../../../routes.dart';
 import '../../../themes/styles/typography.dart';
 import 'forgot_pin_bottom_sheet.dart';
@@ -27,6 +28,15 @@ class _LoginScreenState extends State<LoginScreen> {
   final _authService= AuthService();
 
   @override
+  void initState() {
+    Future.delayed(Duration.zero,(){
+      AppLoader().hide();
+      AppLoader().hide();
+      AppLoader().hide();
+    });
+  }
+
+  @override
   void dispose() {
     _phoneNumberController.dispose();
     super.dispose();
@@ -42,7 +52,15 @@ class _LoginScreenState extends State<LoginScreen> {
           Map<String, dynamic> parsedJson = response.data;
 
           if(mounted){
-            Navigator.of(context).pushNamed(Routes.otpVerification,arguments: '${ parsedJson["data"]["id"]}');
+            //Navigator.of(context).pushNamed(Routes.otpVerification,arguments: '${ parsedJson["data"]["id"]}');
+            Navigator.of(context).pushNamed(
+              Routes.otpVerification,
+              arguments: {
+                'id': parsedJson["data"]["id"],
+                'phoneNo': _phoneNumberController.text,
+              },
+            );
+
           }
         }
       });
