@@ -30,7 +30,7 @@ class _OtpVerificationScreenState extends State<OtpVerificationScreen> {
   final _resendOtpCountDown = ValueNotifier<int>(59);
   final _authService = AuthService();
 
-  String userId='';
+  String userId='',phoneNumber='';
 
   @override
   void initState() {
@@ -63,6 +63,7 @@ class _OtpVerificationScreenState extends State<OtpVerificationScreen> {
     final deviceDetails = await DeviceInfo.getDetail();
     final validateOtpRequest  = ValidateOtpRequest(id: userId,otp: _otpController.text,deviceDetail: deviceDetails);
    _authService.validateOtp(validateOtpRequest).then((response) async {
+     print(response);
      if(response != null){
        //Map<String, dynamic> parsedJson = response.data;
        final userResponse = User.fromJson(response.data['data']);
@@ -74,7 +75,7 @@ class _OtpVerificationScreenState extends State<OtpVerificationScreen> {
        }else{
          if(mounted){
            //Dashboard
-           Navigator.pushReplacementNamed(context, Routes.home,arguments: phoneNumber);
+           Navigator.pushReplacementNamed(context, Routes.home,arguments: userId);
          }
        }
      }
@@ -96,8 +97,11 @@ class _OtpVerificationScreenState extends State<OtpVerificationScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final String phoneNumber = (ModalRoute.of(context)?.settings.arguments??'') as String;
-    userId = (ModalRoute.of(context)?.settings.arguments??'') as String;
+    final Map<String, dynamic>? args = ModalRoute.of(context)?.settings.arguments as Map<String, dynamic>?;
+    if (args != null) {
+      phoneNumber = '${args['phoneNo']}';
+      userId = '${args['id']}';
+    }
     final theme = Theme.of(context);
     return Scaffold(
       appBar: AppBar(

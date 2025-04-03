@@ -153,7 +153,7 @@ class DynamicAppBar extends StatelessWidget {
           },
         ),
         ValueListenableBuilder(
-          valueListenable: cartVisibleNotifier,
+          valueListenable: settingIconVisibleNotifier,
           builder: (context, isVisible, _) {
             if (!isVisible) return _emptyBox;
 

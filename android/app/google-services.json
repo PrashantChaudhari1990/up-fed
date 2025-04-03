@@ -1,13 +1,13 @@
 {
   "project_info": {
-    "project_number": "1004060861177",
-    "project_id": "karma-health-b17ce",
-    "storage_bucket": "karma-health-b17ce.firebasestorage.app"
+    "project_number": "714757735176",
+    "project_id": "oorjaa-vendor",
+    "storage_bucket": "oorjaa-vendor.firebasestorage.app"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:1004060861177:android:12cc15e00083e4ae57b828",
+        "mobilesdk_app_id": "1:714757735176:android:7884c87bc151b9c94662bd",
         "android_client_info": {
           "package_name": "tech.oorjaa.vendor"
         }
@@ -15,7 +15,7 @@
       "oauth_client": [],
       "api_key": [
         {
-          "current_key": "AIzaSyBFMashxrrJoWH7nzzV_kDaM0SiPwN8ut8"
+          "current_key": "AIzaSyBVx3SeWAk0EUm7W3wuJvxdUXaGVFKukr0"
         }
       ],
       "services": {

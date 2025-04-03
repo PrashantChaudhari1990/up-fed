@@ -29,11 +29,23 @@ class _SliderScreenState extends State<SliderScreen> {
   void initState() {
     commonService.getConfigByKey().then((response){
       if(response?.data != null){
-        ConfigResponse configResponse = ConfigResponse.fromJson(response.data);
-        List sliders = configResponse.value??[];
-        for (var detail in sliders) {
-        _carouselDataList.add(SliderDetails.fromJson(detail));
-      }
+
+        // ✅ Dio automatically converts JSON response into a Map<String, dynamic>
+        Map<String, dynamic> parsedJson = response.data;
+
+        // Extract "vpaSliderImages" list
+        List<dynamic> sliderImages = parsedJson['data']['vpaSliderImages'];//vpaCategoryData
+
+        // Clear previous data and add new data
+        _carouselDataList.clear();
+        _carouselDataList.addAll(
+          sliderImages.map((json) => SliderDetails.fromJson(json)).toList(),
+        );
+
+        // ✅ Print parsed values for verification
+        for (var item in _carouselDataList) {
+          print("Image URL: ${item.imageUrl}, Description: ${item.description}");
+        }
       setState(() {});
       }
     });
