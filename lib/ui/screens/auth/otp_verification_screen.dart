@@ -1,20 +1,20 @@
 import 'dart:async';
 import 'dart:convert';
-import 'package:kh_dealer_app/constant/session_keys.dart';
-import 'package:kh_dealer_app/models/auth/generate_otp_request.dart';
-import 'package:kh_dealer_app/models/auth/validate_otp_request.dart';
-import 'package:kh_dealer_app/models/user.dart';
-import 'package:kh_dealer_app/routes.dart';
-import 'package:kh_dealer_app/services/auth/auth_service.dart';
-import 'package:kh_dealer_app/themes/styles/theme_colors.dart';
-import 'package:kh_dealer_app/ui/shared_widget/pin_input_field.dart';
-import 'package:kh_dealer_app/utils/app_session_storage.dart';
+import 'package:vendor_partner/constant/session_keys.dart';
+import 'package:vendor_partner/models/auth/generate_otp_request.dart';
+import 'package:vendor_partner/models/auth/validate_otp_request.dart';
+import 'package:vendor_partner/models/user.dart';
+import 'package:vendor_partner/routes.dart';
+import 'package:vendor_partner/services/auth/auth_service.dart';
+import 'package:vendor_partner/themes/styles/theme_colors.dart';
+import 'package:vendor_partner/ui/shared_widget/pin_input_field.dart';
+import 'package:vendor_partner/utils/app_session_storage.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:kh_dealer_app/utils/device_info.dart';
-import 'package:kh_dealer_app/utils/toast_message.dart';
+import 'package:vendor_partner/utils/device_info.dart';
+import 'package:vendor_partner/utils/toast_message.dart';
 import '../../../themes/styles/typography.dart';
 
 class OtpVerificationScreen extends StatefulWidget {

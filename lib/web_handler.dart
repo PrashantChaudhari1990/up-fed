@@ -1,13 +1,13 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
-import 'package:kh_dealer_app/models/user.dart';
-import 'package:kh_dealer_app/routes.dart';
-import 'package:kh_dealer_app/utils/app_loader.dart';
-import 'package:kh_dealer_app/utils/app_session.dart';
-import 'package:kh_dealer_app/utils/app_session_storage.dart';
-import 'package:kh_dealer_app/utils/global_notifier.dart';
-import 'package:kh_dealer_app/utils/toast_message.dart';
-import 'package:kh_dealer_app/utils/webview_controller_utils.dart';
+import 'package:vendor_partner/models/user.dart';
+import 'package:vendor_partner/routes.dart';
+import 'package:vendor_partner/utils/app_loader.dart';
+import 'package:vendor_partner/utils/app_session.dart';
+import 'package:vendor_partner/utils/app_session_storage.dart';
+import 'package:vendor_partner/utils/global_notifier.dart';
+import 'package:vendor_partner/utils/toast_message.dart';
+import 'package:vendor_partner/utils/webview_controller_utils.dart';
 import 'constant/session_keys.dart';
 import 'utils/device_info.dart';
 

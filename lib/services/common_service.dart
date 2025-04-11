@@ -1,5 +1,5 @@
-import 'package:kh_dealer_app/constant/api_end_points.dart';
-import 'package:kh_dealer_app/services/interceptor_service.dart';
+import 'package:vendor_partner/constant/api_end_points.dart';
+import 'package:vendor_partner/services/interceptor_service.dart';
 import 'package:dio/dio.dart';
 
 class CommonService{

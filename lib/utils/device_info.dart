@@ -1,4 +1,4 @@
-import 'package:kh_dealer_app/models/auth/login_request.dart';
+import 'package:vendor_partner/models/auth/login_request.dart';
 import 'package:device_info_plus/device_info_plus.dart';
 import 'package:flutter/foundation.dart';
 import 'package:package_info_plus/package_info_plus.dart';

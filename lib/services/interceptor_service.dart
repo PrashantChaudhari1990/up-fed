@@ -1,11 +1,11 @@
 import 'dart:convert';
 import 'dart:io';
-import 'package:kh_dealer_app/config/server_config.dart';
-import 'package:kh_dealer_app/constant/common_constants.dart';
-import 'package:kh_dealer_app/models/user.dart';
-import 'package:kh_dealer_app/utils/app_loader.dart';
-import 'package:kh_dealer_app/utils/app_session.dart';
-import 'package:kh_dealer_app/utils/toast_message.dart';
+import 'package:vendor_partner/config/server_config.dart';
+import 'package:vendor_partner/constant/common_constants.dart';
+import 'package:vendor_partner/models/user.dart';
+import 'package:vendor_partner/utils/app_loader.dart';
+import 'package:vendor_partner/utils/app_session.dart';
+import 'package:vendor_partner/utils/toast_message.dart';
 import 'package:dio/dio.dart';
 
 class InterceptorService{
@@ -43,6 +43,7 @@ class InterceptorService{
         responseInterceptorHandler.next(response);
       },
       onError: (dioException,errorInterceptorHandler){
+        print(dioException);
         if(dioException.requestOptions.extra['showLoader']??true){
           AppLoader().hide();
         }

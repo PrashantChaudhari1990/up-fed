@@ -1,5 +1,5 @@
-import 'package:kh_dealer_app/constant/session_keys.dart';
-import 'package:kh_dealer_app/utils/app_session_storage.dart';
+import 'package:vendor_partner/constant/session_keys.dart';
+import 'package:vendor_partner/utils/app_session_storage.dart';
 
 class AppSession {
   static final AppSession _instance = AppSession._internal();

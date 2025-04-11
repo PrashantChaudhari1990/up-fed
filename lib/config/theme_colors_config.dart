@@ -1,7 +1,7 @@
 import 'dart:convert';
-import 'package:kh_dealer_app/constant/session_keys.dart';
-import 'package:kh_dealer_app/themes/styles/theme_colors.dart';
-import 'package:kh_dealer_app/utils/app_session_storage.dart';
+import 'package:vendor_partner/constant/session_keys.dart';
+import 'package:vendor_partner/themes/styles/theme_colors.dart';
+import 'package:vendor_partner/utils/app_session_storage.dart';
 import 'package:flutter/services.dart';
 import 'package:restart_app/restart_app.dart';
 

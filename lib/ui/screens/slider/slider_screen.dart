@@ -1,8 +1,8 @@
-import 'package:kh_dealer_app/models/config_response.dart';
-import 'package:kh_dealer_app/routes.dart';
-import 'package:kh_dealer_app/services/common_service.dart';
-import 'package:kh_dealer_app/themes/styles/theme_colors.dart';
-import 'package:kh_dealer_app/ui/screens/slider/slider_item.dart';
+import 'package:vendor_partner/models/config_response.dart';
+import 'package:vendor_partner/routes.dart';
+import 'package:vendor_partner/services/common_service.dart';
+import 'package:vendor_partner/themes/styles/theme_colors.dart';
+import 'package:vendor_partner/ui/screens/slider/slider_item.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';

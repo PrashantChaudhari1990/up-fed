@@ -1,7 +1,7 @@
 
-## Karma Health Dealer Mobile Application📱
+## Vendor Partner Mobile Application📱
 
-This project for dealer mobile application for Karma Health.
+This project for dealer mobile application for Vendor Partner.
 
 
 ### Supported Versions
@@ -19,7 +19,7 @@ Follow these steps to install and set up the project:
 #### 1. Clone the Repository
 
 ```bash
-  git clone git@github.com:Yatnavat/karmahealth-dealer-app.git
+  git@github.com:Yatnavat/partner-app-container.git
 ```
 #### 2. Go to Project Repository
 
