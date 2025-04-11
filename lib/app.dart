@@ -1,9 +1,9 @@
-import 'package:kh_dealer_app/constant/web_app_routes.dart';
-import 'package:kh_dealer_app/routes.dart';
-import 'package:kh_dealer_app/themes/dart_theme.dart';
-import 'package:kh_dealer_app/themes/light_theme.dart';
-import 'package:kh_dealer_app/ui/screens/auth/sign_up_screen.dart';
-import 'package:kh_dealer_app/ui/screens/slider/slider_screen.dart';
+import 'package:vendor_partner/constant/web_app_routes.dart';
+import 'package:vendor_partner/routes.dart';
+import 'package:vendor_partner/themes/dart_theme.dart';
+import 'package:vendor_partner/themes/light_theme.dart';
+import 'package:vendor_partner/ui/screens/auth/sign_up_screen.dart';
+import 'package:vendor_partner/ui/screens/slider/slider_screen.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'ui/screens/auth/login_screen.dart';

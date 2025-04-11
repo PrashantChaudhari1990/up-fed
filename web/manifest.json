@@ -1,6 +1,6 @@
 {
-    "name": "kh_dealer_app",
-    "short_name": "kh_dealer_app",
+    "name": "vendor_partner",
+    "short_name": "vendor_partner",
     "start_url": ".",
     "display": "standalone",
     "background_color": "#0175C2",

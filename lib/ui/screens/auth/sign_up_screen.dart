@@ -1,5 +1,5 @@
-import 'package:kh_dealer_app/constant/web_app_routes.dart';
-import 'package:kh_dealer_app/ui/shared_widget/web_view_container.dart';
+import 'package:vendor_partner/constant/web_app_routes.dart';
+import 'package:vendor_partner/ui/shared_widget/web_view_container.dart';
 import 'package:flutter/material.dart';
 class SignUpScreen extends StatefulWidget {
   const SignUpScreen({super.key});

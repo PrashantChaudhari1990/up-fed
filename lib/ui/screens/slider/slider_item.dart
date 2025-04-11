@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:kh_dealer_app/config/server_config.dart';
+import 'package:vendor_partner/config/server_config.dart';
 import '../../../models/slider_details.dart';
 class SliderItem extends StatelessWidget {
   final SliderDetails carouselSliderData;
