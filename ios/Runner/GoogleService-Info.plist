@@ -9,7 +9,7 @@
 	<key>PLIST_VERSION</key>
 	<string>1</string>
 	<key>BUNDLE_ID</key>
-	<string>tech.oorjaa.karmahealth.dealerapp</string>
+	<string>tech.oorjaa.vendor</string>
 	<key>PROJECT_ID</key>
 	<string>karma-health-b17ce</string>
 	<key>STORAGE_BUCKET</key>
