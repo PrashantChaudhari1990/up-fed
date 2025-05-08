@@ -1,4 +1,4 @@
-package tech.oorjaa.karmahealth.dealerapp;
+package tech.oorjaa.vendor;
 
 import io.flutter.embedding.android.FlutterActivity;
 
