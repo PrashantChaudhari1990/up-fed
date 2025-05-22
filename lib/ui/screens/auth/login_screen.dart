@@ -12,11 +12,10 @@ import '../../../themes/styles/typography.dart';
 import 'forgot_pin_bottom_sheet.dart';
 
 class LoginScreen extends StatefulWidget {
-
   final bool isRegistration;
-  const LoginScreen({super.key}):isRegistration=false;
+  const LoginScreen({super.key}) : isRegistration = false;
 
-  const LoginScreen.register({super.key}):isRegistration=true;
+  const LoginScreen.register({super.key}) : isRegistration = true;
 
   @override
   State<LoginScreen> createState() => _LoginScreenState();
@@ -25,11 +24,11 @@ class LoginScreen extends StatefulWidget {
 class _LoginScreenState extends State<LoginScreen> {
   final TextEditingController _phoneNumberController = TextEditingController();
   LoginWith _loginWith = LoginWith.otp;
-  final _authService= AuthService();
+  final _authService = AuthService();
 
   @override
   void initState() {
-    Future.delayed(Duration.zero,(){
+    Future.delayed(Duration.zero, () {
       AppLoader().hide();
       AppLoader().hide();
       AppLoader().hide();
@@ -42,16 +41,16 @@ class _LoginScreenState extends State<LoginScreen> {
     super.dispose();
   }
 
-
-  _onSubmitClick(){
+  _onSubmitClick() {
     FocusScope.of(context).unfocus();
-    if(_loginWith  == LoginWith.otp){
-      final generateOtpRequest = GenerateOtpRequest(phoneNumber: _phoneNumberController.text);
-      _authService.generateOtp(generateOtpRequest).then((response){
-        if(response != null && response.data != null){
+    if (_loginWith == LoginWith.otp) {
+      final generateOtpRequest =
+          GenerateOtpRequest(phoneNumber: _phoneNumberController.text);
+      _authService.generateOtp(generateOtpRequest).then((response) {
+        if (response != null && response.data != null) {
           Map<String, dynamic> parsedJson = response.data;
 
-          if(mounted){
+          if (mounted) {
             //Navigator.of(context).pushNamed(Routes.otpVerification,arguments: '${ parsedJson["data"]["id"]}');
             Navigator.of(context).pushNamed(
               Routes.otpVerification,
@@ -60,22 +59,23 @@ class _LoginScreenState extends State<LoginScreen> {
                 'phoneNo': _phoneNumberController.text,
               },
             );
-
           }
         }
       });
-    }else{
-      Navigator.of(context).pushNamed(Routes.validatePin,arguments: _phoneNumberController.text);
+    } else {
+      Navigator.of(context).pushNamed(Routes.validatePin,
+          arguments: _phoneNumberController.text);
     }
   }
 
-  _onForgotPin(BuildContext context){
+  _onForgotPin(BuildContext context) {
     showModalBottomSheet(
-      isScrollControlled: true,
+        isScrollControlled: true,
         isDismissible: false,
-        context: context, builder: (context){
-      return const ForgotPinModel();
-    });
+        context: context,
+        builder: (context) {
+          return const ForgotPinModel();
+        });
   }
 
   @override
@@ -85,16 +85,15 @@ class _LoginScreenState extends State<LoginScreen> {
       appBar: AppBar(
         toolbarHeight: 30,
         systemOverlayStyle: SystemUiOverlayStyle(
-          statusBarColor: theme.scaffoldBackgroundColor,
+            statusBarColor: theme.scaffoldBackgroundColor,
             statusBarIconBrightness: Brightness.dark,
-            systemNavigationBarColor: theme.scaffoldBackgroundColor
-        ),
+            systemNavigationBarColor: theme.scaffoldBackgroundColor),
       ),
       body: GestureDetector(
-        onTap: ()=>FocusScope.of(context).unfocus(),
+        onTap: () => FocusScope.of(context).unfocus(),
         child: Container(
           color: theme.scaffoldBackgroundColor,
-          padding: const EdgeInsets.symmetric(horizontal: 20,vertical: 10),
+          padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -102,28 +101,57 @@ class _LoginScreenState extends State<LoginScreen> {
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text.rich(TextSpan(text: 'login.header'.tr(), children: [TextSpan(text:' ${'login.header1'.tr()}',style: const TextStyle().copyWith(color: ThemeColors.primaryColor))] ),style: theme.textTheme.headlineSmall?.copyWith(fontWeight: FontWeight.bold)),
-                  const SizedBox(height: 10,),
-                  Text(_loginWith == LoginWith.otp ? 'login.description.otp' : 'login.description.pin',
-                    style: theme.textTheme.titleSmall?.copyWith(color: ThemeColors.gray4),).tr(),
-                  const SizedBox(height: 40,),
+                  Text.rich(
+                      TextSpan(text: 'login.header'.tr(), children: [
+                        TextSpan(
+                            text: ' ${'login.header1'.tr()}',
+                            style: const TextStyle()
+                                .copyWith(color: ThemeColors.primaryColor))
+                      ]),
+                      style: theme.textTheme.headlineSmall
+                          ?.copyWith(fontWeight: FontWeight.bold)),
+                  const SizedBox(
+                    height: 10,
+                  ),
+                  Text(
+                    _loginWith == LoginWith.otp
+                        ? 'login.description.otp'
+                        : 'login.description.pin',
+                    style: theme.textTheme.titleSmall
+                        ?.copyWith(color: ThemeColors.gray4),
+                  ).tr(),
+                  const SizedBox(
+                    height: 40,
+                  ),
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text('login.phone_number',style: theme.textTheme.bodySmall?.copyWith(color: ThemeColors.gray4),).tr(),
-                      const SizedBox(height: 4,),
+                      Text(
+                        'login.phone_number',
+                        style: theme.textTheme.bodySmall
+                            ?.copyWith(color: ThemeColors.gray4),
+                      ).tr(),
+                      const SizedBox(
+                        height: 4,
+                      ),
                       Row(
                         children: [
                           Container(
                             height: 44,
                             decoration: BoxDecoration(
-                              color: ThemeColors.gray1,
-                              borderRadius: BorderRadius.circular(4)
+                                color: ThemeColors.gray1,
+                                borderRadius: BorderRadius.circular(4)),
+                            padding: const EdgeInsets.symmetric(
+                                horizontal: 16, vertical: 12),
+                            child: Text(
+                              '+91',
+                              style: inputTextStyle.copyWith(
+                                  color: theme.colorScheme.onTertiaryContainer),
                             ),
-                            padding: const EdgeInsets.symmetric(horizontal: 16,vertical: 12),
-                            child: Text('+91',style: inputTextStyle.copyWith(color: theme.colorScheme.onTertiaryContainer),),
                           ),
-                          const SizedBox(width: 8,),
+                          const SizedBox(
+                            width: 8,
+                          ),
                           Flexible(
                             child: TextField(
                               autofocus: false,
@@ -132,91 +160,109 @@ class _LoginScreenState extends State<LoginScreen> {
                               maxLength: 10,
                               inputFormatters: <TextInputFormatter>[
                                 FilteringTextInputFormatter.digitsOnly,
-                                FilteringTextInputFormatter.deny(RegExp(r'^[0]'))
+                                FilteringTextInputFormatter.deny(
+                                    RegExp(r'^[0]'))
                               ],
-                              style: inputTextStyle.copyWith(color: theme.colorScheme.onTertiaryContainer),
+                              style: inputTextStyle.copyWith(
+                                  color: theme.colorScheme.onTertiaryContainer),
                               decoration: InputDecoration(
                                   counterText: '',
                                   hintText: "login.phone_number_hint".tr(),
-                                  hintStyle: inputHintStyle.copyWith(color: theme.hintColor),
-                                  border: OutlineInputBorder(borderSide: BorderSide.none, borderRadius: BorderRadius.circular(4)),
-                                  fillColor: theme.colorScheme.tertiaryContainer,
+                                  hintStyle: inputHintStyle.copyWith(
+                                      color: theme.hintColor),
+                                  border: OutlineInputBorder(
+                                      borderSide: BorderSide.none,
+                                      borderRadius: BorderRadius.circular(4)),
+                                  fillColor:
+                                      theme.colorScheme.tertiaryContainer,
                                   filled: true,
-                                  contentPadding: const EdgeInsets.symmetric(horizontal: 10),
-                                  constraints: const BoxConstraints(maxHeight: 44)),
+                                  contentPadding: const EdgeInsets.symmetric(
+                                      horizontal: 10),
+                                  constraints:
+                                      const BoxConstraints(maxHeight: 44)),
                             ),
                           ),
                         ],
                       )
                     ],
                   ),
-                  const SizedBox(height: 25,),
-                  if(!widget.isRegistration)
-                  Card(
-                    elevation: 0,
-                    color: ThemeColors.gray1,
-                    margin: EdgeInsets.zero,
-                    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(4)),
-                    child: Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 10),
-                      child: Row(
-                        children: [
-                          Flexible(
-                              child: Text(
-                            "login.login_with",
-                            style: theme.textTheme.titleMedium?.copyWith(color: ThemeColors.primaryColor),
-                          ).tr()),
-                          Flexible(
-                              flex: 2,
-                              child: Row(
-                                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                                children: [
-                                  RadioMenuButton(
-                                    style: const ButtonStyle(splashFactory: NoSplash.splashFactory),
-                                    value: LoginWith.otp,
-                                    groupValue: _loginWith,
-                                    onChanged: (value) {
-                                      setState(() {
-                                        _loginWith = LoginWith.otp;
-                                      });
-                                    },
-                                    child: const Text("login.otp").tr(),
-                                  ),
-                                  RadioMenuButton(
-                                    value: LoginWith.pin,
-                                    groupValue: _loginWith,
-                                    onChanged: (value) {
-                                      setState(() {
-                                        _loginWith = LoginWith.pin;
-                                      });
-                                    },
-                                    style: const ButtonStyle(splashFactory: NoSplash.splashFactory),
-                                    child: const Text("login.pin").tr(),
-                                  ),
-                                ],
-                              ))
-                        ],
+                  const SizedBox(
+                    height: 25,
+                  ),
+                  if (!widget.isRegistration)
+                    Card(
+                      elevation: 0,
+                      color: ThemeColors.gray1,
+                      margin: EdgeInsets.zero,
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(4)),
+                      child: Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 10),
+                        child: Row(
+                          children: [
+                            Flexible(
+                                child: Text(
+                              "login.login_with",
+                              style: theme.textTheme.titleMedium
+                                  ?.copyWith(color: ThemeColors.primaryColor),
+                            ).tr()),
+                            Flexible(
+                                flex: 2,
+                                child: Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceEvenly,
+                                  children: [
+                                    RadioMenuButton(
+                                      style: const ButtonStyle(
+                                          splashFactory:
+                                              NoSplash.splashFactory),
+                                      value: LoginWith.otp,
+                                      groupValue: _loginWith,
+                                      onChanged: (value) {
+                                        setState(() {
+                                          _loginWith = LoginWith.otp;
+                                        });
+                                      },
+                                      child: const Text("login.otp").tr(),
+                                    ),
+                                    RadioMenuButton(
+                                      value: LoginWith.pin,
+                                      groupValue: _loginWith,
+                                      onChanged: (value) {
+                                        setState(() {
+                                          _loginWith = LoginWith.pin;
+                                        });
+                                      },
+                                      style: const ButtonStyle(
+                                          splashFactory:
+                                              NoSplash.splashFactory),
+                                      child: const Text("login.pin").tr(),
+                                    ),
+                                  ],
+                                ))
+                          ],
+                        ),
                       ),
                     ),
-                  ),
-                  if(!widget.isRegistration)
-                  Align(
-                    alignment: Alignment.bottomRight,
-                    child: TextButton(onPressed:()=>_onForgotPin(context),
-                        style: TextButton.styleFrom(
-                            textStyle: linkTextStyleSmall),
-                        child: const Text('validate_pin.forgot_pin').tr()),
-                  ),
+                  if (!widget.isRegistration)
+                    Align(
+                      alignment: Alignment.bottomRight,
+                      child: TextButton(
+                          onPressed: () => _onForgotPin(context),
+                          style: TextButton.styleFrom(
+                              textStyle: linkTextStyleSmall),
+                          child: const Text('validate_pin.forgot_pin').tr()),
+                    ),
                 ],
               ),
               ValueListenableBuilder(
-                valueListenable: _phoneNumberController,
-                builder: (context,value,_) {
-                  return ElevatedButton(
-                      onPressed: value.text.length==10 ? _onSubmitClick:null,
-                      child: const Text('submit').tr());
-                }
-              )
+                  valueListenable: _phoneNumberController,
+                  builder: (context, value, _) {
+                    return ElevatedButton(
+                        onPressed:
+                            value.text.length == 10 ? _onSubmitClick : null,
+                        child: const Text('submit').tr());
+                  })
             ],
           ),
         ),

@@ -30,7 +30,7 @@ class _OtpVerificationScreenState extends State<OtpVerificationScreen> {
   final _resendOtpCountDown = ValueNotifier<int>(59);
   final _authService = AuthService();
 
-  String userId='',phoneNumber='';
+  String userId = '', phoneNumber = '';
 
   @override
   void initState() {
@@ -47,13 +47,13 @@ class _OtpVerificationScreenState extends State<OtpVerificationScreen> {
   }
 
   void _startOtpCountdown() {
-    if(_timer?.isActive??false){
+    if (_timer?.isActive ?? false) {
       return;
     }
     _timer = Timer.periodic(const Duration(seconds: 1), (timer) {
-      if(_resendOtpCountDown.value > 0){
+      if (_resendOtpCountDown.value > 0) {
         _resendOtpCountDown.value--;
-      }else{
+      } else {
         _timer?.cancel();
       }
     });
@@ -61,43 +61,50 @@ class _OtpVerificationScreenState extends State<OtpVerificationScreen> {
 
   _onSubmitOtp(String phoneNumber) async {
     final deviceDetails = await DeviceInfo.getDetail();
-    final validateOtpRequest  = ValidateOtpRequest(id: userId,otp: _otpController.text,deviceDetail: deviceDetails);
-   _authService.validateOtp(validateOtpRequest).then((response) async {
-     print(response);
-     if(response != null){
-       //Map<String, dynamic> parsedJson = response.data;
-       final userResponse = User.fromJson(response.data['data']);
-       if(userResponse.id!=null){
-         await AppSessionStorage().setString(SessionKeys.user, jsonEncode(response.data['data']));
-         if(mounted){
-          Navigator.pushNamedAndRemoveUntil(context, Routes.home, (route)=>false);
-         }
-       }else{
-         if(mounted){
-           //Dashboard
-           Navigator.pushReplacementNamed(context, Routes.home,arguments: userId);
-         }
-       }
-     }
-   });
+    final validateOtpRequest = ValidateOtpRequest(
+        id: userId, otp: _otpController.text, deviceDetail: deviceDetails);
+    _authService.validateOtp(validateOtpRequest).then((response) async {
+      if (response != null) {
+        //Map<String, dynamic> parsedJson = response.data;
+        final userResponse = User.fromJson(response.data['data']);
+        if (userResponse.id != null) {
+          await AppSessionStorage()
+              .setString(SessionKeys.user, jsonEncode(response.data['data']));
+          if (mounted) {
+            Navigator.pushNamedAndRemoveUntil(
+                context, Routes.home, (route) => false);
+          }
+        } else {
+          if (mounted) {
+            //Dashboard
+            Navigator.pushReplacementNamed(context, Routes.home,
+                arguments: userId);
+          }
+        }
+      }
+    });
   }
-  _onEditPhoneNumber(){
+
+  _onEditPhoneNumber() {
     Navigator.pop(context);
   }
-  _onResendOtp(String phoneNumber){
-    _resendOtpCountDown.value=59;
+
+  _onResendOtp(String phoneNumber) {
+    _resendOtpCountDown.value = 59;
     _startOtpCountdown();
-    _authService.generateOtp(GenerateOtpRequest(phoneNumber: "91$phoneNumber")).then((response){
-      if(response != null && response.data != null){
+    _authService
+        .generateOtp(GenerateOtpRequest(phoneNumber: "91$phoneNumber"))
+        .then((response) {
+      if (response != null && response.data != null) {
         ToastMessage.show(tr('otp_verification.resend_message'));
       }
     });
   }
 
-
   @override
   Widget build(BuildContext context) {
-    final Map<String, dynamic>? args = ModalRoute.of(context)?.settings.arguments as Map<String, dynamic>?;
+    final Map<String, dynamic>? args =
+        ModalRoute.of(context)?.settings.arguments as Map<String, dynamic>?;
     if (args != null) {
       phoneNumber = '${args['phoneNo']}';
       userId = '${args['id']}';
@@ -106,16 +113,18 @@ class _OtpVerificationScreenState extends State<OtpVerificationScreen> {
     return Scaffold(
       appBar: AppBar(
         leading: GestureDetector(
-          onTap: ()=>Navigator.pop(context),
-            child: SvgPicture.asset("assets/icons/back_arrow.svg",fit: BoxFit.scaleDown,)),
+            onTap: () => Navigator.pop(context),
+            child: SvgPicture.asset(
+              "assets/icons/back_arrow.svg",
+              fit: BoxFit.scaleDown,
+            )),
         systemOverlayStyle: SystemUiOverlayStyle(
             statusBarColor: theme.scaffoldBackgroundColor,
             statusBarIconBrightness: Brightness.dark,
-            systemNavigationBarColor: theme.scaffoldBackgroundColor
-        ),
+            systemNavigationBarColor: theme.scaffoldBackgroundColor),
       ),
       body: Container(
-        padding: const EdgeInsets.only(left: 20,right: 20,bottom: 10),
+        padding: const EdgeInsets.only(left: 20, right: 20, bottom: 10),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -123,9 +132,23 @@ class _OtpVerificationScreenState extends State<OtpVerificationScreen> {
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text.rich(TextSpan(text: 'otp_verification.enter'.tr(), children: [TextSpan(text:' ${'otp_verification.otp'.tr()}',style: const TextStyle().copyWith(color: ThemeColors.primaryColor))] ),style: theme.textTheme.headlineSmall?.copyWith(fontWeight: FontWeight.bold)),
-                const SizedBox(height: 10,),
-                Text('otp_verification.description',style: theme.textTheme.titleSmall?.copyWith(color: ThemeColors.gray4),).tr(),
+                Text.rich(
+                    TextSpan(text: 'otp_verification.enter'.tr(), children: [
+                      TextSpan(
+                          text: ' ${'otp_verification.otp'.tr()}',
+                          style: const TextStyle()
+                              .copyWith(color: ThemeColors.primaryColor))
+                    ]),
+                    style: theme.textTheme.headlineSmall
+                        ?.copyWith(fontWeight: FontWeight.bold)),
+                const SizedBox(
+                  height: 10,
+                ),
+                Text(
+                  'otp_verification.description',
+                  style: theme.textTheme.titleSmall
+                      ?.copyWith(color: ThemeColors.gray4),
+                ).tr(),
                 InkWell(
                   borderRadius: BorderRadius.circular(4),
                   onTap: _onEditPhoneNumber,
@@ -133,53 +156,77 @@ class _OtpVerificationScreenState extends State<OtpVerificationScreen> {
                     mainAxisSize: MainAxisSize.min,
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text('+91 $phoneNumber',style: linkTextStyleSmall,),
-                      const SizedBox(width: 8,),
-                      SvgPicture.asset('assets/icons/edit_icon.svg',color: ThemeColors.primaryColor,)
+                      Text(
+                        '+91 $phoneNumber',
+                        style: linkTextStyleSmall,
+                      ),
+                      const SizedBox(
+                        width: 8,
+                      ),
+                      SvgPicture.asset(
+                        'assets/icons/edit_icon.svg',
+                        color: ThemeColors.primaryColor,
+                      )
                     ],
                   ),
                 ),
-                const SizedBox(height: 40,),
+                const SizedBox(
+                  height: 40,
+                ),
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     PinInputField.label(
-                      autofocus: true,
-                      label: 'otp_verification.otp',
-                      controller: _otpController
+                        autofocus: true,
+                        label: 'otp_verification.otp',
+                        controller: _otpController),
+                    const SizedBox(
+                      height: 10,
                     ),
-                    const SizedBox(height: 10,),
                     Align(
                         alignment: Alignment.center,
-                        child: Text('otp_verification.hint',style: theme.textTheme.bodyMedium?.copyWith(color: ThemeColors.black),).tr()),
+                        child: Text(
+                          'otp_verification.hint',
+                          style: theme.textTheme.bodyMedium
+                              ?.copyWith(color: ThemeColors.black),
+                        ).tr()),
                     ValueListenableBuilder(
                         valueListenable: _resendOtpCountDown,
-                        builder: (context,value,_) {
+                        builder: (context, value, _) {
                           return Row(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
-                              TextButton(onPressed:value > 0 ? null : ()=>_onResendOtp(phoneNumber),
+                              TextButton(
+                                  onPressed: value > 0
+                                      ? null
+                                      : () => _onResendOtp(phoneNumber),
                                   style: TextButton.styleFrom(
                                       textStyle: linkTextStyleSmall),
-                                  child: const Text('otp_verification.resend_otp').tr()),
-                              if(value>0)
-                              Text('otp_verification.in_sec_count',style: inputHintStyle.copyWith(color: theme.hintColor),).tr(args: ['$value'])
+                                  child:
+                                      const Text('otp_verification.resend_otp')
+                                          .tr()),
+                              if (value > 0)
+                                Text(
+                                  'otp_verification.in_sec_count',
+                                  style: inputHintStyle.copyWith(
+                                      color: theme.hintColor),
+                                ).tr(args: ['$value'])
                             ],
                           );
-                        }
-                    ),
+                        }),
                   ],
                 )
               ],
             ),
             ValueListenableBuilder(
                 valueListenable: _otpController,
-                builder: (context,value,_) {
+                builder: (context, value, _) {
                   return ElevatedButton(
-                      onPressed: value.text.length==4 ? ()=>_onSubmitOtp(phoneNumber) : null,
+                      onPressed: value.text.length == 4
+                          ? () => _onSubmitOtp(phoneNumber)
+                          : null,
                       child: const Text('submit').tr());
-                }
-            )
+                })
           ],
         ),
       ),

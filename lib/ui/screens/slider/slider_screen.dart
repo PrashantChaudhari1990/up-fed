@@ -42,10 +42,6 @@ class _SliderScreenState extends State<SliderScreen> {
           sliderImages.map((json) => SliderDetails.fromJson(json)).toList(),
         );
 
-        // ✅ Print parsed values for verification
-        for (var item in _carouselDataList) {
-          print("Image URL: ${item.imageUrl}, Description: ${item.description}");
-        }
       setState(() {});
       }
     });

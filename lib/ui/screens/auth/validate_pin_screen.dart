@@ -33,17 +33,18 @@ class _ValidatePinScreenState extends State<ValidatePinScreen> {
   _onSubmitPin(String phoneNumber) async {
     final deviceDetails = await DeviceInfo.getDetail();
     LoginRequest loginRequest = LoginRequest(
-      username: "+91$phoneNumber",
-      password: _pinController.text,
-      deviceDetail: deviceDetails
-    );
+        username: "+91$phoneNumber",
+        password: _pinController.text,
+        deviceDetail: deviceDetails);
     _authService.login(loginRequest).then((response) async {
-      if(response != null){
+      if (response != null) {
         final userResponse = User.fromJson(response.data);
-        if(userResponse.id!=null){
-          await AppSessionStorage().setString(SessionKeys.user, jsonEncode(response.data));
-          if(mounted){
-            Navigator.pushNamedAndRemoveUntil(context, Routes.home, (route)=>false);
+        if (userResponse.id != null) {
+          await AppSessionStorage()
+              .setString(SessionKeys.user, jsonEncode(response.data));
+          if (mounted) {
+            Navigator.pushNamedAndRemoveUntil(
+                context, Routes.home, (route) => false);
           }
         }
       }
@@ -52,56 +53,77 @@ class _ValidatePinScreenState extends State<ValidatePinScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final String phoneNumber = (ModalRoute.of(context)?.settings.arguments??'') as String;
+    final String phoneNumber =
+        (ModalRoute.of(context)?.settings.arguments ?? '') as String;
     final theme = Theme.of(context);
     return Scaffold(
-      appBar:AppBar(
+      appBar: AppBar(
         leading: GestureDetector(
-            onTap: ()=>Navigator.pop(context),
-            child: SvgPicture.asset("assets/icons/back_arrow.svg",fit: BoxFit.scaleDown,)),
+            onTap: () => Navigator.pop(context),
+            child: SvgPicture.asset(
+              "assets/icons/back_arrow.svg",
+              fit: BoxFit.scaleDown,
+            )),
         systemOverlayStyle: SystemUiOverlayStyle(
             statusBarColor: theme.scaffoldBackgroundColor,
             statusBarIconBrightness: Brightness.dark,
-            systemNavigationBarColor: theme.scaffoldBackgroundColor
-        ),
+            systemNavigationBarColor: theme.scaffoldBackgroundColor),
       ),
       body: Container(
-        padding: const EdgeInsets.only(left: 20,right: 20,bottom: 10),
+        padding: const EdgeInsets.only(left: 20, right: 20, bottom: 10),
         child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text.rich(TextSpan(text: 'validate_pin.validate'.tr(), children: [TextSpan(text:' ${'validate_pin.pin'.tr()}',style: const TextStyle().copyWith(color: ThemeColors.primaryColor))] ),style: theme.textTheme.headlineSmall?.copyWith(fontWeight: FontWeight.bold)),
-                const SizedBox(height: 10,),
-                Text('validate_pin.description',style: theme.textTheme.titleSmall?.copyWith(color: ThemeColors.gray4),).tr(),
-                const SizedBox(height: 40,),
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    PinInputField.label(
-                      autofocus: true,
-                      label: "validate_pin.pin",
+            crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text.rich(
+                      TextSpan(text: 'validate_pin.validate'.tr(), children: [
+                        TextSpan(
+                            text: ' ${'validate_pin.pin'.tr()}',
+                            style: const TextStyle()
+                                .copyWith(color: ThemeColors.primaryColor))
+                      ]),
+                      style: theme.textTheme.headlineSmall
+                          ?.copyWith(fontWeight: FontWeight.bold)),
+                  const SizedBox(
+                    height: 10,
+                  ),
+                  Text(
+                    'validate_pin.description',
+                    style: theme.textTheme.titleSmall
+                        ?.copyWith(color: ThemeColors.gray4),
+                  ).tr(),
+                  const SizedBox(
+                    height: 40,
+                  ),
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      PinInputField.label(
+                        autofocus: true,
+                        label: "validate_pin.pin",
                         controller: _pinController,
-                      obscureText: true,
-                    ),
-                    const SizedBox(height: 4,)
-                  ],
-                )
-              ],
-            ),
-            ValueListenableBuilder(
-                valueListenable: _pinController,
-                builder: (context,value,_) {
-                  return ElevatedButton(
-                      onPressed: value.text.length==4 ? ()=>_onSubmitPin(phoneNumber) : null,
-                      child: const Text('submit').tr());
-                }
-            )
-          ]
-        ),
+                        obscureText: true,
+                      ),
+                      const SizedBox(
+                        height: 4,
+                      )
+                    ],
+                  )
+                ],
+              ),
+              ValueListenableBuilder(
+                  valueListenable: _pinController,
+                  builder: (context, value, _) {
+                    return ElevatedButton(
+                        onPressed: value.text.length == 4
+                            ? () => _onSubmitPin(phoneNumber)
+                            : null,
+                        child: const Text('submit').tr());
+                  })
+            ]),
       ),
     );
   }
