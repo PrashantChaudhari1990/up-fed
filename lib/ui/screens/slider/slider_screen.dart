@@ -127,7 +127,8 @@ class _SliderScreenState extends State<SliderScreen> {
                     Flexible(
                         child: OutlinedButton(
                           onPressed: () async {
-                            Navigator.of(context).pushReplacementNamed(Routes.login);
+                            //Navigator.of(context).pushReplacementNamed(Routes.login);
+                            Navigator.of(context).pushNamed(Routes.login);
                           },
                           child: const Text('get_started').tr(),
                         )),

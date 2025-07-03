@@ -65,22 +65,28 @@ class _OtpVerificationScreenState extends State<OtpVerificationScreen> {
         id: userId, otp: _otpController.text, deviceDetail: deviceDetails);
     _authService.validateOtp(validateOtpRequest).then((response) async {
       if (response != null) {
-        //Map<String, dynamic> parsedJson = response.data;
-        final userResponse = User.fromJson(response.data['data']);
-        if (userResponse.id != null) {
-          await AppSessionStorage()
-              .setString(SessionKeys.user, jsonEncode(response.data['data']));
-          if (mounted) {
-            Navigator.pushNamedAndRemoveUntil(
-                context, Routes.home, (route) => false);
+        if(response.data['statusCode']==200)
+          {
+            final userResponse = User.fromJson(response.data['data']);
+            if (userResponse.id != null) {
+              await AppSessionStorage()
+                  .setString(SessionKeys.user, jsonEncode(response.data['data']));
+              if (mounted) {
+                Navigator.pushNamedAndRemoveUntil(
+                    context, Routes.home, (route) => false);
+              }
+            } else {
+              if (mounted) {
+                //Dashboard
+                Navigator.pushReplacementNamed(context, Routes.home,
+                    arguments: userId);
+              }
+            }
           }
-        } else {
-          if (mounted) {
-            //Dashboard
-            Navigator.pushReplacementNamed(context, Routes.home,
-                arguments: userId);
+        else
+          {
+            ToastMessage.show(response.data['message']);
           }
-        }
       }
     });
   }
