@@ -2,8 +2,8 @@ import 'environment.dart';
 
 class Production extends Environment{
   Production() : super(
-      baseUrl: 'https://prod.oorjaa.tech',
-      webAppUrl: 'http://dev.oorjaa.tech/oorjaa',
+      baseUrl: 'https://tms-api.oorjaa.tech',
+      webAppUrl: 'https://vendor-partner.oorjaa.tech',
       appUpdate: true
   );
 }
