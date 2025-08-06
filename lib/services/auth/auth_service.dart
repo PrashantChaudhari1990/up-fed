@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:vendor_partner/constant/api_end_points.dart';
 import 'package:vendor_partner/models/auth/generate_otp_request.dart';
 import 'package:vendor_partner/models/auth/login_request.dart';
@@ -8,6 +9,14 @@ import 'package:dio/dio.dart';
 
 class AuthService{
   final _interceptorService = InterceptorService();
+
+  dynamic preLogin(BuildContext context, String username) async {
+    String preLoginUrl = '/api/pre-login/$username/byUsername';
+    return _interceptorService.dio.get(preLoginUrl, options: Options(
+        extra: {'context': context},
+        //headers: {'x-visibility-scope': Constants.xVisibilityScope}
+    ));
+  }
 
   Future generateOtp(GenerateOtpRequest generateOtpRequest) async {
     return _interceptorService.dio.post(ApiEndPoints.generateOtp,data: generateOtpRequest);

@@ -18,7 +18,7 @@ class InterceptorService{
       contentType: "application/json",
     headers: {
         "x-visibility-scope": CommonConstants.xVisibilityScope,
-        //"x-tenant-id": CommonConstants.xTenantId
+        "x-tenant-id": CommonConstants.tenantId
     }
   ));
 
@@ -27,6 +27,7 @@ class InterceptorService{
     dio.interceptors.add(InterceptorsWrapper(
       onRequest:(requestOptions,requestInterceptorHandler) async {
         final loginUser = await AppSession().loginUser;
+        requestOptions.headers['x-tenant-id'] = CommonConstants.tenantId;
         if(loginUser!=null){
           User user = User.fromJson(jsonDecode(loginUser));
           requestOptions.headers['Authorization'] = 'Bearer ${user.sessionToken}';

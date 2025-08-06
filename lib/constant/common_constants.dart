@@ -10,7 +10,7 @@ abstract class CommonConstants{
       return '';
     }
   }
-  static const xTenantId = 1;
+  static String tenantId = '';
 
   static String testingWebUrlIp = "192.168.1.109";
 }

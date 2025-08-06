@@ -23,5 +23,15 @@ class AppSession {
       _sessionStorage.remove(SessionKeys.user);
     }
   }
+  Future<String?> get tenantId async{
+    return await _sessionStorage.getString(SessionKeys.tenantId);
+  }
+  set tenantId(value) {
+    if(value != null){
+      _sessionStorage.setString(SessionKeys.tenantId,value);
+    }else{
+      _sessionStorage.remove(SessionKeys.tenantId);
+    }
+  }
 
 }

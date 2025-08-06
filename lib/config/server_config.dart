@@ -3,8 +3,7 @@ import 'package:vendor_partner/environment/production.dart';
 import 'package:vendor_partner/environment/staging.dart';
 import '../environment/environment.dart';
 
-const EnvironmentType _environmentType = EnvironmentType.staging;
-
+const EnvironmentType _environmentType = EnvironmentType.develop;
 Environment get environment {
   switch (_environmentType) {
     case EnvironmentType.develop:
