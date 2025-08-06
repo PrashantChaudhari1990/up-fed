@@ -57,7 +57,9 @@ class InterceptorService {
       }
       try {
         errorInterceptorHandler.next(dioException);
-      } catch (e) {}
+      } catch (e) {
+        // Error handler execution failed - ignore to prevent cascade errors
+      }
     }));
   }
 }

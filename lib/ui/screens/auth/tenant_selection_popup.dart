@@ -7,10 +7,10 @@ class TenantSelectionPopup extends StatefulWidget {
   final Function(UserData) onTenantSelected;
 
   const TenantSelectionPopup({
-    Key? key,
+    super.key,
     required this.tenants,
     required this.onTenantSelected,
-  }) : super(key: key);
+  });
 
   @override
   State<TenantSelectionPopup> createState() => _TenantSelectionPopupState();
@@ -31,7 +31,7 @@ class _TenantSelectionPopupState extends State<TenantSelectionPopup> {
           mainAxisSize: MainAxisSize.min,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(
+            const Text(
               'Select Tenant',
               style: TextStyle(
                 fontSize: 16,
@@ -76,8 +76,7 @@ class _TenantSelectionPopupState extends State<TenantSelectionPopup> {
                         activeColor: ThemeColors.primaryColor,
                         dense: true,
                       ),
-                    ))
-                .toList(),
+                    )),
             const SizedBox(height: 20),
             Row(
               mainAxisAlignment: MainAxisAlignment.end,

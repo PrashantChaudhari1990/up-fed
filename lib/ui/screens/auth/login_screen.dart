@@ -1,6 +1,5 @@
 import 'package:vendor_partner/enums/enums.dart';
 import 'package:vendor_partner/models/auth/generate_otp_request.dart';
-import 'package:vendor_partner/models/auth/generate_otp_response.dart';
 import 'package:vendor_partner/services/auth/auth_service.dart';
 import 'package:vendor_partner/themes/styles/theme_colors.dart';
 import 'package:easy_localization/easy_localization.dart';
@@ -34,6 +33,7 @@ class _LoginScreenState extends State<LoginScreen> {
 
   @override
   void initState() {
+    super.initState();
     Future.delayed(Duration.zero, () {
       AppLoader().hide();
       AppLoader().hide();
@@ -73,12 +73,16 @@ class _LoginScreenState extends State<LoginScreen> {
           _onSubmitClick();
         }
       } else {
-        CustomSnackBar.error(
-            context: context, message: preLogin.message ?? 'Pre-login failed');
+        if (mounted) {
+          CustomSnackBar.error(
+              context: context, message: preLogin.message ?? 'Pre-login failed');
+        }
       }
     } catch (error) {
-      CustomSnackBar.error(
-          context: context, message: 'Failed to verify user details');
+      if (mounted) {
+        CustomSnackBar.error(
+            context: context, message: 'Failed to verify user details');
+      }
     }
   }
 

@@ -250,7 +250,9 @@ class WebViewContainerState extends State<WebViewContainer> {
             final requestUri = Uri.parse(urlRequest.url.toString());
             try {
               await launchUrl(requestUri);
-            } catch (e) {}
+            } catch (e) {
+              // URL launch failed - ignore to prevent app crash
+            }
             return NavigationActionPolicy.CANCEL;
           }
           return NavigationActionPolicy.ALLOW;
@@ -284,7 +286,9 @@ class WebViewContainerState extends State<WebViewContainer> {
     if (uri?.queryParameters != null) {
       try {
         appBarConfig = AppBarConfig.fromJson(uri?.queryParameters ?? {});
-      } catch (e) {}
+      } catch (e) {
+        // AppBar config parsing failed - use defaults
+      }
     }
     appBarVisibleNotifier.value = appBarConfig?.appBarVisible ?? true;
     titleAppBarNotifier.value = !_isTitleBar(uri);
@@ -309,12 +313,6 @@ class WebViewContainerState extends State<WebViewContainer> {
   //only username hide
   _isUserNameVisible(Uri? uri) {
     return false;
-    return [
-      WebAppRoutes.dashboard,
-      WebAppRoutes.trips,
-      WebAppRoutes.payments,
-      WebAppRoutes.contract
-    ].contains(uri?.path.toString());
   }
 
   //

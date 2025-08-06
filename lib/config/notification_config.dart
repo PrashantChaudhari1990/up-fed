@@ -30,7 +30,9 @@ class NotificationConfig {
     try {
       await FirebaseMessaging.instance
           .requestPermission(alert: true, sound: true);
-    } catch (e) {}
+    } catch (e) {
+      // Permission request failed - continue without notification permissions
+    }
   }
 
   setupFirebaseMessaging() async {

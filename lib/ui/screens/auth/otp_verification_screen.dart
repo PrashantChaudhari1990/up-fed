@@ -168,7 +168,10 @@ class _OtpVerificationScreenState extends State<OtpVerificationScreen> {
                       ),
                       SvgPicture.asset(
                         'assets/icons/edit_icon.svg',
-                        color: ThemeColors.primaryColor,
+                        colorFilter: ColorFilter.mode(
+                          ThemeColors.primaryColor,
+                          BlendMode.srcIn,
+                        ),
                       )
                     ],
                   ),

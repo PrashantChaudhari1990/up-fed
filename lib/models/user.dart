@@ -43,7 +43,7 @@ class User {
     firstName = json['firstName'];
     userType = json['userType'];
     deviceDetail = json['deviceDetail'] != null
-        ? new DeviceDetail.fromJson(json['deviceDetail'])
+        ? DeviceDetail.fromJson(json['deviceDetail'])
         : null;
     authorities =
         json['authorities'] != null ? json['authorities'].cast<String>() : [];
@@ -58,25 +58,25 @@ class User {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['id'] = this.id;
-    data['username'] = this.username;
-    data['email'] = this.email;
-    data['sessionToken'] = this.sessionToken;
-    data['phoneNumber'] = this.phoneNumber;
-    data['firstName'] = this.firstName;
-    data['userType'] = this.userType;
-    if (this.deviceDetail != null) {
-      data['deviceDetail'] = this.deviceDetail!.toJson();
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['id'] = id;
+    data['username'] = username;
+    data['email'] = email;
+    data['sessionToken'] = sessionToken;
+    data['phoneNumber'] = phoneNumber;
+    data['firstName'] = firstName;
+    data['userType'] = userType;
+    if (deviceDetail != null) {
+      data['deviceDetail'] = deviceDetail!.toJson();
     }
-    data['authorities'] = this.authorities;
-    data['clientId'] = this.clientId;
-    data['userRoles'] = this.userRoles;
-    data['scopes'] = this.scopes;
-    data['refreshToken'] = this.refreshToken;
-    data['sessionExpire'] = this.sessionExpire;
-    data['refreshExpire'] = this.refreshExpire;
-    data['validUserDetails'] = this.validUserDetails;
+    data['authorities'] = authorities;
+    data['clientId'] = clientId;
+    data['userRoles'] = userRoles;
+    data['scopes'] = scopes;
+    data['refreshToken'] = refreshToken;
+    data['sessionExpire'] = sessionExpire;
+    data['refreshExpire'] = refreshExpire;
+    data['validUserDetails'] = validUserDetails;
     return data;
   }
 }
@@ -119,17 +119,17 @@ class DeviceDetail {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['appVersion'] = this.appVersion;
-    data['buildNumber'] = this.buildNumber;
-    data['manufacturer'] = this.manufacturer;
-    data['model'] = this.model;
-    data['name'] = this.name;
-    data['osVersion'] = this.osVersion;
-    data['timeZone'] = this.timeZone;
-    data['androidAPILevel'] = this.androidAPILevel;
-    data['uniqueId'] = this.uniqueId;
-    data['os'] = this.os;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['appVersion'] = appVersion;
+    data['buildNumber'] = buildNumber;
+    data['manufacturer'] = manufacturer;
+    data['model'] = model;
+    data['name'] = name;
+    data['osVersion'] = osVersion;
+    data['timeZone'] = timeZone;
+    data['androidAPILevel'] = androidAPILevel;
+    data['uniqueId'] = uniqueId;
+    data['os'] = os;
     return data;
   }
 }

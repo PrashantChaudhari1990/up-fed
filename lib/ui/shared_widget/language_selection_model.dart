@@ -16,8 +16,10 @@ class _LanguageSelectionModelState extends State<LanguageSelectionModel> {
   @override
   void initState() {
     Future.delayed(Duration.zero, () {
-      locale = context.locale;
-      setState(() {});
+      if (mounted) {
+        locale = context.locale;
+        setState(() {});
+      }
     });
     super.initState();
   }
