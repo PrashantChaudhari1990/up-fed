@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+
 final ValueNotifier<bool> homeBottomBarVisible = ValueNotifier(true);
 
 final ValueNotifier<bool> appBarVisibleNotifier = ValueNotifier(true);

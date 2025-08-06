@@ -8,11 +8,12 @@ import '../config/notification_config.dart';
 class DeviceInfo {
   static Future<DeviceDetails?> getDetail() async {
     final DeviceInfoPlugin deviceInfoPlugin = DeviceInfoPlugin();
-    final fcmToken =  await NotificationConfig.fcmToken;
+    final fcmToken = await NotificationConfig.fcmToken;
     PackageInfo packageInfo = await PackageInfo.fromPlatform();
     switch (defaultTargetPlatform) {
       case TargetPlatform.android:
-        AndroidDeviceInfo androidDeviceInfo = await deviceInfoPlugin.androidInfo;
+        AndroidDeviceInfo androidDeviceInfo =
+            await deviceInfoPlugin.androidInfo;
         return DeviceDetails(
             androidAPILevel: "${androidDeviceInfo.version.sdkInt}",
             os: 'Android',
@@ -24,8 +25,7 @@ class DeviceInfo {
             appVersion: packageInfo.version,
             buildNumber: packageInfo.buildNumber,
             timeZone: "",
-            fcmToken: fcmToken
-        );
+            fcmToken: fcmToken);
       case TargetPlatform.fuchsia:
       // TODO: Handle this case.
       case TargetPlatform.iOS:

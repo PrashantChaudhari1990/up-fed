@@ -39,17 +39,16 @@ class DeviceDetails {
 
   DeviceDetails(
       {this.os,
-        this.name,
-        this.model,
-        this.timeZone,
-        this.uniqueId,
-        this.osVersion,
-        this.appVersion,
-        this.buildNumber,
-        this.manufacturer,
-        this.androidAPILevel,
-        this.fcmToken
-      });
+      this.name,
+      this.model,
+      this.timeZone,
+      this.uniqueId,
+      this.osVersion,
+      this.appVersion,
+      this.buildNumber,
+      this.manufacturer,
+      this.androidAPILevel,
+      this.fcmToken});
 
   DeviceDetails.fromJson(Map<String, dynamic> json) {
     os = json['os'];

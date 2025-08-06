@@ -8,30 +8,31 @@ class AppSession {
 
   final _sessionStorage = AppSessionStorage();
 
-  Future<bool> get isLogin async{
+  Future<bool> get isLogin async {
     return (await loginUser) != null;
   }
 
-  Future<String?> get loginUser async{
+  Future<String?> get loginUser async {
     return await _sessionStorage.getString(SessionKeys.user);
   }
 
   set loginUser(value) {
-    if(value != null){
-      _sessionStorage.setString(SessionKeys.user,value);
-    }else{
+    if (value != null) {
+      _sessionStorage.setString(SessionKeys.user, value);
+    } else {
       _sessionStorage.remove(SessionKeys.user);
     }
   }
-  Future<String?> get tenantId async{
+
+  Future<String?> get tenantId async {
     return await _sessionStorage.getString(SessionKeys.tenantId);
   }
+
   set tenantId(value) {
-    if(value != null){
-      _sessionStorage.setString(SessionKeys.tenantId,value);
-    }else{
+    if (value != null) {
+      _sessionStorage.setString(SessionKeys.tenantId, value);
+    } else {
       _sessionStorage.remove(SessionKeys.tenantId);
     }
   }
-
 }

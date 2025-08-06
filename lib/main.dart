@@ -14,8 +14,8 @@ Future<void> main() async {
   await ThemeColorsConfig().fetch();
   await Firebase.initializeApp();
   NotificationConfig().setupFirebaseMessaging();
-  if(!kIsWeb && defaultTargetPlatform == TargetPlatform.android){
-     await InAppWebViewController.setWebContentsDebuggingEnabled(true);
+  if (!kIsWeb && defaultTargetPlatform == TargetPlatform.android) {
+    await InAppWebViewController.setWebContentsDebuggingEnabled(true);
   }
   await EasyLocalization.ensureInitialized();
   InterceptorService().initialize();

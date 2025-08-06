@@ -7,32 +7,40 @@ import 'package:vendor_partner/models/auth/validate_otp_request.dart';
 import 'package:vendor_partner/services/interceptor_service.dart';
 import 'package:dio/dio.dart';
 
-class AuthService{
+class AuthService {
   final _interceptorService = InterceptorService();
 
   dynamic preLogin(BuildContext context, String username) async {
     String preLoginUrl = '/api/pre-login/$username/byUsername';
-    return _interceptorService.dio.get(preLoginUrl, options: Options(
-        extra: {'context': context},
-        //headers: {'x-visibility-scope': Constants.xVisibilityScope}
-    ));
+    return _interceptorService.dio.get(preLoginUrl,
+        options: Options(
+          extra: {'context': context},
+          //headers: {'x-visibility-scope': Constants.xVisibilityScope}
+        ));
   }
 
   Future generateOtp(GenerateOtpRequest generateOtpRequest) async {
-    return _interceptorService.dio.post(ApiEndPoints.generateOtp,data: generateOtpRequest);
+    return _interceptorService.dio
+        .post(ApiEndPoints.generateOtp, data: generateOtpRequest);
   }
+
   Future forgotPin(GenerateOtpRequest generateOtpRequest) async {
-    return _interceptorService.dio.post(ApiEndPoints.forgotPin,data: generateOtpRequest);
+    return _interceptorService.dio
+        .post(ApiEndPoints.forgotPin, data: generateOtpRequest);
   }
 
   Future validateOtp(ValidateOtpRequest validateOtpRequest) async {
-    return _interceptorService.dio.put(ApiEndPoints.login,data: validateOtpRequest);
-  }
-  Future login(LoginRequest loginRequest) async {
-    return _interceptorService.dio.post(ApiEndPoints.login,data: loginRequest);
-  }
-  Future setPin(SetPinRequest setPinRequest,String? token) async {
-    return _interceptorService.dio.post(ApiEndPoints.setPin,data: setPinRequest,options: Options(headers: {'Authorization' :'Bearer $token'}));
+    return _interceptorService.dio
+        .put(ApiEndPoints.login, data: validateOtpRequest);
   }
 
+  Future login(LoginRequest loginRequest) async {
+    return _interceptorService.dio.post(ApiEndPoints.login, data: loginRequest);
+  }
+
+  Future setPin(SetPinRequest setPinRequest, String? token) async {
+    return _interceptorService.dio.post(ApiEndPoints.setPin,
+        data: setPinRequest,
+        options: Options(headers: {'Authorization': 'Bearer $token'}));
+  }
 }

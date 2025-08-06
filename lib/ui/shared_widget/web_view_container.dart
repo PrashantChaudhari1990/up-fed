@@ -198,7 +198,7 @@ class WebViewContainerState extends State<WebViewContainer> {
         if (userSession != null) {
           loadWebView();
         }
-       // AppLoader().hide();
+        // AppLoader().hide();
       });
     }
   }

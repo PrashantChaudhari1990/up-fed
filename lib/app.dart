@@ -15,7 +15,8 @@ import 'ui/screens/web_view_screen.dart';
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
-  static final GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
+  static final GlobalKey<NavigatorState> navigatorKey =
+      GlobalKey<NavigatorState>();
 
   @override
   Widget build(BuildContext context) {
@@ -28,18 +29,26 @@ class MyApp extends StatelessWidget {
         localizationsDelegates: context.localizationDelegates,
         supportedLocales: context.supportedLocales,
         routes: {
-          Routes.initial : (context) =>  const SplashScreen(),
-          Routes.sliderScreen:(context)=> const SliderScreen(),
-          Routes.home : (context)=>  const HomeScreen(),
-          Routes.login : (context)=>  const LoginScreen(),
-          Routes.signUp : (context)=>   const SignUpScreen(),
-          Routes.signUpWithMobile : (context)=>   const LoginScreen.register(),
-          Routes.otpVerification : (context)=>  const OtpVerificationScreen(),
-          Routes.validatePin : (context)=>  const ValidatePinScreen(),
-          Routes.cart:(context)=>  const WebViewScreen(routeName: WebAppRoutes.cartScreen,title: "Cart",),
-          Routes.category:(context)=>  const WebViewScreen(routeName: WebAppRoutes.categoryScreen,title: "Category",),
-          Routes.pendingVerification:(context)=>  const WebViewScreen(routeName: WebAppRoutes.pendingVerification,showAppBar: false,),
-        }
-    );
+          Routes.initial: (context) => const SplashScreen(),
+          Routes.sliderScreen: (context) => const SliderScreen(),
+          Routes.home: (context) => const HomeScreen(),
+          Routes.login: (context) => const LoginScreen(),
+          Routes.signUp: (context) => const SignUpScreen(),
+          Routes.signUpWithMobile: (context) => const LoginScreen.register(),
+          Routes.otpVerification: (context) => const OtpVerificationScreen(),
+          Routes.validatePin: (context) => const ValidatePinScreen(),
+          Routes.cart: (context) => const WebViewScreen(
+                routeName: WebAppRoutes.cartScreen,
+                title: "Cart",
+              ),
+          Routes.category: (context) => const WebViewScreen(
+                routeName: WebAppRoutes.categoryScreen,
+                title: "Category",
+              ),
+          Routes.pendingVerification: (context) => const WebViewScreen(
+                routeName: WebAppRoutes.pendingVerification,
+                showAppBar: false,
+              ),
+        });
   }
 }

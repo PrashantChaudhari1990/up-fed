@@ -47,34 +47,37 @@ class _TenantSelectionPopupState extends State<TenantSelectionPopup> {
               ),
             ),
             const SizedBox(height: 16),
-            ...widget.tenants.map((tenant) => Container(
-              margin: const EdgeInsets.only(bottom: 8),
-              child: RadioListTile<UserData>(
-                value: tenant,
-                groupValue: selectedTenant,
-                onChanged: (UserData? value) {
-                  setState(() {
-                    selectedTenant = value;
-                  });
-                },
-                title: Text(
-                  tenant.tenantName ?? 'Unknown Tenant',
-                  style: const TextStyle(
-                    fontSize: 16,
-                    fontWeight: FontWeight.w500,
-                  ),
-                ),
-                subtitle: Text(
-                  '${tenant.firstName ?? ''} ${tenant.lastName ?? ''}'.trim(),
-                  style: TextStyle(
-                    fontSize: 14,
-                    color: Colors.grey.shade600,
-                  ),
-                ),
-                activeColor: ThemeColors.primaryColor,
-                dense: true,
-              ),
-            )).toList(),
+            ...widget.tenants
+                .map((tenant) => Container(
+                      margin: const EdgeInsets.only(bottom: 8),
+                      child: RadioListTile<UserData>(
+                        value: tenant,
+                        groupValue: selectedTenant,
+                        onChanged: (UserData? value) {
+                          setState(() {
+                            selectedTenant = value;
+                          });
+                        },
+                        title: Text(
+                          tenant.tenantName ?? 'Unknown Tenant',
+                          style: const TextStyle(
+                            fontSize: 16,
+                            fontWeight: FontWeight.w500,
+                          ),
+                        ),
+                        subtitle: Text(
+                          '${tenant.firstName ?? ''} ${tenant.lastName ?? ''}'
+                              .trim(),
+                          style: TextStyle(
+                            fontSize: 14,
+                            color: Colors.grey.shade600,
+                          ),
+                        ),
+                        activeColor: ThemeColors.primaryColor,
+                        dense: true,
+                      ),
+                    ))
+                .toList(),
             const SizedBox(height: 20),
             Row(
               mainAxisAlignment: MainAxisAlignment.end,

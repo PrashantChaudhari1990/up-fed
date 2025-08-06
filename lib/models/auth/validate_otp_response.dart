@@ -19,22 +19,22 @@ class ValidateOtpResponse {
 
   ValidateOtpResponse(
       {this.id,
-        this.userId,
-        this.username,
-        this.email,
-        this.sessionToken,
-        this.phoneNumber,
-        this.firstName,
-        this.lastName,
-        this.clientId,
-        this.flag,
-        this.refreshToken,
-        this.sessionExpire,
-        this.refreshExpire,
-        this.userType,
-        this.authorities,
-        this.scopes,
-        this.userRoles});
+      this.userId,
+      this.username,
+      this.email,
+      this.sessionToken,
+      this.phoneNumber,
+      this.firstName,
+      this.lastName,
+      this.clientId,
+      this.flag,
+      this.refreshToken,
+      this.sessionExpire,
+      this.refreshExpire,
+      this.userType,
+      this.authorities,
+      this.scopes,
+      this.userRoles});
 
   ValidateOtpResponse.fromJson(Map<String, dynamic> json) {
     id = json['id'];

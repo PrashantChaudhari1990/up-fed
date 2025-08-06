@@ -48,36 +48,40 @@ class _LoginScreenState extends State<LoginScreen> {
   }
 
   _preLogin() async {
+    // Call pre-login API first
+    try {
+      AuthService authService = AuthService();
+      final preLoginResponse =
+          await authService.preLogin(context, _phoneNumberController.text);
+      //final preLoginResponse = await AuthService.preLogin(context, 'mandar.naik@oorjaa.tech');
+      final PreLoginResponse preLogin =
+          PreLoginResponse.fromJson(preLoginResponse.data);
 
-      // Call pre-login API first
-      try {
-        AuthService authService=AuthService();
-        final preLoginResponse = await authService.preLogin(context, _phoneNumberController.text);
-        //final preLoginResponse = await AuthService.preLogin(context, 'mandar.naik@oorjaa.tech');
-        final PreLoginResponse preLogin = PreLoginResponse.fromJson(preLoginResponse.data);
-
-        if (preLogin.statusCode == 200 && preLogin.data != null && preLogin.data!.isNotEmpty) {
-          if (preLogin.data!.length > 1) {
-            // Multiple tenants - show selection popup
-            _showTenantSelectionPopup(preLogin.data!);
-          } else {
-            // Single tenant - proceed directly
-            final selectedTenant = preLogin.data!.first;
-            // Save selected tenant information
-            await AppSessionStorage()
-                .setString(SessionKeys.tenantId, '${selectedTenant.tenantId}');
-            CommonConstants.tenantId= '${selectedTenant.tenantId}';
-            print( CommonConstants.tenantId);
-            _onSubmitClick();
-          }
+      if (preLogin.statusCode == 200 &&
+          preLogin.data != null &&
+          preLogin.data!.isNotEmpty) {
+        if (preLogin.data!.length > 1) {
+          // Multiple tenants - show selection popup
+          _showTenantSelectionPopup(preLogin.data!);
         } else {
-
-          CustomSnackBar.error(context: context, message: preLogin.message ?? 'Pre-login failed');
+          // Single tenant - proceed directly
+          final selectedTenant = preLogin.data!.first;
+          // Save selected tenant information
+          await AppSessionStorage()
+              .setString(SessionKeys.tenantId, '${selectedTenant.tenantId}');
+          CommonConstants.tenantId = '${selectedTenant.tenantId}';
+          _onSubmitClick();
         }
-      } catch (error) {
-        CustomSnackBar.error(context: context, message: 'Failed to verify user details');
+      } else {
+        CustomSnackBar.error(
+            context: context, message: preLogin.message ?? 'Pre-login failed');
       }
+    } catch (error) {
+      CustomSnackBar.error(
+          context: context, message: 'Failed to verify user details');
     }
+  }
+
   void _showTenantSelectionPopup(List<UserData> tenants) {
     showDialog(
       context: context,
@@ -89,13 +93,14 @@ class _LoginScreenState extends State<LoginScreen> {
             // Save selected tenant information
             await AppSessionStorage()
                 .setString(SessionKeys.tenantId, '${selectedTenant.tenantId}');
-            CommonConstants.tenantId= '${selectedTenant.tenantId}';
+            CommonConstants.tenantId = '${selectedTenant.tenantId}';
             _onSubmitClick();
           },
         );
       },
     );
   }
+
   _onSubmitClick() {
     FocusScope.of(context).unfocus();
     if (_loginWith == LoginWith.otp) {
@@ -314,8 +319,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   valueListenable: _phoneNumberController,
                   builder: (context, value, _) {
                     return ElevatedButton(
-                        onPressed:
-                            value.text.length == 10 ? _preLogin : null,
+                        onPressed: value.text.length == 10 ? _preLogin : null,
                         child: const Text('submit').tr());
                   })
             ],

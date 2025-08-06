@@ -10,13 +10,13 @@ class AppBarConfig {
 
   AppBarConfig(
       {this.appBarVisible,
-        this.titleAppBar,
-        this.userNameVisible,
-        this.allowBack,
-        this.title="",
-        this.cartVisible,
-        this.notificationVisible,
-        this.titleVisible});
+      this.titleAppBar,
+      this.userNameVisible,
+      this.allowBack,
+      this.title = "",
+      this.cartVisible,
+      this.notificationVisible,
+      this.titleVisible});
 
   AppBarConfig.fromJson(Map<String, dynamic> json) {
     appBarVisible = bool.tryParse(json['appBarVisible'].toString());

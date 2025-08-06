@@ -7,7 +7,8 @@ class ValidateOtpRequest {
   DeviceDetails? deviceDetail;
   String? id;
 
-  ValidateOtpRequest({this.phoneNumber, this.otp, this.flag, this.deviceDetail,this.id});
+  ValidateOtpRequest(
+      {this.phoneNumber, this.otp, this.flag, this.deviceDetail, this.id});
 
   ValidateOtpRequest.fromJson(Map<String, dynamic> json) {
     phoneNumber = json['phoneNumber'];

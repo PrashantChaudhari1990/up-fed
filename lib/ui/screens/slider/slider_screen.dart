@@ -24,17 +24,16 @@ class _SliderScreenState extends State<SliderScreen> {
   final List<SliderDetails> _carouselDataList = [];
   final _contentPadding = const EdgeInsets.symmetric(horizontal: 20);
 
-
   @override
   void initState() {
-    commonService.getConfigByKey().then((response){
-      if(response?.data != null){
-
+    commonService.getConfigByKey().then((response) {
+      if (response?.data != null) {
         // ✅ Dio automatically converts JSON response into a Map<String, dynamic>
         Map<String, dynamic> parsedJson = response.data;
 
         // Extract "vpaSliderImages" list
-        List<dynamic> sliderImages = parsedJson['data']['vpaSliderImages'];//vpaCategoryData
+        List<dynamic> sliderImages =
+            parsedJson['data']['vpaSliderImages']; //vpaCategoryData
 
         // Clear previous data and add new data
         _carouselDataList.clear();
@@ -42,7 +41,7 @@ class _SliderScreenState extends State<SliderScreen> {
           sliderImages.map((json) => SliderDetails.fromJson(json)).toList(),
         );
 
-      setState(() {});
+        setState(() {});
       }
     });
     super.initState();
@@ -66,7 +65,10 @@ class _SliderScreenState extends State<SliderScreen> {
               child: Stack(
                 children: [
                   CarouselSlider(
-                      items: List.generate(_carouselDataList.length, (i) => SliderItem(carouselSliderData: _carouselDataList[i])),
+                      items: List.generate(
+                          _carouselDataList.length,
+                          (i) => SliderItem(
+                              carouselSliderData: _carouselDataList[i])),
                       options: CarouselOptions(
                           onPageChanged: (index, reason) {
                             _carouselIndex.value = index;
@@ -75,7 +77,7 @@ class _SliderScreenState extends State<SliderScreen> {
                           viewportFraction: 1,
                           height: double.maxFinite)),
                   Positioned(
-                    top: kToolbarHeight-10,
+                    top: kToolbarHeight - 10,
                     child: Container(
                       width: screenSize.width,
                       padding: _contentPadding,
@@ -87,10 +89,9 @@ class _SliderScreenState extends State<SliderScreen> {
                           Text(
                             'Partner',
                             style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              color: Colors.blueAccent,
-                                fontSize: 32
-                            ),
+                                fontWeight: FontWeight.bold,
+                                color: Colors.blueAccent,
+                                fontSize: 32),
                           ),
                         ],
                       ),
@@ -99,44 +100,49 @@ class _SliderScreenState extends State<SliderScreen> {
                 ],
               )),
           Container(
-            padding: const EdgeInsets.symmetric(vertical: 10,horizontal: 20),
+            padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 20),
             child: Column(
               children: [
-                if(_carouselDataList.isNotEmpty)
-                Align(
-                  alignment: Alignment.topLeft,
-                  child: ValueListenableBuilder(
-                    valueListenable: _carouselIndex,
-                    builder: (BuildContext context, int value, Widget? child) {
-                      return AnimatedSmoothIndicator(
-                          effect: ExpandingDotsEffect(
-                              expansionFactor: 2.5,
-                              dotHeight: 10,
-                              dotWidth: 10,
-                              activeDotColor: ThemeColors.primaryColor
-                          ),
-                          activeIndex: value,
-                          count: _carouselDataList.length);
-                    },
+                if (_carouselDataList.isNotEmpty)
+                  Align(
+                    alignment: Alignment.topLeft,
+                    child: ValueListenableBuilder(
+                      valueListenable: _carouselIndex,
+                      builder:
+                          (BuildContext context, int value, Widget? child) {
+                        return AnimatedSmoothIndicator(
+                            effect: ExpandingDotsEffect(
+                                expansionFactor: 2.5,
+                                dotHeight: 10,
+                                dotWidth: 10,
+                                activeDotColor: ThemeColors.primaryColor),
+                            activeIndex: value,
+                            count: _carouselDataList.length);
+                      },
+                    ),
                   ),
+                const SizedBox(
+                  height: 30,
                 ),
-                const SizedBox(height: 30,),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Flexible(
                         child: OutlinedButton(
-                          onPressed: () async {
-                            //Navigator.of(context).pushReplacementNamed(Routes.login);
-                            Navigator.of(context).pushNamed(Routes.login);
-                          },
-                          child: const Text('get_started').tr(),
-                        )),
-                    const SizedBox(width: 16,),
+                      onPressed: () async {
+                        //Navigator.of(context).pushReplacementNamed(Routes.login);
+                        Navigator.of(context).pushNamed(Routes.login);
+                      },
+                      child: const Text('get_started').tr(),
+                    )),
+                    const SizedBox(
+                      width: 16,
+                    ),
                     Flexible(
                         child: ElevatedButton(
                             onPressed: () async {
-                              Navigator.of(context).pushNamed(Routes.signUpWithMobile);
+                              Navigator.of(context)
+                                  .pushNamed(Routes.signUpWithMobile);
                             },
                             child: const Text('sign_up').tr()))
                   ],

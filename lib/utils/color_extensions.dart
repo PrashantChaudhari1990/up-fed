@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+
 extension ColorSwatchExtension on Color {
   Map<int, Color> toSwatch() {
     return {

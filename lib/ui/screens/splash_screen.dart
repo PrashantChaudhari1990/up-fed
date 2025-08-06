@@ -17,15 +17,14 @@ class SplashScreen extends StatefulWidget {
 }
 
 class _SplashScreenState extends State<SplashScreen> {
-  
   @override
   Future<void> initState() async {
-    CommonConstants.tenantId = (await AppSessionStorage().getString(SessionKeys.tenantId))!;
-    print('CommonConstants.tenantId ${CommonConstants.tenantId}');
-   Future.delayed(const Duration(seconds: 2),() async {
+    CommonConstants.tenantId =
+        (await AppSessionStorage().getString(SessionKeys.tenantId))!;
+    Future.delayed(const Duration(seconds: 2), () async {
       final bool isLoggedIn = await AppSession().isLogin;
       final routeName = isLoggedIn ? Routes.home : Routes.sliderScreen;
-      if(!mounted) return;
+      if (!mounted) return;
       Navigator.of(context).pushReplacementNamed(routeName);
     });
     super.initState();
@@ -34,7 +33,11 @@ class _SplashScreenState extends State<SplashScreen> {
   @override
   Widget build(BuildContext context) {
     final screenSize = MediaQuery.of(context).size;
-    SystemChrome.setSystemUIOverlayStyle( SystemUiOverlayStyle(statusBarIconBrightness: Brightness.light,statusBarColor: ThemeColors.primaryColor,systemStatusBarContrastEnforced: true,systemNavigationBarColor: ThemeColors.primaryColor));
+    SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
+        statusBarIconBrightness: Brightness.light,
+        statusBarColor: ThemeColors.primaryColor,
+        systemStatusBarContrastEnforced: true,
+        systemNavigationBarColor: ThemeColors.primaryColor));
     return Scaffold(
       body: Container(
         width: screenSize.width,
@@ -42,7 +45,13 @@ class _SplashScreenState extends State<SplashScreen> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Flexible(flex: 2, child: Center(child: SvgPicture.asset('assets/images/svg/app_header_logo.svg',width: screenSize.width/2,)))
+            Flexible(
+                flex: 2,
+                child: Center(
+                    child: SvgPicture.asset(
+                  'assets/images/svg/app_header_logo.svg',
+                  width: screenSize.width / 2,
+                )))
           ],
         ),
       ),

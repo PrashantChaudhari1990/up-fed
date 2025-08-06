@@ -17,7 +17,10 @@ class DynamicAppBar extends StatelessWidget {
 
   const DynamicAppBar({super.key, this.onBackButton});
 
-  final Widget _emptyBox = const SizedBox(width: 0,height: 0,);
+  final Widget _emptyBox = const SizedBox(
+    width: 0,
+    height: 0,
+  );
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
@@ -80,11 +83,13 @@ class DynamicAppBar extends StatelessWidget {
                         children: [
                           TextSpan(
                             text: ' $userName',
-                            style: const TextStyle().copyWith(color: ThemeColors.primaryColor),
+                            style: const TextStyle()
+                                .copyWith(color: ThemeColors.primaryColor),
                           ),
                         ],
                       ),
-                      style: theme.textTheme.titleMedium?.copyWith(fontWeight: FontWeight.bold),
+                      style: theme.textTheme.titleMedium
+                          ?.copyWith(fontWeight: FontWeight.bold),
                     ),
                   ),
                 );
@@ -167,13 +172,14 @@ class DynamicAppBar extends StatelessWidget {
     );
   }
 
-
   _openNotification(BuildContext context) {
     ToastMessage.show('Notification Clicked');
   }
 
   _onClickCart(BuildContext context) async {
-    WebViewControllerUtils.controller?.loadUrl(urlRequest: URLRequest(url: WebUri(environment.webAppUrl+WebAppRoutes.reviewData)));
+    WebViewControllerUtils.controller?.loadUrl(
+        urlRequest: URLRequest(
+            url: WebUri(environment.webAppUrl + WebAppRoutes.reviewData)));
   }
 
   Future<String> getUser() async {

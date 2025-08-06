@@ -28,7 +28,8 @@ handleRegisterSuccess(BuildContext context, List<dynamic> data) async {
   if (data.isNotEmpty) {
     User user = User.fromJson(data[0]);
     await AppSessionStorage().setString(SessionKeys.user, jsonEncode(user));
-    await WebViewControllerUtils.controller?.webStorage.localStorage.setItem(key: SessionKeys.user, value: data[0]);
+    await WebViewControllerUtils.controller?.webStorage.localStorage
+        .setItem(key: SessionKeys.user, value: data[0]);
     if (context.mounted) {
       Navigator.pushNamedAndRemoveUntil(context, Routes.home, (route) => false);
     }
@@ -51,41 +52,46 @@ appLoader(BuildContext context, List<dynamic> data) async {
 onApprovalStatus(BuildContext context, List<dynamic> data) async {
   if (data.isNotEmpty) {
     String? currentRouteName = ModalRoute.of(context)?.settings.name;
-    if(context.mounted && data[0]==true){
+    if (context.mounted && data[0] == true) {
       _isUnderApprovalScreen = false;
-      Navigator.pushNamedAndRemoveUntil(context, Routes.home, (route)=>false);
-    }else if(currentRouteName != Routes.pendingVerification && !_isUnderApprovalScreen){
+      Navigator.pushNamedAndRemoveUntil(context, Routes.home, (route) => false);
+    } else if (currentRouteName != Routes.pendingVerification &&
+        !_isUnderApprovalScreen) {
       _isUnderApprovalScreen = true;
-      ToastMessage.show(data[1]??'');
-      Navigator.pushNamedAndRemoveUntil(context, Routes.pendingVerification, (route)=>false);
+      ToastMessage.show(data[1] ?? '');
+      Navigator.pushNamedAndRemoveUntil(
+          context, Routes.pendingVerification, (route) => false);
     }
   }
 }
 
-getCurrentUser()async{
+getCurrentUser() async {
   final currentUser = await AppSession().loginUser;
   return currentUser;
 }
-updateUserDetail(data)async{
+
+updateUserDetail(data) async {
   if (data.isNotEmpty) {
     final userData = data[0];
-    if(userData != null){
+    if (userData != null) {
       AppSession().loginUser = jsonEncode(userData);
     }
   }
 }
-toggleAppBar(data)async{
+
+toggleAppBar(data) async {
   if (data.isNotEmpty) {
     final appBarVisible = data[0];
-    if(appBarVisible != null){
+    if (appBarVisible != null) {
       appBarVisibleNotifier.value = appBarVisible;
     }
   }
 }
-toggleBottomNavigation(data)async{
+
+toggleBottomNavigation(data) async {
   if (data.isNotEmpty) {
     final bottomNavigation = data[0];
-    if(bottomNavigation != null){
+    if (bottomNavigation != null) {
       homeBottomBarVisible.value = bottomNavigation;
     }
   }

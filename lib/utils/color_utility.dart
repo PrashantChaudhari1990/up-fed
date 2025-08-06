@@ -1,11 +1,12 @@
 import 'package:vendor_partner/utils/color_extensions.dart';
 import 'package:flutter/material.dart';
 
-jsonToColor(dynamic colorData ,Color defaultColor, {bool isMaterialColor = false}) {
+jsonToColor(dynamic colorData, Color defaultColor,
+    {bool isMaterialColor = false}) {
   try {
-    if (colorData is Map<String,dynamic>  && colorData['color'] != null) {
+    if (colorData is Map<String, dynamic> && colorData['color'] != null) {
       int colorCode = int.parse(colorData['color'].replaceAll('#', "0xFF"));
-      if ((colorData['isMaterialColor'] == true)|| isMaterialColor) {
+      if ((colorData['isMaterialColor'] == true) || isMaterialColor) {
         return MaterialColor(colorCode, Color(colorCode).toSwatch());
       } else {
         return Color(colorCode);

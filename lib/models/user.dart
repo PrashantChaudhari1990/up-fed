@@ -18,21 +18,21 @@ class User {
 
   User(
       {this.id,
-        this.username,
-        this.email,
-        this.sessionToken,
-        this.phoneNumber,
-        this.firstName,
-        this.userType,
-        this.deviceDetail,
-        this.authorities,
-        this.clientId,
-        this.userRoles,
-        this.scopes,
-        this.refreshToken,
-        this.sessionExpire,
-        this.refreshExpire,
-        this.validUserDetails});
+      this.username,
+      this.email,
+      this.sessionToken,
+      this.phoneNumber,
+      this.firstName,
+      this.userType,
+      this.deviceDetail,
+      this.authorities,
+      this.clientId,
+      this.userRoles,
+      this.scopes,
+      this.refreshToken,
+      this.sessionExpire,
+      this.refreshExpire,
+      this.validUserDetails});
 
   User.fromJson(Map<String, dynamic> json) {
     id = json['id'];
@@ -45,10 +45,12 @@ class User {
     deviceDetail = json['deviceDetail'] != null
         ? new DeviceDetail.fromJson(json['deviceDetail'])
         : null;
-    authorities = json['authorities']!=null?json['authorities'].cast<String>():[];
+    authorities =
+        json['authorities'] != null ? json['authorities'].cast<String>() : [];
     clientId = json['clientId'];
-    userRoles = json['userRoles']!=null? json['userRoles'].cast<String>():[];
-    scopes =  json['scopes']!=null?json['scopes'].cast<String>():[];
+    userRoles =
+        json['userRoles'] != null ? json['userRoles'].cast<String>() : [];
+    scopes = json['scopes'] != null ? json['scopes'].cast<String>() : [];
     refreshToken = json['refreshToken'];
     sessionExpire = json['sessionExpire'];
     refreshExpire = json['refreshExpire'];
@@ -93,15 +95,15 @@ class DeviceDetail {
 
   DeviceDetail(
       {this.appVersion,
-        this.buildNumber,
-        this.manufacturer,
-        this.model,
-        this.name,
-        this.osVersion,
-        this.timeZone,
-        this.androidAPILevel,
-        this.uniqueId,
-        this.os});
+      this.buildNumber,
+      this.manufacturer,
+      this.model,
+      this.name,
+      this.osVersion,
+      this.timeZone,
+      this.androidAPILevel,
+      this.uniqueId,
+      this.os});
 
   DeviceDetail.fromJson(Map<String, dynamic> json) {
     appVersion = json['appVersion'];

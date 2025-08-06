@@ -10,16 +10,17 @@ class KhAppBar extends StatelessWidget implements PreferredSizeWidget {
   const KhAppBar(
       {super.key,
       this.title,
-       this.systemNavigationBarColor,
+      this.systemNavigationBarColor,
       this.statusBarColor,
       this.statusBrightness});
 
   @override
   Widget build(BuildContext context) {
-
     return AppBar(
-        systemOverlayStyle:
-            SystemUiOverlayStyle(systemNavigationBarColor: systemNavigationBarColor, statusBarColor: statusBarColor, statusBarIconBrightness: statusBrightness),
+        systemOverlayStyle: SystemUiOverlayStyle(
+            systemNavigationBarColor: systemNavigationBarColor,
+            statusBarColor: statusBarColor,
+            statusBarIconBrightness: statusBrightness),
         centerTitle: false,
         titleSpacing: 20,
         toolbarHeight: 0,
@@ -27,8 +28,7 @@ class KhAppBar extends StatelessWidget implements PreferredSizeWidget {
   }
 
   @override
-
-  Size get preferredSize{
-    return  const Size.fromHeight(0);
+  Size get preferredSize {
+    return const Size.fromHeight(0);
   }
 }

@@ -1,4 +1,4 @@
-abstract class ApiEndPoints{
+abstract class ApiEndPoints {
   static const generateOtp = '/api/pre-login/generate-otp';
   static const validateOtp = '/auth/validate-otp';
   static const login = '/auth/login';

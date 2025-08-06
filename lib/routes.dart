@@ -1,4 +1,4 @@
-abstract class Routes{
+abstract class Routes {
   static const String initial = "/";
   static const String sliderScreen = "slider";
   static const String home = "home";

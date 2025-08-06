@@ -4,9 +4,11 @@ import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import '../app.dart';
 
 class NotificationConfig {
-  final FlutterLocalNotificationsPlugin _flutterLocalNotificationsPlugin = FlutterLocalNotificationsPlugin();
+  final FlutterLocalNotificationsPlugin _flutterLocalNotificationsPlugin =
+      FlutterLocalNotificationsPlugin();
 
-  final AndroidNotificationChannel _androidNotificationChannel = const AndroidNotificationChannel(
+  final AndroidNotificationChannel _androidNotificationChannel =
+      const AndroidNotificationChannel(
     'high_importance_channel',
     'KH Dealer Notification',
     description: 'This channel use to default notification.', // description
@@ -14,7 +16,6 @@ class NotificationConfig {
     playSound: true,
     enableVibration: true,
     showBadge: true,
-
   );
 
   static Future<String?> get fcmToken async {
@@ -27,7 +28,8 @@ class NotificationConfig {
 
   _checkPermission() async {
     try {
-      await FirebaseMessaging.instance.requestPermission(alert: true, sound: true);
+      await FirebaseMessaging.instance
+          .requestPermission(alert: true, sound: true);
     } catch (e) {}
   }
 
@@ -35,10 +37,12 @@ class NotificationConfig {
     await _checkPermission();
     if (Platform.isAndroid) {
       await _flutterLocalNotificationsPlugin
-          .resolvePlatformSpecificImplementation<AndroidFlutterLocalNotificationsPlugin>()
+          .resolvePlatformSpecificImplementation<
+              AndroidFlutterLocalNotificationsPlugin>()
           ?.createNotificationChannel(_androidNotificationChannel);
     }
-    RemoteMessage? initialMessage = await FirebaseMessaging.instance.getInitialMessage();
+    RemoteMessage? initialMessage =
+        await FirebaseMessaging.instance.getInitialMessage();
     if (initialMessage != null) {
       _handleMessage(initialMessage);
     }
@@ -59,21 +63,22 @@ class NotificationConfig {
           notification.body,
           NotificationDetails(
               android: AndroidNotificationDetails(
-                android?.channelId ?? _androidNotificationChannel.id,
-                _androidNotificationChannel.name,
-                priority: Priority.max,
-                channelDescription: _androidNotificationChannel.description,
-                icon: android?.smallIcon ?? '@mipmap/ic_launcher',
-                importance: _androidNotificationChannel.importance
-              ),
-              iOS: const DarwinNotificationDetails(presentAlert: true, presentBadge: true, presentSound: true, presentBanner: true)));
+                  android?.channelId ?? _androidNotificationChannel.id,
+                  _androidNotificationChannel.name,
+                  priority: Priority.max,
+                  channelDescription: _androidNotificationChannel.description,
+                  icon: android?.smallIcon ?? '@mipmap/ic_launcher',
+                  importance: _androidNotificationChannel.importance),
+              iOS: const DarwinNotificationDetails(
+                  presentAlert: true,
+                  presentBadge: true,
+                  presentSound: true,
+                  presentBanner: true)));
     }
   }
 
   void _handleMessage(RemoteMessage message) {
     final currentContext = MyApp.navigatorKey.currentContext;
-    if (currentContext != null) {
-
-    }
+    if (currentContext != null) {}
   }
 }

@@ -1,4 +1,4 @@
-abstract class WebAppRoutes{
+abstract class WebAppRoutes {
   static const cartScreen = '/cart';
   static const categoryScreen = '/category';
   static const signUp = '/auth/sign-up';
