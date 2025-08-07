@@ -7,6 +7,9 @@ import 'package:vendor_partner/ui/shared_widget/web_view_container.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import '../../constant/common_constants.dart';
+import '../../constant/session_keys.dart';
+import '../../utils/app_session_storage.dart';
 import '../../utils/global_notifier.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -38,6 +41,22 @@ class _HomeScreenState extends State<HomeScreen> {
     //NavigationBarItem(iconUrl: 'assets/icons/profile.svg', label: "home_screen.contract".tr(),routeName:WebAppRoutes.contract),
   ];
   int _currentTabIndex = 0;
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    getTenentId();
+  }
+  Future<void> getTenentId() async {
+    try
+    {
+      CommonConstants.tenantId =
+      (await AppSessionStorage().getString(SessionKeys.tenantId))!;
+    }catch(exc){
+      // Failed to get tenant ID - continue with defaults
+    }
+  }
 
   @override
   Widget build(BuildContext context) {

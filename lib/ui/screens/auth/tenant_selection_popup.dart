@@ -79,36 +79,42 @@ class _TenantSelectionPopupState extends State<TenantSelectionPopup> {
                     )),
             const SizedBox(height: 20),
             Row(
-              mainAxisAlignment: MainAxisAlignment.end,
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                TextButton(
-                  onPressed: () {
-                    Navigator.of(context).pop();
-                  },
-                  child: Text(
-                    'Cancel',
-                    style: TextStyle(
-                      color: Colors.grey.shade600,
+                Flexible(
+                  flex: 1,
+                  child: TextButton(
+                    onPressed: () {
+                      Navigator.of(context).pop();
+                    },
+                    child: Text(
+                      'Cancel',
+                      style: TextStyle(
+                        color: Colors.grey.shade600,
+                      ),
                     ),
                   ),
                 ),
                 const SizedBox(width: 8),
-                ElevatedButton(
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: ThemeColors.primaryColor,
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(8),
+                Flexible(
+                  flex: 1,
+                  child: ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: ThemeColors.primaryColor,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(8),
+                      ),
                     ),
-                  ),
-                  onPressed: selectedTenant == null
-                      ? null
-                      : () {
-                          Navigator.of(context).pop();
-                          widget.onTenantSelected(selectedTenant!);
-                        },
-                  child: const Text(
-                    'Continue',
-                    style: TextStyle(color: Colors.white),
+                    onPressed: selectedTenant == null
+                        ? null
+                        : () {
+                            Navigator.of(context).pop();
+                            widget.onTenantSelected(selectedTenant!);
+                          },
+                    child: const Text(
+                      'Continue',
+                      style: TextStyle(color: Colors.white),
+                    ),
                   ),
                 ),
               ],
