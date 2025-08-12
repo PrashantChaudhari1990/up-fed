@@ -1,11 +1,11 @@
 import 'dart:convert';
 import 'dart:io';
-import 'package:vendor_partner/config/server_config.dart';
-import 'package:vendor_partner/constant/common_constants.dart';
-import 'package:vendor_partner/models/user.dart';
-import 'package:vendor_partner/utils/app_loader.dart';
-import 'package:vendor_partner/utils/app_session.dart';
-import 'package:vendor_partner/utils/toast_message.dart';
+import 'package:supervisor_ui/config/server_config.dart';
+import 'package:supervisor_ui/constant/common_constants.dart';
+import 'package:supervisor_ui/models/user.dart';
+import 'package:supervisor_ui/utils/app_loader.dart';
+import 'package:supervisor_ui/utils/app_session.dart';
+import 'package:supervisor_ui/utils/toast_message.dart';
 import 'package:dio/dio.dart';
 
 class InterceptorService {

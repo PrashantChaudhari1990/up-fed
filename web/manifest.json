@@ -1,6 +1,6 @@
 {
-    "name": "vendor_partner",
-    "short_name": "vendor_partner",
+    "name": "supervisor_ui",
+    "short_name": "supervisor_ui",
     "start_url": ".",
     "display": "standalone",
     "background_color": "#0175C2",

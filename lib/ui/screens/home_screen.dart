@@ -1,9 +1,10 @@
-import 'package:vendor_partner/constant/web_app_routes.dart';
-import 'package:vendor_partner/themes/styles/theme_colors.dart';
-import 'package:vendor_partner/themes/styles/typography.dart';
-import 'package:vendor_partner/ui/shared_widget/dynamic_app_bar.dart';
-import 'package:vendor_partner/ui/shared_widget/kh_app_bar.dart';
-import 'package:vendor_partner/ui/shared_widget/web_view_container.dart';
+import 'package:permission_handler/permission_handler.dart';
+import 'package:supervisor_ui/constant/web_app_routes.dart';
+import 'package:supervisor_ui/themes/styles/theme_colors.dart';
+import 'package:supervisor_ui/themes/styles/typography.dart';
+import 'package:supervisor_ui/ui/shared_widget/dynamic_app_bar.dart';
+import 'package:supervisor_ui/ui/shared_widget/kh_app_bar.dart';
+import 'package:supervisor_ui/ui/shared_widget/web_view_container.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
@@ -24,19 +25,19 @@ class _HomeScreenState extends State<HomeScreen> {
     NavigationBarItem(
         iconUrl: 'assets/icons/home.svg',
         label: "home_screen.home".tr(),
-        routeName: WebAppRoutes.dashboard),
+        routeName: WebAppRoutes.tripSummary),
     NavigationBarItem(
-        iconUrl: 'assets/icons/assets.svg',
-        label: "home_screen.vehicle".tr(),
-        routeName: WebAppRoutes.vehicleModelsList),
+        iconUrl: 'assets/icons/notify_driver.svg',
+        label: "home_screen.notify_driver".tr(),
+        routeName: WebAppRoutes.notifyDriver),
     NavigationBarItem(
         iconUrl: 'assets/icons/trips.svg',
-        label: "home_screen.trips".tr(),
-        routeName: WebAppRoutes.trips),
+        label: "home_screen.trip_quick_view".tr(),
+        routeName: WebAppRoutes.tripQuickView),
     NavigationBarItem(
-        iconUrl: 'assets/icons/invoice.svg',
-        label: "home_screen.invoiceUpload".tr(),
-        routeName: WebAppRoutes.invoiceUpload),
+        iconUrl: 'assets/icons/request_view.svg',
+        label: "home_screen.request_view".tr(),
+        routeName: WebAppRoutes.requestView),
     //NavigationBarItem(iconUrl: 'assets/icons/orders.svg', label: "home_screen.payments".tr(),routeName:WebAppRoutes.payments),
     //NavigationBarItem(iconUrl: 'assets/icons/profile.svg', label: "home_screen.contract".tr(),routeName:WebAppRoutes.contract),
   ];
@@ -48,7 +49,14 @@ class _HomeScreenState extends State<HomeScreen> {
     super.initState();
     getTenentId();
   }
+  Future<void> requestLocationPermission() async {
+    var status = await Permission.location.status;
+    if (!status.isGranted) {
+      status = await Permission.location.request();
+    }
+  }
   Future<void> getTenentId() async {
+    await requestLocationPermission();
     try
     {
       CommonConstants.tenantId =
@@ -90,7 +98,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     enableFeedback: false,
                     unselectedItemColor: ThemeColors.gray4,
                     selectedLabelStyle:
-                        menuTabTextStyle.copyWith(fontWeight: FontWeight.bold),
+                        menuTabTextStyle.copyWith(fontSize: 10),
                     unselectedLabelStyle: menuTabTextStyle,
                     items: List.generate(
                         value ? _bottomNavigationTabs.length : 2, (index) {

@@ -1,13 +1,13 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
-import 'package:vendor_partner/models/user.dart';
-import 'package:vendor_partner/routes.dart';
-import 'package:vendor_partner/utils/app_loader.dart';
-import 'package:vendor_partner/utils/app_session.dart';
-import 'package:vendor_partner/utils/app_session_storage.dart';
-import 'package:vendor_partner/utils/global_notifier.dart';
-import 'package:vendor_partner/utils/toast_message.dart';
-import 'package:vendor_partner/utils/webview_controller_utils.dart';
+import 'package:supervisor_ui/models/user.dart';
+import 'package:supervisor_ui/routes.dart';
+import 'package:supervisor_ui/utils/app_loader.dart';
+import 'package:supervisor_ui/utils/app_session.dart';
+import 'package:supervisor_ui/utils/app_session_storage.dart';
+import 'package:supervisor_ui/utils/global_notifier.dart';
+import 'package:supervisor_ui/utils/toast_message.dart';
+import 'package:supervisor_ui/utils/webview_controller_utils.dart';
 import 'constant/session_keys.dart';
 import 'utils/device_info.dart';
 

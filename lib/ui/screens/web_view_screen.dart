@@ -1,5 +1,5 @@
-import 'package:vendor_partner/ui/shared_widget/kh_app_bar.dart';
-import 'package:vendor_partner/ui/shared_widget/web_view_container.dart';
+import 'package:supervisor_ui/ui/shared_widget/kh_app_bar.dart';
+import 'package:supervisor_ui/ui/shared_widget/web_view_container.dart';
 import 'package:flutter/material.dart';
 
 class WebViewScreen extends StatefulWidget {

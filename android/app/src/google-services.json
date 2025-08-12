@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "1042769883067",
+    "project_id": "oorjaa-supervisor",
+    "storage_bucket": "oorjaa-supervisor.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1042769883067:android:f335a55a5f5cdff30bde9e",
+        "android_client_info": {
+          "package_name": "tech.oorjaa.supervisorapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1042769883067-lqal3fva56clnm4qp2t1ulsoh6b0se4b.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBcemFBnXU8alZFa4XNFA1e_Z0tBzUzwOI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1042769883067-lqal3fva56clnm4qp2t1ulsoh6b0se4b.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

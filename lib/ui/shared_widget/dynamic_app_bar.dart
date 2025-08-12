@@ -3,9 +3,9 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_inappwebview/flutter_inappwebview.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:vendor_partner/config/server_config.dart';
-import 'package:vendor_partner/constant/web_app_routes.dart';
-import 'package:vendor_partner/utils/global_notifier.dart';
+import 'package:supervisor_ui/config/server_config.dart';
+import 'package:supervisor_ui/constant/web_app_routes.dart';
+import 'package:supervisor_ui/utils/global_notifier.dart';
 import '../../models/user.dart';
 import '../../themes/styles/theme_colors.dart';
 import '../../utils/app_session.dart';
@@ -179,7 +179,7 @@ class DynamicAppBar extends StatelessWidget {
   _onClickCart(BuildContext context) async {
     WebViewControllerUtils.controller?.loadUrl(
         urlRequest: URLRequest(
-            url: WebUri(environment.webAppUrl + WebAppRoutes.reviewData)));
+            url: WebUri(environment.webAppUrl + WebAppRoutes.profile)));
   }
 
   Future<String> getUser() async {

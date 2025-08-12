@@ -3,9 +3,9 @@ import 'dart:io';
 abstract class CommonConstants {
   static get xVisibilityScope {
     if (Platform.isAndroid) {
-      return "VENDOR_APP";
+      return "SUPERVISOR";
     } else if (Platform.isIOS) {
-      return "VENDOR_APP";
+      return "SUPERVISOR";
     } else {
       return '';
     }

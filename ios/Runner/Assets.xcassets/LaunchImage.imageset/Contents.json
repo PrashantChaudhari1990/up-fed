@@ -1,17 +1,17 @@
 {
   "images" : [
     {
-      "filename" : "v-app@1x.png",
+      "filename" : "img1.jpeg",
       "idiom" : "universal",
       "scale" : "1x"
     },
     {
-      "filename" : "v-app@2x.png",
+      "filename" : "img2.jpeg",
       "idiom" : "universal",
       "scale" : "2x"
     },
     {
-      "filename" : "v-app@3x.png",
+      "filename" : "img3.jpeg",
       "idiom" : "universal",
       "scale" : "3x"
     }

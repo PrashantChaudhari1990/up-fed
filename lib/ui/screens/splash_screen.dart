@@ -1,6 +1,6 @@
-import 'package:vendor_partner/routes.dart';
-import 'package:vendor_partner/themes/styles/theme_colors.dart';
-import 'package:vendor_partner/utils/app_session.dart';
+import 'package:supervisor_ui/routes.dart';
+import 'package:supervisor_ui/themes/styles/theme_colors.dart';
+import 'package:supervisor_ui/utils/app_session.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -18,7 +18,7 @@ class _SplashScreenState extends State<SplashScreen> {
   initState() {
     Future.delayed(const Duration(seconds: 2), () async {
       final bool isLoggedIn = await AppSession().isLogin;
-      final routeName = isLoggedIn ? Routes.home : Routes.sliderScreen;
+      final routeName = isLoggedIn ? Routes.home : Routes.login;
       if (!mounted) return;
       Navigator.of(context).pushReplacementNamed(routeName);
     });
@@ -36,17 +36,19 @@ class _SplashScreenState extends State<SplashScreen> {
     return Scaffold(
       body: Container(
         width: screenSize.width,
-        color: ThemeColors.primaryColor,
+        //color: ThemeColors.primaryColor,
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Flexible(
                 flex: 2,
                 child: Center(
-                    child: SvgPicture.asset(
-                  'assets/images/svg/app_header_logo.svg',
-                  width: screenSize.width / 2,
-                )))
+                    child: SizedBox(
+                        width: MediaQuery.of(context).size.width / 4,
+                        height: MediaQuery.of(context).size.width / 4,
+                        child: Image.asset(
+                          'assets/images/png/ic_launcher.png',
+                        )),))
           ],
         ),
       ),

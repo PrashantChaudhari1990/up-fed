@@ -1,10 +1,10 @@
-import 'package:vendor_partner/utils/color_extensions.dart';
-import 'package:vendor_partner/utils/color_utility.dart';
+import 'package:supervisor_ui/utils/color_extensions.dart';
+import 'package:supervisor_ui/utils/color_utility.dart';
 import 'package:flutter/material.dart';
 
 class ThemeColors {
   static MaterialColor primaryColor =
-      MaterialColor(0xFF0056BC, const Color(0xFF0056BC).toSwatch());
+      MaterialColor(0xff008B4B, const Color(0xff008B4B).toSwatch());
   static dynamic black = Colors.black;
   static dynamic white = Colors.white;
   static dynamic errorColor = Colors.red;

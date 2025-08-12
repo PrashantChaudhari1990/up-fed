@@ -1,4 +1,4 @@
-import 'package:vendor_partner/app.dart';
+import 'package:supervisor_ui/app.dart';
 import 'package:flutter/material.dart';
 
 class AppLoader {

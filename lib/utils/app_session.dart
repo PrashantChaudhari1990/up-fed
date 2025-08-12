@@ -1,5 +1,5 @@
-import 'package:vendor_partner/constant/session_keys.dart';
-import 'package:vendor_partner/utils/app_session_storage.dart';
+import 'package:supervisor_ui/constant/session_keys.dart';
+import 'package:supervisor_ui/utils/app_session_storage.dart';
 
 class AppSession {
   static final AppSession _instance = AppSession._internal();

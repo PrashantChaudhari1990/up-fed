@@ -1,5 +1,5 @@
-import 'package:vendor_partner/themes/styles/fonts.dart';
-import 'package:vendor_partner/themes/styles/theme_colors.dart';
+import 'package:supervisor_ui/themes/styles/fonts.dart';
+import 'package:supervisor_ui/themes/styles/theme_colors.dart';
 import 'package:flutter/material.dart';
 
 //flutter theme
@@ -28,7 +28,7 @@ TextStyle linkTextStyleSmall = TextStyle(
 );
 
 TextStyle menuTabTextStyle = TextStyle(
-  fontWeight: FontWeight.w400,
-  fontSize: 14,
+  //fontWeight: FontWeight.w400,
+  fontSize: 10,
   fontFamily: Fonts.primary,
 );

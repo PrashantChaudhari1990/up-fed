@@ -1,11 +1,11 @@
-import 'package:vendor_partner/models/auth/set_pin_request.dart';
-import 'package:vendor_partner/models/base_response.dart';
-import 'package:vendor_partner/models/user.dart';
-import 'package:vendor_partner/routes.dart';
-import 'package:vendor_partner/services/auth/auth_service.dart';
-import 'package:vendor_partner/ui/shared_widget/kh_app_bar.dart';
-import 'package:vendor_partner/ui/shared_widget/pin_input_field.dart';
-import 'package:vendor_partner/utils/toast_message.dart';
+import 'package:supervisor_ui/models/auth/set_pin_request.dart';
+import 'package:supervisor_ui/models/base_response.dart';
+import 'package:supervisor_ui/models/user.dart';
+import 'package:supervisor_ui/routes.dart';
+import 'package:supervisor_ui/services/auth/auth_service.dart';
+import 'package:supervisor_ui/ui/shared_widget/kh_app_bar.dart';
+import 'package:supervisor_ui/ui/shared_widget/pin_input_field.dart';
+import 'package:supervisor_ui/utils/toast_message.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 

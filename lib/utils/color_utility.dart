@@ -1,4 +1,4 @@
-import 'package:vendor_partner/utils/color_extensions.dart';
+import 'package:supervisor_ui/utils/color_extensions.dart';
 import 'package:flutter/material.dart';
 
 jsonToColor(dynamic colorData, Color defaultColor,

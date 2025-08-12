@@ -1,5 +1,5 @@
-import 'package:vendor_partner/constant/web_app_routes.dart';
-import 'package:vendor_partner/ui/shared_widget/web_view_container.dart';
+import 'package:supervisor_ui/constant/web_app_routes.dart';
+import 'package:supervisor_ui/ui/shared_widget/web_view_container.dart';
 import 'package:flutter/material.dart';
 
 class SignUpScreen extends StatefulWidget {

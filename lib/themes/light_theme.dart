@@ -1,6 +1,6 @@
-import 'package:vendor_partner/themes/styles/fonts.dart';
-import 'package:vendor_partner/themes/styles/typography.dart';
-import 'package:vendor_partner/themes/styles/theme_colors.dart';
+import 'package:supervisor_ui/themes/styles/fonts.dart';
+import 'package:supervisor_ui/themes/styles/typography.dart';
+import 'package:supervisor_ui/themes/styles/theme_colors.dart';
 import 'package:flutter/material.dart';
 
 ThemeData lightTheme = ThemeData(

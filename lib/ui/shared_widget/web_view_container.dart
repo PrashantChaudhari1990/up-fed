@@ -1,13 +1,13 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
-import 'package:vendor_partner/constant/web_app_routes.dart';
-import 'package:vendor_partner/models/app_bar_config.dart';
-import 'package:vendor_partner/routes.dart';
-import 'package:vendor_partner/themes/styles/theme_colors.dart';
-import 'package:vendor_partner/utils/app_loader.dart';
-import 'package:vendor_partner/utils/toast_message.dart';
-import 'package:vendor_partner/utils/webview_controller_utils.dart';
-import 'package:vendor_partner/web_handler.dart';
+import 'package:supervisor_ui/constant/web_app_routes.dart';
+import 'package:supervisor_ui/models/app_bar_config.dart';
+import 'package:supervisor_ui/routes.dart';
+import 'package:supervisor_ui/themes/styles/theme_colors.dart';
+import 'package:supervisor_ui/utils/app_loader.dart';
+import 'package:supervisor_ui/utils/toast_message.dart';
+import 'package:supervisor_ui/utils/webview_controller_utils.dart';
+import 'package:supervisor_ui/web_handler.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_inappwebview/flutter_inappwebview.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -264,16 +264,24 @@ class WebViewContainerState extends State<WebViewContainer> {
               action: PermissionResponseAction.GRANT,
               resources: request.resources);
         },
+        onGeolocationPermissionsShowPrompt: (controller, origin) async {
+          return GeolocationPermissionShowPromptResponse(
+            origin: origin,
+            allow: true,   // ✅ grant permission
+            retain: true,  // ✅ remember for this origin
+          );
+        },
+
       ),
     );
   }
 
   updateBottomNavigationBar(Uri? uri) {
     if ([
-      WebAppRoutes.dashboard,
-      WebAppRoutes.vehicleModelsList,
-      WebAppRoutes.trips,
-      WebAppRoutes.invoiceUpload
+      WebAppRoutes.tripSummary,
+      WebAppRoutes.notifyDriver,
+      WebAppRoutes.tripQuickView,
+      WebAppRoutes.requestView
     ].contains(uri?.path)) {
       homeBottomBarVisible.value = true;
     } else {
@@ -303,10 +311,10 @@ class WebViewContainerState extends State<WebViewContainer> {
   //welcome
   _isTitleBar(Uri? uri) {
     return [
-      WebAppRoutes.dashboard,
-      WebAppRoutes.vehicleModelsList,
-      WebAppRoutes.trips,
-      WebAppRoutes.invoiceUpload
+      WebAppRoutes.tripSummary,
+      WebAppRoutes.notifyDriver,
+      WebAppRoutes.tripQuickView,
+      WebAppRoutes.requestView
     ].contains(uri?.path.toString());
   }
 
@@ -319,20 +327,20 @@ class WebViewContainerState extends State<WebViewContainer> {
   _isSettingsIconVisible(AppBarConfig? appBarConfig, Uri? uri) {
     return (appBarConfig?.cartVisible ?? false) ||
         [
-          WebAppRoutes.dashboard,
-          WebAppRoutes.vehicleModelsList,
-          WebAppRoutes.trips,
-          WebAppRoutes.invoiceUpload
+          WebAppRoutes.tripSummary,
+          WebAppRoutes.notifyDriver,
+          WebAppRoutes.tripQuickView,
+          WebAppRoutes.requestView
         ].contains(uri?.path.toString());
   }
 
   _isNotificationVisible(AppBarConfig? appBarConfig, Uri? uri) {
     return (appBarConfig?.notificationVisible ?? false) ||
         [
-          WebAppRoutes.dashboard,
-          WebAppRoutes.vehicleModelsList,
-          WebAppRoutes.trips,
-          WebAppRoutes.invoiceUpload
+          WebAppRoutes.tripSummary,
+          WebAppRoutes.notifyDriver,
+          WebAppRoutes.tripQuickView,
+          WebAppRoutes.requestView
         ].contains(uri?.path.toString());
   }
 }

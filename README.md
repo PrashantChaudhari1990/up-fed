@@ -1,7 +1,7 @@
 
-## Vendor Partner Mobile Application📱
+## Supervisor Mobile Application📱
 
-This project for dealer mobile application for Vendor Partner.
+This project for dealer mobile application for Supervisor.
 
 
 ### Supported Versions

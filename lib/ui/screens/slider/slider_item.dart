@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:vendor_partner/config/server_config.dart';
+import 'package:supervisor_ui/config/server_config.dart';
 import '../../../models/slider_details.dart';
 
 class SliderItem extends StatelessWidget {

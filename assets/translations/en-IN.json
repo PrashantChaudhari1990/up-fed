@@ -1,5 +1,5 @@
 {
-  "title": "Oorjaa Vendor App",
+  "title": "Oorjaa Supervisor App",
   "select_your_pref_lang": "Select your preferred language",
   "continue": "Continue",
   "sign_up": "Sign Up",
@@ -42,12 +42,10 @@
   },
   "home_screen": {
     "home": "Home",
-    "vehicle": "Assets",
-    "trips": "Trips",
-    "payments": "Payments",
-    "profile": "Profile",
-    "contract": "Contracts",
-    "invoiceUpload": "Invoice"
+    "notify_driver": "Notify Driver",
+    "trip_quick_view": "Trip Quick View",
+    "request_view": "Request View",
+    "profile": "Profile"
   },
   "forgot_pin": {
     "forgot":"Forgot",
