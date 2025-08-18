@@ -3,9 +3,9 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_inappwebview/flutter_inappwebview.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:supervisor_ui/config/server_config.dart';
-import 'package:supervisor_ui/constant/web_app_routes.dart';
-import 'package:supervisor_ui/utils/global_notifier.dart';
+import 'package:bttoa_ui/config/server_config.dart';
+import 'package:bttoa_ui/constant/web_app_routes.dart';
+import 'package:bttoa_ui/utils/global_notifier.dart';
 import '../../models/user.dart';
 import '../../themes/styles/theme_colors.dart';
 import '../../utils/app_session.dart';
@@ -187,7 +187,7 @@ class DynamicAppBar extends StatelessWidget {
 
     if (loginUser != null) {
       final User user = User.fromJson(jsonDecode(loginUser));
-      return user.firstName ?? "";
+      return user.data!.loginResponse!.userName ?? "";
     }
     return '';
   }

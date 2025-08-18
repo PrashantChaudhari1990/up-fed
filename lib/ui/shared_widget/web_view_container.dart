@@ -1,13 +1,13 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
-import 'package:supervisor_ui/constant/web_app_routes.dart';
-import 'package:supervisor_ui/models/app_bar_config.dart';
-import 'package:supervisor_ui/routes.dart';
-import 'package:supervisor_ui/themes/styles/theme_colors.dart';
-import 'package:supervisor_ui/utils/app_loader.dart';
-import 'package:supervisor_ui/utils/toast_message.dart';
-import 'package:supervisor_ui/utils/webview_controller_utils.dart';
-import 'package:supervisor_ui/web_handler.dart';
+import 'package:bttoa_ui/constant/web_app_routes.dart';
+import 'package:bttoa_ui/models/app_bar_config.dart';
+import 'package:bttoa_ui/routes.dart';
+import 'package:bttoa_ui/themes/styles/theme_colors.dart';
+import 'package:bttoa_ui/utils/app_loader.dart';
+import 'package:bttoa_ui/utils/toast_message.dart';
+import 'package:bttoa_ui/utils/webview_controller_utils.dart';
+import 'package:bttoa_ui/web_handler.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_inappwebview/flutter_inappwebview.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -33,7 +33,7 @@ class WebViewContainer extends StatefulWidget {
 
 class WebViewContainerState extends State<WebViewContainer> {
   //final String _customSchema = 'kh-dealer-app:';
-  final String _customSchema = 'vpa:';
+  final String _customSchema = 'bttoa:';
 
   PullToRefreshController? _pullToRefreshController;
   InAppWebViewController? _inAppWebViewController;
@@ -125,6 +125,7 @@ class WebViewContainerState extends State<WebViewContainer> {
             context, Routes.home, (route) => false);
         break;
       default:
+        return;
         return;
     }
   }
@@ -278,10 +279,10 @@ class WebViewContainerState extends State<WebViewContainer> {
 
   updateBottomNavigationBar(Uri? uri) {
     if ([
-      WebAppRoutes.tripSummary,
-      WebAppRoutes.notifyDriver,
-      WebAppRoutes.tripQuickView,
-      WebAppRoutes.requestView
+      WebAppRoutes.dashboard,
+      WebAppRoutes.coupon,
+      WebAppRoutes.offers,
+      WebAppRoutes.support
     ].contains(uri?.path)) {
       homeBottomBarVisible.value = true;
     } else {
@@ -311,10 +312,10 @@ class WebViewContainerState extends State<WebViewContainer> {
   //welcome
   _isTitleBar(Uri? uri) {
     return [
-      WebAppRoutes.tripSummary,
-      WebAppRoutes.notifyDriver,
-      WebAppRoutes.tripQuickView,
-      WebAppRoutes.requestView
+      WebAppRoutes.dashboard,
+      WebAppRoutes.coupon,
+      WebAppRoutes.offers,
+      WebAppRoutes.support
     ].contains(uri?.path.toString());
   }
 
@@ -327,20 +328,20 @@ class WebViewContainerState extends State<WebViewContainer> {
   _isSettingsIconVisible(AppBarConfig? appBarConfig, Uri? uri) {
     return (appBarConfig?.cartVisible ?? false) ||
         [
-          WebAppRoutes.tripSummary,
-          WebAppRoutes.notifyDriver,
-          WebAppRoutes.tripQuickView,
-          WebAppRoutes.requestView
+          WebAppRoutes.dashboard,
+          WebAppRoutes.coupon,
+          WebAppRoutes.offers,
+          WebAppRoutes.support
         ].contains(uri?.path.toString());
   }
 
   _isNotificationVisible(AppBarConfig? appBarConfig, Uri? uri) {
     return (appBarConfig?.notificationVisible ?? false) ||
         [
-          WebAppRoutes.tripSummary,
-          WebAppRoutes.notifyDriver,
-          WebAppRoutes.tripQuickView,
-          WebAppRoutes.requestView
+          WebAppRoutes.dashboard,
+          WebAppRoutes.coupon,
+          WebAppRoutes.offers,
+          WebAppRoutes.support
         ].contains(uri?.path.toString());
   }
 }

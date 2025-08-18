@@ -3,7 +3,7 @@ import 'environment.dart';
 class Production extends Environment {
   Production()
       : super(
-            baseUrl: 'https://tms-api.oorjaa.tech',
-            webAppUrl: 'https://vendor-partner.oorjaa.tech',
+            baseUrl: 'vas-connect-api.oorjaa.tech',
+            webAppUrl: 'https://bttoa-connect.oorjaa.tech',
             appUpdate: true);
 }

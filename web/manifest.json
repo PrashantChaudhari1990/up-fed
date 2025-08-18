@@ -1,6 +1,6 @@
 {
-    "name": "supervisor_ui",
-    "short_name": "supervisor_ui",
+    "name": "bttoa_ui",
+    "short_name": "bttoa_ui",
     "start_url": ".",
     "display": "standalone",
     "background_color": "#0175C2",

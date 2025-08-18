@@ -1,10 +1,10 @@
 import 'package:flutter/cupertino.dart';
-import 'package:supervisor_ui/constant/api_end_points.dart';
-import 'package:supervisor_ui/models/auth/generate_otp_request.dart';
-import 'package:supervisor_ui/models/auth/login_request.dart';
-import 'package:supervisor_ui/models/auth/set_pin_request.dart';
-import 'package:supervisor_ui/models/auth/validate_otp_request.dart';
-import 'package:supervisor_ui/services/interceptor_service.dart';
+import 'package:bttoa_ui/constant/api_end_points.dart';
+import 'package:bttoa_ui/models/auth/generate_otp_request.dart';
+import 'package:bttoa_ui/models/auth/login_request.dart';
+import 'package:bttoa_ui/models/auth/set_pin_request.dart';
+import 'package:bttoa_ui/models/auth/validate_otp_request.dart';
+import 'package:bttoa_ui/services/interceptor_service.dart';
 import 'package:dio/dio.dart';
 
 class AuthService {
@@ -31,7 +31,7 @@ class AuthService {
 
   Future validateOtp(ValidateOtpRequest validateOtpRequest) async {
     return _interceptorService.dio
-        .put(ApiEndPoints.login, data: validateOtpRequest);
+        .post(ApiEndPoints.validateOtp, data: validateOtpRequest);
   }
 
   Future login(LoginRequest loginRequest) async {

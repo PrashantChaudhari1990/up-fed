@@ -1,11 +1,11 @@
 import 'dart:convert';
 import 'dart:io';
-import 'package:supervisor_ui/config/server_config.dart';
-import 'package:supervisor_ui/constant/common_constants.dart';
-import 'package:supervisor_ui/models/user.dart';
-import 'package:supervisor_ui/utils/app_loader.dart';
-import 'package:supervisor_ui/utils/app_session.dart';
-import 'package:supervisor_ui/utils/toast_message.dart';
+import 'package:bttoa_ui/config/server_config.dart';
+import 'package:bttoa_ui/constant/common_constants.dart';
+import 'package:bttoa_ui/models/user.dart';
+import 'package:bttoa_ui/utils/app_loader.dart';
+import 'package:bttoa_ui/utils/app_session.dart';
+import 'package:bttoa_ui/utils/toast_message.dart';
 import 'package:dio/dio.dart';
 
 class InterceptorService {
@@ -29,7 +29,7 @@ class InterceptorService {
       requestOptions.headers['x-tenant-id'] = CommonConstants.tenantId;
       if (loginUser != null) {
         User user = User.fromJson(jsonDecode(loginUser));
-        requestOptions.headers['Authorization'] = 'Bearer ${user.sessionToken}';
+        requestOptions.headers['Authorization'] = 'Bearer ${user.data!.loginResponse!.sessionToken}';
       }
       if (requestOptions.extra['showLoader'] ?? true) {
         AppLoader().show();

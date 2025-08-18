@@ -3,15 +3,15 @@ import 'dart:io';
 abstract class CommonConstants {
   static get xVisibilityScope {
     if (Platform.isAndroid) {
-      return "SUPERVISOR";
+      return "vas-user-app";
     } else if (Platform.isIOS) {
-      return "SUPERVISOR";
+      return "vas-user-app";
     } else {
       return '';
     }
   }
 
-  static String tenantId = '';
+  static String tenantId = '1';
 
   static String testingWebUrlIp = "192.168.1.109";
 }

@@ -1,82 +1,108 @@
 class User {
-  int? id;
-  String? username;
-  String? email;
-  String? sessionToken;
-  String? phoneNumber;
-  String? firstName;
-  String? userType;
-  DeviceDetail? deviceDetail;
-  List<String>? authorities;
-  int? clientId;
-  List<String>? userRoles;
-  List<String>? scopes;
-  String? refreshToken;
-  int? sessionExpire;
-  int? refreshExpire;
-  bool? validUserDetails;
+  bool? success;
+  String? message;
+  Data? data;
 
-  User(
-      {this.id,
-      this.username,
-      this.email,
-      this.sessionToken,
-      this.phoneNumber,
-      this.firstName,
-      this.userType,
-      this.deviceDetail,
-      this.authorities,
-      this.clientId,
-      this.userRoles,
-      this.scopes,
-      this.refreshToken,
-      this.sessionExpire,
-      this.refreshExpire,
-      this.validUserDetails});
+  User({this.success, this.message, this.data});
 
   User.fromJson(Map<String, dynamic> json) {
-    id = json['id'];
-    username = json['username'];
-    email = json['email'];
-    sessionToken = json['sessionToken'];
-    phoneNumber = json['phoneNumber'];
-    firstName = json['firstName'];
-    userType = json['userType'];
-    deviceDetail = json['deviceDetail'] != null
-        ? DeviceDetail.fromJson(json['deviceDetail'])
-        : null;
-    authorities =
-        json['authorities'] != null ? json['authorities'].cast<String>() : [];
-    clientId = json['clientId'];
-    userRoles =
-        json['userRoles'] != null ? json['userRoles'].cast<String>() : [];
-    scopes = json['scopes'] != null ? json['scopes'].cast<String>() : [];
-    refreshToken = json['refreshToken'];
-    sessionExpire = json['sessionExpire'];
-    refreshExpire = json['refreshExpire'];
-    validUserDetails = json['validUserDetails'];
+    success = json['success'];
+    message = json['message'];
+    data = json['data'] != null ? new Data.fromJson(json['data']) : null;
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = <String, dynamic>{};
-    data['id'] = id;
-    data['username'] = username;
-    data['email'] = email;
-    data['sessionToken'] = sessionToken;
-    data['phoneNumber'] = phoneNumber;
-    data['firstName'] = firstName;
-    data['userType'] = userType;
-    if (deviceDetail != null) {
-      data['deviceDetail'] = deviceDetail!.toJson();
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['success'] = this.success;
+    data['message'] = this.message;
+    if (this.data != null) {
+      data['data'] = this.data!.toJson();
     }
-    data['authorities'] = authorities;
-    data['clientId'] = clientId;
-    data['userRoles'] = userRoles;
-    data['scopes'] = scopes;
-    data['refreshToken'] = refreshToken;
-    data['sessionExpire'] = sessionExpire;
-    data['refreshExpire'] = refreshExpire;
-    data['validUserDetails'] = validUserDetails;
+    return data;
+  }
+}
+
+class Data {
+  int? otpId;
+  String? status;
+  LoginResponse? loginResponse;
+  bool? newUser;
+
+  Data({this.otpId, this.status, this.loginResponse, this.newUser});
+
+  Data.fromJson(Map<String, dynamic> json) {
+    otpId = json['otpId'];
+    status = json['status'];
+    loginResponse = json['loginResponse'] != null
+        ? new LoginResponse.fromJson(json['loginResponse'])
+        : null;
+    newUser = json['newUser'];
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['otpId'] = this.otpId;
+    data['status'] = this.status;
+    if (this.loginResponse != null) {
+      data['loginResponse'] = this.loginResponse!.toJson();
+    }
+    data['newUser'] = this.newUser;
+    return data;
+  }
+}
+class LoginResponse {
+  int? userId;
+  bool? existingUser;
+  String? sessionToken;
+  bool? validUserDetails;
+  String? refreshToken;
+  int? sessionExpire;
+  int? refreshExpire;
+  int? companyId;
+  String? companyName;
+  String? userName;
+  String? mobileNumber;
+
+  LoginResponse(
+      {this.userId,
+        this.existingUser,
+        this.sessionToken,
+        this.validUserDetails,
+        this.refreshToken,
+        this.sessionExpire,
+        this.refreshExpire,
+        this.companyId,
+        this.mobileNumber,
+        this.userName,
+        this.companyName});
+
+  LoginResponse.fromJson(Map<String, dynamic> json) {
+    userId = json['userId'];
+    existingUser = json['existingUser'];
+    sessionToken = json['sessionToken'];
+    validUserDetails = json['validUserDetails'];
+    refreshToken = json['refreshToken'];
+    sessionExpire = json['sessionExpire'];
+    refreshExpire = json['refreshExpire'];
+    companyId = json['companyId'];
+    companyName = json['companyName'];
+    userName = json['userName'];
+    mobileNumber = json['mobileNumber'];
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['userId'] = this.userId;
+    data['existingUser'] = this.existingUser;
+    data['sessionToken'] = this.sessionToken;
+    data['validUserDetails'] = this.validUserDetails;
+    data['refreshToken'] = this.refreshToken;
+    data['sessionExpire'] = this.sessionExpire;
+    data['refreshExpire'] = this.refreshExpire;
+    data['companyId'] = this.companyId;
+    data['companyName'] = this.companyName;
+    data['userName'] = this.userName;
+    data['mobileNumber'] = this.mobileNumber;
     return data;
   }
 }

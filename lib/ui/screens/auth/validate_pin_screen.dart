@@ -1,10 +1,10 @@
 import 'dart:convert';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:supervisor_ui/models/auth/login_request.dart';
-import 'package:supervisor_ui/services/auth/auth_service.dart';
-import 'package:supervisor_ui/themes/styles/theme_colors.dart';
-import 'package:supervisor_ui/utils/device_info.dart';
+import 'package:bttoa_ui/models/auth/login_request.dart';
+import 'package:bttoa_ui/services/auth/auth_service.dart';
+import 'package:bttoa_ui/themes/styles/theme_colors.dart';
+import 'package:bttoa_ui/utils/device_info.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import '../../../constant/session_keys.dart';
@@ -39,7 +39,7 @@ class _ValidatePinScreenState extends State<ValidatePinScreen> {
     _authService.login(loginRequest).then((response) async {
       if (response != null) {
         final userResponse = User.fromJson(response.data);
-        if (userResponse.id != null) {
+        if (userResponse.data!.loginResponse!.userId != null) {
           await AppSessionStorage()
               .setString(SessionKeys.user, jsonEncode(response.data));
           if (mounted) {

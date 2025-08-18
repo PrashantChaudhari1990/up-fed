@@ -1,12 +1,12 @@
-import 'package:supervisor_ui/enums/enums.dart';
-import 'package:supervisor_ui/models/auth/generate_otp_request.dart';
-import 'package:supervisor_ui/services/auth/auth_service.dart';
-import 'package:supervisor_ui/themes/styles/theme_colors.dart';
+import 'package:bttoa_ui/enums/enums.dart';
+import 'package:bttoa_ui/models/auth/generate_otp_request.dart';
+import 'package:bttoa_ui/services/auth/auth_service.dart';
+import 'package:bttoa_ui/themes/styles/theme_colors.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:supervisor_ui/ui/screens/auth/tenant_selection_popup.dart';
-import 'package:supervisor_ui/utils/app_loader.dart';
+import 'package:bttoa_ui/ui/screens/auth/tenant_selection_popup.dart';
+import 'package:bttoa_ui/utils/app_loader.dart';
 import '../../../constant/common_constants.dart';
 import '../../../constant/session_keys.dart';
 import '../../../models/pre_login_response.dart';
@@ -47,6 +47,7 @@ class _LoginScreenState extends State<LoginScreen> {
     super.dispose();
   }
 
+  //check for multiple tenent id check
   _preLogin() async {
     // Call pre-login API first
     try {
@@ -109,7 +110,7 @@ class _LoginScreenState extends State<LoginScreen> {
     FocusScope.of(context).unfocus();
     if (_loginWith == LoginWith.otp) {
       final generateOtpRequest =
-          GenerateOtpRequest(phoneNumber: _phoneNumberController.text);
+          GenerateOtpRequest(mobileNumber: _phoneNumberController.text);
       _authService.generateOtp(generateOtpRequest).then((response) {
         if (response != null && response.data != null) {
           Map<String, dynamic> parsedJson = response.data;
@@ -119,7 +120,7 @@ class _LoginScreenState extends State<LoginScreen> {
             Navigator.of(context).pushNamed(
               Routes.otpVerification,
               arguments: {
-                'id': parsedJson["data"]["id"],
+                'id': parsedJson["data"]["userId"],
                 'phoneNo': _phoneNumberController.text,
               },
             );
@@ -323,7 +324,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   valueListenable: _phoneNumberController,
                   builder: (context, value, _) {
                     return ElevatedButton(
-                        onPressed: value.text.length == 10 ? _preLogin : null,
+                        onPressed: value.text.length == 10 ? _onSubmitClick : null,
                         child: const Text('submit').tr());
                   })
             ],

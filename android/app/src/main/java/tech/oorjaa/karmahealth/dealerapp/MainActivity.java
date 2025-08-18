@@ -1,4 +1,4 @@
-package tech.oorjaa.supervisorapp;
+package tech.oorjaa.bttoa;
 
 import io.flutter.embedding.android.FlutterActivity;
 

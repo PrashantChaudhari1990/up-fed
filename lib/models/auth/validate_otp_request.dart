@@ -1,20 +1,20 @@
 import 'login_request.dart';
 
 class ValidateOtpRequest {
-  String? phoneNumber;
-  String? otp;
+  String? mobileNumber;
   bool? flag;
   DeviceDetails? deviceDetail;
-  String? id;
+  String? userId;
+  String? otpCode;
 
   ValidateOtpRequest(
-      {this.phoneNumber, this.otp, this.flag, this.deviceDetail, this.id});
+      {this.mobileNumber, this.otpCode, this.flag, this.deviceDetail, this.userId});
 
   ValidateOtpRequest.fromJson(Map<String, dynamic> json) {
-    phoneNumber = json['phoneNumber'];
-    otp = json['otp'];
+    mobileNumber = json['mobileNumber'];
+    otpCode = json['otpCode'];
     flag = json['flag'];
-    id = json['id'];
+    userId = json['userId'];
     deviceDetail = json['deviceDetail'] != null
         ? DeviceDetails.fromJson(json['deviceDetail'])
         : null;
@@ -22,9 +22,9 @@ class ValidateOtpRequest {
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = <String, dynamic>{};
-    data['phoneNumber'] = phoneNumber;
-    data['otp'] = otp;
-    data['id'] = id;
+    data['mobileNumber'] = mobileNumber;
+    data['otpCode'] = otpCode;
+    data['userId'] = userId;
     data['flag'] = flag;
     if (deviceDetail != null) {
       data['deviceDetail'] = deviceDetail!.toJson();

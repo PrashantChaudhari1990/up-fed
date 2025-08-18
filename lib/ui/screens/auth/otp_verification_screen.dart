@@ -1,20 +1,20 @@
 import 'dart:async';
 import 'dart:convert';
-import 'package:supervisor_ui/constant/session_keys.dart';
-import 'package:supervisor_ui/models/auth/generate_otp_request.dart';
-import 'package:supervisor_ui/models/auth/validate_otp_request.dart';
-import 'package:supervisor_ui/models/user.dart';
-import 'package:supervisor_ui/routes.dart';
-import 'package:supervisor_ui/services/auth/auth_service.dart';
-import 'package:supervisor_ui/themes/styles/theme_colors.dart';
-import 'package:supervisor_ui/ui/shared_widget/pin_input_field.dart';
-import 'package:supervisor_ui/utils/app_session_storage.dart';
+import 'package:bttoa_ui/constant/session_keys.dart';
+import 'package:bttoa_ui/models/auth/generate_otp_request.dart';
+import 'package:bttoa_ui/models/auth/validate_otp_request.dart';
+import 'package:bttoa_ui/models/user.dart';
+import 'package:bttoa_ui/routes.dart';
+import 'package:bttoa_ui/services/auth/auth_service.dart';
+import 'package:bttoa_ui/themes/styles/theme_colors.dart';
+import 'package:bttoa_ui/ui/shared_widget/pin_input_field.dart';
+import 'package:bttoa_ui/utils/app_session_storage.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:supervisor_ui/utils/device_info.dart';
-import 'package:supervisor_ui/utils/toast_message.dart';
+import 'package:bttoa_ui/utils/device_info.dart';
+import 'package:bttoa_ui/utils/toast_message.dart';
 import '../../../themes/styles/typography.dart';
 
 class OtpVerificationScreen extends StatefulWidget {
@@ -62,14 +62,14 @@ class _OtpVerificationScreenState extends State<OtpVerificationScreen> {
   _onSubmitOtp(String phoneNumber) async {
     final deviceDetails = await DeviceInfo.getDetail();
     final validateOtpRequest = ValidateOtpRequest(
-        id: userId, otp: _otpController.text, deviceDetail: deviceDetails);
+        userId: userId,mobileNumber:'+91$phoneNumber',otpCode: _otpController.text, deviceDetail: deviceDetails);
     _authService.validateOtp(validateOtpRequest).then((response) async {
       if (response != null) {
-        if (response.data['statusCode'] == 200) {
-          final userResponse = User.fromJson(response.data['data']);
-          if (userResponse.id != null) {
+        if (response.data['success'] == true) {
+          final userResponse = User.fromJson(response.data);
+          if (userResponse.data!.loginResponse!.userId != null) {
             await AppSessionStorage()
-                .setString(SessionKeys.user, jsonEncode(response.data['data']));
+                .setString(SessionKeys.user, jsonEncode(response.data["data"]["loginResponse"]));
             if (mounted) {
               Navigator.pushNamedAndRemoveUntil(
                   context, Routes.home, (route) => false);
@@ -96,7 +96,7 @@ class _OtpVerificationScreenState extends State<OtpVerificationScreen> {
     _resendOtpCountDown.value = 59;
     _startOtpCountdown();
     _authService
-        .generateOtp(GenerateOtpRequest(phoneNumber: "91$phoneNumber"))
+        .generateOtp(GenerateOtpRequest(mobileNumber: "91$phoneNumber"))
         .then((response) {
       if (response != null && response.data != null) {
         ToastMessage.show(tr('otp_verification.resend_message'));

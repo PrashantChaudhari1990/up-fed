@@ -1,6 +1,6 @@
-import 'package:supervisor_ui/environment/develop.dart';
-import 'package:supervisor_ui/environment/production.dart';
-import 'package:supervisor_ui/environment/staging.dart';
+import 'package:bttoa_ui/environment/develop.dart';
+import 'package:bttoa_ui/environment/production.dart';
+import 'package:bttoa_ui/environment/staging.dart';
 import '../environment/environment.dart';
 
 const EnvironmentType _environmentType = EnvironmentType.develop;

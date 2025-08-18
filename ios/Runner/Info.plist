@@ -7,7 +7,7 @@
 	<key>CFBundleDevelopmentRegion</key>
 	<string>$(DEVELOPMENT_LANGUAGE)</string>
 	<key>CFBundleDisplayName</key>
-	<string>Oorjaa Supervisor</string>
+	<string>Bttoa</string>
 	<key>CFBundleExecutable</key>
 	<string>$(EXECUTABLE_NAME)</string>
 	<key>CFBundleIdentifier</key>
@@ -15,7 +15,7 @@
 	<key>CFBundleInfoDictionaryVersion</key>
 	<string>6.0</string>
 	<key>CFBundleName</key>
-	<string>Oorjaa Supervisor</string>
+	<string>Bttoa</string>
 	<key>CFBundlePackageType</key>
 	<string>APPL</string>
 	<key>CFBundleShortVersionString</key>
@@ -26,22 +26,20 @@
 	<string>$(FLUTTER_BUILD_NUMBER)</string>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
-	<key>NSPhotoLibraryUsageDescription</key>
-    <string>We require access to your photo library to allow image uploads for your profile or other app features.</string>
+	<key>NSCameraUsageDescription</key>
+	<string>We need access to your camera to capture photos.</string>
 	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
 	<string>This app needs access to location when mark check-in and check-out.</string>
 	<key>NSLocationAlwaysUsageDescription</key>
 	<string>This app needs access to location when mark check-in and check-out.</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
 	<string>This app needs access to location when mark check-in and check-out.</string>
-	<key>NSCameraUsageDescription</key>
-    <string>We need access to your camera to capture photos.</string>
-    <key>NSPhotoLibraryUsageDescription</key>
-    <string>We need access to your gallery to select photos.</string>
-    <key>NSPhotoLibraryAddUsageDescription</key>
-    <string>We need permission to save photos to your gallery.</string>
-    <key>NSMicrophoneUsageDescription</key>
-    <string>We need microphone access for recording audio.</string>
+	<key>NSMicrophoneUsageDescription</key>
+	<string>We need microphone access for recording audio.</string>
+	<key>NSPhotoLibraryAddUsageDescription</key>
+	<string>We need permission to save photos to your gallery.</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>We need access to your gallery to select photos.</string>
 	<key>UIApplicationSupportsIndirectInputEvents</key>
 	<true/>
 	<key>UILaunchStoryboardName</key>

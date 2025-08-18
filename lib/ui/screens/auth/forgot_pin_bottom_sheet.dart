@@ -1,10 +1,10 @@
-import 'package:supervisor_ui/models/auth/generate_otp_request.dart';
-import 'package:supervisor_ui/models/auth/generate_otp_response.dart';
-import 'package:supervisor_ui/models/auth/validate_otp_request.dart';
-import 'package:supervisor_ui/services/auth/auth_service.dart';
-import 'package:supervisor_ui/themes/styles/theme_colors.dart';
-import 'package:supervisor_ui/ui/screens/auth/set_pin_screen.dart';
-import 'package:supervisor_ui/ui/shared_widget/pin_input_field.dart';
+import 'package:bttoa_ui/models/auth/generate_otp_request.dart';
+import 'package:bttoa_ui/models/auth/generate_otp_response.dart';
+import 'package:bttoa_ui/models/auth/validate_otp_request.dart';
+import 'package:bttoa_ui/services/auth/auth_service.dart';
+import 'package:bttoa_ui/themes/styles/theme_colors.dart';
+import 'package:bttoa_ui/ui/screens/auth/set_pin_screen.dart';
+import 'package:bttoa_ui/ui/shared_widget/pin_input_field.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -33,7 +33,7 @@ class _ForgotPinModelState extends State<ForgotPinModel> {
   _onSubmitClick() {
     FocusScope.of(context).unfocus();
     final generateOtpRequest =
-        GenerateOtpRequest(phoneNumber: "+91${_phoneNumberController.text}");
+        GenerateOtpRequest(mobileNumber: "+91${_phoneNumberController.text}");
     _authService.forgotPin(generateOtpRequest).then((response) {
       if (response != null && response.data != null) {
         generateOtpResponse = GenerateOtpResponse.fromJson(response.data);
@@ -44,12 +44,12 @@ class _ForgotPinModelState extends State<ForgotPinModel> {
 
   _onValidateOTP() {
     ValidateOtpRequest validateOtpRequest = ValidateOtpRequest(
-        phoneNumber: generateOtpResponse?.phoneNumber,
-        otp: _otpController.text);
+        mobileNumber: generateOtpResponse?.phoneNumber,
+        otpCode: _otpController.text);
     _authService.validateOtp(validateOtpRequest).then((response) async {
       if (response != null) {
         final userResponse = User.fromJson(response.data);
-        if (userResponse.id != null) {
+        if (userResponse.data!.loginResponse!.userId != null) {
           if (mounted) {
             Navigator.pop(context);
             Navigator.push(

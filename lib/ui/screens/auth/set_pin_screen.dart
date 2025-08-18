@@ -1,11 +1,11 @@
-import 'package:supervisor_ui/models/auth/set_pin_request.dart';
-import 'package:supervisor_ui/models/base_response.dart';
-import 'package:supervisor_ui/models/user.dart';
-import 'package:supervisor_ui/routes.dart';
-import 'package:supervisor_ui/services/auth/auth_service.dart';
-import 'package:supervisor_ui/ui/shared_widget/kh_app_bar.dart';
-import 'package:supervisor_ui/ui/shared_widget/pin_input_field.dart';
-import 'package:supervisor_ui/utils/toast_message.dart';
+import 'package:bttoa_ui/models/auth/set_pin_request.dart';
+import 'package:bttoa_ui/models/base_response.dart';
+import 'package:bttoa_ui/models/user.dart';
+import 'package:bttoa_ui/routes.dart';
+import 'package:bttoa_ui/services/auth/auth_service.dart';
+import 'package:bttoa_ui/ui/shared_widget/kh_app_bar.dart';
+import 'package:bttoa_ui/ui/shared_widget/pin_input_field.dart';
+import 'package:bttoa_ui/utils/toast_message.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 
@@ -27,9 +27,9 @@ class ResetPinScreen extends StatelessWidget {
       ToastMessage.show('PIN & confirm PIN mismatch.');
     } else {
       SetPinRequest setPinRequest = SetPinRequest(
-          phoneNumber: userResponse.phoneNumber, password: _pinController.text);
+          phoneNumber: userResponse.data!.loginResponse!.mobileNumber, password: _pinController.text);
       _authService
-          .setPin(setPinRequest, userResponse.sessionToken)
+          .setPin(setPinRequest, userResponse.data!.loginResponse!.mobileNumber)
           .then((response) {
         if (response != null) {
           final baseResponse = BaseResponse.fromJson(response.data ?? '');

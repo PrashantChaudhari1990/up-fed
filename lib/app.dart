@@ -1,9 +1,9 @@
-import 'package:supervisor_ui/constant/web_app_routes.dart';
-import 'package:supervisor_ui/routes.dart';
-import 'package:supervisor_ui/themes/dart_theme.dart';
-import 'package:supervisor_ui/themes/light_theme.dart';
-import 'package:supervisor_ui/ui/screens/auth/sign_up_screen.dart';
-import 'package:supervisor_ui/ui/screens/slider/slider_screen.dart';
+import 'package:bttoa_ui/constant/web_app_routes.dart';
+import 'package:bttoa_ui/routes.dart';
+import 'package:bttoa_ui/themes/dart_theme.dart';
+import 'package:bttoa_ui/themes/light_theme.dart';
+import 'package:bttoa_ui/ui/screens/auth/sign_up_screen.dart';
+import 'package:bttoa_ui/ui/screens/slider/slider_screen.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'ui/screens/auth/login_screen.dart';

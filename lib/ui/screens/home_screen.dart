@@ -1,10 +1,10 @@
 import 'package:permission_handler/permission_handler.dart';
-import 'package:supervisor_ui/constant/web_app_routes.dart';
-import 'package:supervisor_ui/themes/styles/theme_colors.dart';
-import 'package:supervisor_ui/themes/styles/typography.dart';
-import 'package:supervisor_ui/ui/shared_widget/dynamic_app_bar.dart';
-import 'package:supervisor_ui/ui/shared_widget/kh_app_bar.dart';
-import 'package:supervisor_ui/ui/shared_widget/web_view_container.dart';
+import 'package:bttoa_ui/constant/web_app_routes.dart';
+import 'package:bttoa_ui/themes/styles/theme_colors.dart';
+import 'package:bttoa_ui/themes/styles/typography.dart';
+import 'package:bttoa_ui/ui/shared_widget/dynamic_app_bar.dart';
+import 'package:bttoa_ui/ui/shared_widget/kh_app_bar.dart';
+import 'package:bttoa_ui/ui/shared_widget/web_view_container.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
@@ -25,19 +25,19 @@ class _HomeScreenState extends State<HomeScreen> {
     NavigationBarItem(
         iconUrl: 'assets/icons/home.svg',
         label: "home_screen.home".tr(),
-        routeName: WebAppRoutes.tripSummary),
+        routeName: WebAppRoutes.dashboard),
     NavigationBarItem(
         iconUrl: 'assets/icons/notify_driver.svg',
         label: "home_screen.notify_driver".tr(),
-        routeName: WebAppRoutes.notifyDriver),
+        routeName: WebAppRoutes.coupon),
     NavigationBarItem(
         iconUrl: 'assets/icons/trips.svg',
         label: "home_screen.trip_quick_view".tr(),
-        routeName: WebAppRoutes.tripQuickView),
+        routeName: WebAppRoutes.offers),
     NavigationBarItem(
         iconUrl: 'assets/icons/request_view.svg',
         label: "home_screen.request_view".tr(),
-        routeName: WebAppRoutes.requestView),
+        routeName: WebAppRoutes.support),
     //NavigationBarItem(iconUrl: 'assets/icons/orders.svg', label: "home_screen.payments".tr(),routeName:WebAppRoutes.payments),
     //NavigationBarItem(iconUrl: 'assets/icons/profile.svg', label: "home_screen.contract".tr(),routeName:WebAppRoutes.contract),
   ];
@@ -74,7 +74,7 @@ class _HomeScreenState extends State<HomeScreen> {
         statusBarColor: ThemeColors.white,
         statusBrightness: Brightness.dark,
       ),
-      bottomNavigationBar: ValueListenableBuilder<bool>(
+      /*bottomNavigationBar: ValueListenableBuilder<bool>(
           valueListenable: homeBottomBarVisible,
           builder: (context, value, _) {
             return value
@@ -114,18 +114,18 @@ class _HomeScreenState extends State<HomeScreen> {
                           label: navigationTab.label);
                     }))
                 : Container(height: 0);
-          }),
+          }),*/
       body: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
-          DynamicAppBar(
-            onBackButton: () {
-              _bottomNavigationTabs[_currentTabIndex]
-                  .key
-                  .currentState
-                  ?.onPopInvoked(false, null);
-            },
-          ),
+          // DynamicAppBar(
+          //   onBackButton: () {
+          //     _bottomNavigationTabs[_currentTabIndex]
+          //         .key
+          //         .currentState
+          //         ?.onPopInvoked(false, null);
+          //   },
+          // ),
           Flexible(
             child: WebViewContainer(
               key: _bottomNavigationTabs[_currentTabIndex].key,

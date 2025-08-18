@@ -1,15 +1,15 @@
 class GenerateOtpRequest {
-  String? phoneNumber;
+  String? mobileNumber;
 
-  GenerateOtpRequest({this.phoneNumber});
+  GenerateOtpRequest({this.mobileNumber});
 
   GenerateOtpRequest.fromJson(Map<String, dynamic> json) {
-    phoneNumber = json['phoneNumber'];
+    mobileNumber = json['mobileNumber'];
   }
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = <String, dynamic>{};
-    data['phoneNumber'] = phoneNumber;
+    data['mobileNumber'] = mobileNumber;
     return data;
   }
 }

@@ -1,7 +1,7 @@
 
-## Supervisor Mobile Application📱
+## bttoa Mobile Application📱
 
-This project for dealer mobile application for Supervisor.
+This project for dealer mobile application for Bttoa.
 
 
 ### Supported Versions

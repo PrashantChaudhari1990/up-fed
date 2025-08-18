@@ -1,21 +1,21 @@
 {
   "project_info": {
-    "project_number": "714757735176",
-    "project_id": "oorjaa-vendor",
-    "storage_bucket": "oorjaa-vendor.firebasestorage.app"
+    "project_number": "1005794850106",
+    "project_id": "bttoa-33978",
+    "storage_bucket": "bttoa-33978.firebasestorage.app"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:714757735176:android:7884c87bc151b9c94662bd",
+        "mobilesdk_app_id": "1:1005794850106:android:26f938ba6974f17e298c03",
         "android_client_info": {
-          "package_name": "tech.oorjaa.vendor"
+          "package_name": "tech.oorjaa.bttoa"
         }
       },
       "oauth_client": [],
       "api_key": [
         {
-          "current_key": "AIzaSyBVx3SeWAk0EUm7W3wuJvxdUXaGVFKukr0"
+          "current_key": "AIzaSyCE8fUtAud8UZpCyJh0Bh8haYqGLA3QoSU"
         }
       ],
       "services": {
