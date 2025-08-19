@@ -1,4 +1,4 @@
-package tech.oorjaa.bttoa;
+package tech.oorjaa.vas.bttoa;
 
 import io.flutter.embedding.android.FlutterActivity;
 

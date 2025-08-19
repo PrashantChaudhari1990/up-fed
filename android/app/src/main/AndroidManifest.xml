@@ -49,7 +49,7 @@
             android:value="high_importance_channel" />
         <provider
             android:name="androidx.core.content.FileProvider"
-            android:authorities="tech.oorjaa.bttoa.flutter_inappwebview_android.fileprovider"
+            android:authorities="tech.oorjaa.vas.bttoa.flutter_inappwebview_android.fileprovider"
             android:exported="false"
             android:grantUriPermissions="true">
             <meta-data

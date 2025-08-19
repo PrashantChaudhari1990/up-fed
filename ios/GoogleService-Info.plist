@@ -2,24 +2,18 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-	<key>CLIENT_ID</key>
-	<string>1042769883067-2977tl72qqulh452ff0iis4k1nq28sdb.apps.googleusercontent.com</string>
-	<key>REVERSED_CLIENT_ID</key>
-	<string>com.googleusercontent.apps.1042769883067-2977tl72qqulh452ff0iis4k1nq28sdb</string>
 	<key>API_KEY</key>
-	<string>AIzaSyBRog6RUrnKoKTd1YOpa-ivQd-jCttywVs</string>
-	<key>MinimumOSVersion</key>
-    <string>14.0</string>
+	<string>AIzaSyDQpmoMjElcSn8vQd91fZyTyU6_4p5Nv8E</string>
 	<key>GCM_SENDER_ID</key>
-	<string>1042769883067</string>
+	<string>994770552690</string>
 	<key>PLIST_VERSION</key>
 	<string>1</string>
 	<key>BUNDLE_ID</key>
-	<string>tech.oorjaa.botta</string>
+	<string>tech.oorjaa.vas.bttoa</string>
 	<key>PROJECT_ID</key>
-	<string>oorjaa-bttoa</string>
+	<string>bttoa-b0f17</string>
 	<key>STORAGE_BUCKET</key>
-	<string>oorjaa-bttoa.appspot.com</string>
+	<string>bttoa-b0f17.firebasestorage.app</string>
 	<key>IS_ADS_ENABLED</key>
 	<false></false>
 	<key>IS_ANALYTICS_ENABLED</key>
@@ -31,11 +25,6 @@
 	<key>IS_SIGNIN_ENABLED</key>
 	<true></true>
 	<key>GOOGLE_APP_ID</key>
-	<string>1:1042769883067:ios:c81109d43522c26b0bde9e</string>
-	<key>LSApplicationQueriesSchemes</key>
-    <array>
-        <string>https</string>
-        <string>http</string>
-    </array>
+	<string>1:994770552690:ios:ad7cdf147ea7b9627d7feb</string>
 </dict>
 </plist>
