@@ -115,26 +115,28 @@ class _HomeScreenState extends State<HomeScreen> {
                     }))
                 : Container(height: 0);
           }),*/
-      body: Column(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          // DynamicAppBar(
-          //   onBackButton: () {
-          //     _bottomNavigationTabs[_currentTabIndex]
-          //         .key
-          //         .currentState
-          //         ?.onPopInvoked(false, null);
-          //   },
-          // ),
-          Flexible(
-            child: WebViewContainer(
-              key: _bottomNavigationTabs[_currentTabIndex].key,
-              url: _bottomNavigationTabs[_currentTabIndex].routeName,
-              enablePullToRefresh: true,
-              onWebViewCreated: (controller) async {},
+      body: SafeArea(
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            // DynamicAppBar(
+            //   onBackButton: () {
+            //     _bottomNavigationTabs[_currentTabIndex]
+            //         .key
+            //         .currentState
+            //         ?.onPopInvoked(false, null);
+            //   },
+            // ),
+            Flexible(
+              child: WebViewContainer(
+                key: _bottomNavigationTabs[_currentTabIndex].key,
+                url: _bottomNavigationTabs[_currentTabIndex].routeName,
+                enablePullToRefresh: true,
+                onWebViewCreated: (controller) async {},
+              ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }

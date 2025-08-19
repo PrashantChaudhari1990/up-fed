@@ -55,9 +55,10 @@ class _SliderScreenState extends State<SliderScreen> {
         systemNavigationBarIconBrightness: Brightness.dark,
         systemNavigationBarColor: Colors.transparent));
     return Scaffold(
-      body: Column(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
+      body: SafeArea(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
           Flexible(
               flex: 1,
               child: Stack(
@@ -148,7 +149,8 @@ class _SliderScreenState extends State<SliderScreen> {
               ],
             ),
           ),
-        ],
+          ],
+        ),
       ),
     );
   }

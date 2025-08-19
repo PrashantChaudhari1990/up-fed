@@ -126,12 +126,13 @@ class _OtpVerificationScreenState extends State<OtpVerificationScreen> {
             statusBarIconBrightness: Brightness.dark,
             systemNavigationBarColor: theme.scaffoldBackgroundColor),
       ),
-      body: Container(
-        padding: const EdgeInsets.only(left: 20, right: 20, bottom: 10),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
+      body: SafeArea(
+        child: Container(
+          padding: const EdgeInsets.only(left: 20, right: 20, bottom: 10),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -233,7 +234,8 @@ class _OtpVerificationScreenState extends State<OtpVerificationScreen> {
                           : null,
                       child: const Text('submit').tr());
                 })
-          ],
+            ],
+          ),
         ),
       ),
     );

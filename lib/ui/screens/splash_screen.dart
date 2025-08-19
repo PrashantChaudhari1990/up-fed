@@ -34,22 +34,24 @@ class _SplashScreenState extends State<SplashScreen> {
         systemStatusBarContrastEnforced: true,
         systemNavigationBarColor: ThemeColors.primaryColor));
     return Scaffold(
-      body: Container(
-        width: screenSize.width,
-        //color: ThemeColors.primaryColor,
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Flexible(
-                flex: 2,
-                child: Center(
-                    child: SizedBox(
-                        width: MediaQuery.of(context).size.width / 4,
-                        height: MediaQuery.of(context).size.width / 4,
-                        child: Image.asset(
-                          'assets/images/png/ic_launcher.png',
-                        )),))
-          ],
+      body: SafeArea(
+        child: Container(
+          width: screenSize.width,
+          //color: ThemeColors.primaryColor,
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Flexible(
+                  flex: 2,
+                  child: Center(
+                      child: SizedBox(
+                          width: MediaQuery.of(context).size.width / 4,
+                          height: MediaQuery.of(context).size.width / 4,
+                          child: Image.asset(
+                            'assets/images/png/ic_launcher.png',
+                          )),))
+            ],
+          ),
         ),
       ),
     );

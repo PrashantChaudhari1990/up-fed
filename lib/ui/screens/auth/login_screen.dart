@@ -154,15 +154,16 @@ class _LoginScreenState extends State<LoginScreen> {
             statusBarIconBrightness: Brightness.dark,
             systemNavigationBarColor: theme.scaffoldBackgroundColor),
       ),
-      body: GestureDetector(
-        onTap: () => FocusScope.of(context).unfocus(),
-        child: Container(
-          color: theme.scaffoldBackgroundColor,
-          padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
+      body: SafeArea(
+        child: GestureDetector(
+          onTap: () => FocusScope.of(context).unfocus(),
+          child: Container(
+            color: theme.scaffoldBackgroundColor,
+            padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -327,7 +328,8 @@ class _LoginScreenState extends State<LoginScreen> {
                         onPressed: value.text.length == 10 ? _onSubmitClick : null,
                         child: const Text('submit').tr());
                   })
-            ],
+              ],
+            ),
           ),
         ),
       ),
