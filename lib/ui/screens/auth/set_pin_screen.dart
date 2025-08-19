@@ -50,13 +50,14 @@ class ResetPinScreen extends StatelessWidget {
       appBar: const KhAppBar(
         title: '',
       ),
-      body: Container(
-        padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-        child: LayoutBuilder(builder: (context, boxConstraints) {
-          return Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
+      body: SafeArea(
+        child: Container(
+          padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+          child: LayoutBuilder(builder: (context, boxConstraints) {
+            return Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -99,9 +100,10 @@ class ResetPinScreen extends StatelessWidget {
               ElevatedButton(
                   onPressed: () => _onSetPIN(context),
                   child: const Text('set_pin.set_pin').tr())
-            ],
-          );
-        }),
+              ],
+            );
+          }),
+        ),
       ),
     );
   }

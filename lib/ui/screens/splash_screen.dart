@@ -34,12 +34,13 @@ class _SplashScreenState extends State<SplashScreen> {
         systemStatusBarContrastEnforced: true,
         systemNavigationBarColor: ThemeColors.primaryColor));
     return Scaffold(
-      body: Container(
-        width: screenSize.width,
-        //color: ThemeColors.primaryColor,
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
+      body: SafeArea(
+        child: Container(
+          width: screenSize.width,
+          //color: ThemeColors.primaryColor,
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
             Flexible(
                 flex: 2,
                 child: Center(
@@ -49,7 +50,8 @@ class _SplashScreenState extends State<SplashScreen> {
                         child: Image.asset(
                           'assets/images/png/ic_launcher.png',
                         )),))
-          ],
+            ],
+          ),
         ),
       ),
     );

@@ -15,8 +15,10 @@ class _SignUpScreenState extends State<SignUpScreen> {
     final phoneNumber = (ModalRoute.of(context)?.settings.arguments);
     return Scaffold(
       appBar: AppBar(),
-      body: WebViewContainer(
-        url: '${WebAppRoutes.signUp}?phoneNumber=$phoneNumber',
+      body: SafeArea(
+        child: WebViewContainer(
+          url: '${WebAppRoutes.signUp}?phoneNumber=$phoneNumber',
+        ),
       ),
     );
   }

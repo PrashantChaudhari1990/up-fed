@@ -115,9 +115,10 @@ class _HomeScreenState extends State<HomeScreen> {
                     }))
                 : Container(height: 0);
           }),*/
-      body: Column(
-        mainAxisSize: MainAxisSize.min,
-        children: [
+      body: SafeArea(
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
           // DynamicAppBar(
           //   onBackButton: () {
           //     _bottomNavigationTabs[_currentTabIndex]
@@ -134,7 +135,8 @@ class _HomeScreenState extends State<HomeScreen> {
               onWebViewCreated: (controller) async {},
             ),
           ),
-        ],
+          ],
+        ),
       ),
     );
   }

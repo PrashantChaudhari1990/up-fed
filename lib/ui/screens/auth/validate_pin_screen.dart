@@ -69,12 +69,13 @@ class _ValidatePinScreenState extends State<ValidatePinScreen> {
             statusBarIconBrightness: Brightness.dark,
             systemNavigationBarColor: theme.scaffoldBackgroundColor),
       ),
-      body: Container(
-        padding: const EdgeInsets.only(left: 20, right: 20, bottom: 10),
-        child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
+      body: SafeArea(
+        child: Container(
+          padding: const EdgeInsets.only(left: 20, right: 20, bottom: 10),
+          child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -123,7 +124,8 @@ class _ValidatePinScreenState extends State<ValidatePinScreen> {
                             : null,
                         child: const Text('submit').tr());
                   })
-            ]),
+              ]),
+        ),
       ),
     );
   }

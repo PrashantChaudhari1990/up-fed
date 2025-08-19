@@ -1,7 +1,7 @@
 
 ## bttoa Mobile Application📱
 
-This project for dealer mobile application for Bttoa.
+This project for dealer mobile application for MH Association.
 
 
 ### Supported Versions
