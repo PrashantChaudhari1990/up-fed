@@ -309,15 +309,15 @@ class _LoginScreenState extends State<LoginScreen> {
                         ),
                       ),
                     ),
-                  if (!widget.isRegistration)
-                    Align(
-                      alignment: Alignment.bottomRight,
-                      child: TextButton(
-                          onPressed: () => _onForgotPin(context),
-                          style: TextButton.styleFrom(
-                              textStyle: linkTextStyleSmall),
-                          child: const Text('validate_pin.forgot_pin').tr()),
-                    ),
+                  // if (!widget.isRegistration)
+                  //   Align(
+                  //     alignment: Alignment.bottomRight,
+                  //     child: TextButton(
+                  //         onPressed: () => _onForgotPin(context),
+                  //         style: TextButton.styleFrom(
+                  //             textStyle: linkTextStyleSmall),
+                  //         child: const Text('validate_pin.forgot_pin').tr()),
+                  //   ),
                 ],
               ),
               ValueListenableBuilder(
