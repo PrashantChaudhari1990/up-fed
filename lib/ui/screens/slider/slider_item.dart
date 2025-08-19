@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:bttoa_ui/config/server_config.dart';
+import 'package:mhassoc_ui/config/server_config.dart';
 import '../../../models/slider_details.dart';
 
 class SliderItem extends StatelessWidget {

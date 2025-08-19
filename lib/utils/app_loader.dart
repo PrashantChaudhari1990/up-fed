@@ -1,4 +1,4 @@
-import 'package:bttoa_ui/app.dart';
+import 'package:mhassoc_ui/app.dart';
 import 'package:flutter/material.dart';
 
 class AppLoader {

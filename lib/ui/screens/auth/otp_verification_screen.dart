@@ -1,20 +1,20 @@
 import 'dart:async';
 import 'dart:convert';
-import 'package:bttoa_ui/constant/session_keys.dart';
-import 'package:bttoa_ui/models/auth/generate_otp_request.dart';
-import 'package:bttoa_ui/models/auth/validate_otp_request.dart';
-import 'package:bttoa_ui/models/user.dart';
-import 'package:bttoa_ui/routes.dart';
-import 'package:bttoa_ui/services/auth/auth_service.dart';
-import 'package:bttoa_ui/themes/styles/theme_colors.dart';
-import 'package:bttoa_ui/ui/shared_widget/pin_input_field.dart';
-import 'package:bttoa_ui/utils/app_session_storage.dart';
+import 'package:mhassoc_ui/constant/session_keys.dart';
+import 'package:mhassoc_ui/models/auth/generate_otp_request.dart';
+import 'package:mhassoc_ui/models/auth/validate_otp_request.dart';
+import 'package:mhassoc_ui/models/user.dart';
+import 'package:mhassoc_ui/routes.dart';
+import 'package:mhassoc_ui/services/auth/auth_service.dart';
+import 'package:mhassoc_ui/themes/styles/theme_colors.dart';
+import 'package:mhassoc_ui/ui/shared_widget/pin_input_field.dart';
+import 'package:mhassoc_ui/utils/app_session_storage.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:bttoa_ui/utils/device_info.dart';
-import 'package:bttoa_ui/utils/toast_message.dart';
+import 'package:mhassoc_ui/utils/device_info.dart';
+import 'package:mhassoc_ui/utils/toast_message.dart';
 import '../../../themes/styles/typography.dart';
 
 class OtpVerificationScreen extends StatefulWidget {

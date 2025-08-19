@@ -1,5 +1,5 @@
-import 'package:bttoa_ui/themes/styles/fonts.dart';
-import 'package:bttoa_ui/themes/styles/theme_colors.dart';
+import 'package:mhassoc_ui/themes/styles/fonts.dart';
+import 'package:mhassoc_ui/themes/styles/theme_colors.dart';
 import 'package:flutter/material.dart';
 
 //flutter theme

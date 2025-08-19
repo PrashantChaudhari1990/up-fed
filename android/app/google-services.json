@@ -1,21 +1,21 @@
 {
   "project_info": {
-    "project_number": "994770552690",
-    "project_id": "bttoa-b0f17",
-    "storage_bucket": "bttoa-b0f17.firebasestorage.app"
+    "project_number": "27615868448",
+    "project_id": "mh-association",
+    "storage_bucket": "mh-association.firebasestorage.app"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:994770552690:android:96711cfbf5887d797d7feb",
+        "mobilesdk_app_id": "1:27615868448:android:3b203495b1355422dd6e45",
         "android_client_info": {
-          "package_name": "tech.oorjaa.vas.bttoa"
+          "package_name": "tech.oorjaa.vas.mhassoc"
         }
       },
       "oauth_client": [],
       "api_key": [
         {
-          "current_key": "AIzaSyBiMuDDcuKc53NWIOZP3eGmsBMmyC4eDgI"
+          "current_key": "AIzaSyDNY7vXi8sQp7fi6_v7o4EaV1VSihAVMOA"
         }
       ],
       "services": {

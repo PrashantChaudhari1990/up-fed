@@ -1,7 +1,7 @@
-import 'package:bttoa_ui/routes.dart';
-import 'package:bttoa_ui/services/common_service.dart';
-import 'package:bttoa_ui/themes/styles/theme_colors.dart';
-import 'package:bttoa_ui/ui/screens/slider/slider_item.dart';
+import 'package:mhassoc_ui/routes.dart';
+import 'package:mhassoc_ui/services/common_service.dart';
+import 'package:mhassoc_ui/themes/styles/theme_colors.dart';
+import 'package:mhassoc_ui/ui/screens/slider/slider_item.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';

@@ -1,7 +1,7 @@
 import 'dart:convert';
-import 'package:bttoa_ui/constant/session_keys.dart';
-import 'package:bttoa_ui/themes/styles/theme_colors.dart';
-import 'package:bttoa_ui/utils/app_session_storage.dart';
+import 'package:mhassoc_ui/constant/session_keys.dart';
+import 'package:mhassoc_ui/themes/styles/theme_colors.dart';
+import 'package:mhassoc_ui/utils/app_session_storage.dart';
 import 'package:flutter/services.dart';
 import 'package:restart_app/restart_app.dart';
 

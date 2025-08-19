@@ -1,5 +1,5 @@
-import 'package:bttoa_ui/config/localization_config.dart';
-import 'package:bttoa_ui/themes/styles/theme_colors.dart';
+import 'package:mhassoc_ui/config/localization_config.dart';
+import 'package:mhassoc_ui/themes/styles/theme_colors.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 

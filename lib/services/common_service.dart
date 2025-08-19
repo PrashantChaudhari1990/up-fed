@@ -1,5 +1,5 @@
-import 'package:bttoa_ui/constant/api_end_points.dart';
-import 'package:bttoa_ui/services/interceptor_service.dart';
+import 'package:mhassoc_ui/constant/api_end_points.dart';
+import 'package:mhassoc_ui/services/interceptor_service.dart';
 import 'package:dio/dio.dart';
 
 class CommonService {
