@@ -252,27 +252,45 @@ class WebViewContainerState extends State<WebViewContainer> {
             try {
               await launchUrl(requestUri);
             } catch (e) {
-              // URL launch failed - ignore to prevent app crash
+              // ignore launch failures
             }
             return NavigationActionPolicy.CANCEL;
           }
           return NavigationActionPolicy.ALLOW;
         },
         initialUrlRequest:
-            URLRequest(url: WebUri("${environment.webAppUrl}${widget.url}")),
+        URLRequest(url: WebUri("${environment.webAppUrl}${widget.url}")),
+
         onPermissionRequest: (webViewController, request) async {
           return PermissionResponse(
-              action: PermissionResponseAction.GRANT,
-              resources: request.resources);
-        },
-        onGeolocationPermissionsShowPrompt: (controller, origin) async {
-          return GeolocationPermissionShowPromptResponse(
-            origin: origin,
-            allow: true,   // ✅ grant permission
-            retain: true,  // ✅ remember for this origin
+            action: PermissionResponseAction.GRANT,
+            resources: request.resources,
           );
         },
 
+        onGeolocationPermissionsShowPrompt: (controller, origin) async {
+          return GeolocationPermissionShowPromptResponse(
+            origin: origin,
+            allow: true,
+            retain: true,
+          );
+        },
+
+        // ✅ Handle document downloads
+        onDownloadStartRequest: (controller, downloadStartRequest) async {
+          final url = downloadStartRequest.url.toString();
+          debugPrint("Download requested: $url");
+
+          // Use url_launcher to open download link in external browser
+          // Or use dio/http to download to local storage
+          try {
+            if (await canLaunchUrl(Uri.parse(url))) {
+              await launchUrl(Uri.parse(url), mode: LaunchMode.externalApplication);
+            }
+          } catch (e) {
+            debugPrint("Download failed: $e");
+          }
+        },
       ),
     );
   }

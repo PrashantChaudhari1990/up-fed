@@ -19,6 +19,15 @@ class AuthService {
         ));
   }
 
+  dynamic sliderImages(BuildContext context) async {
+    String preLoginUrl = '/api/config/global/SLIDER_IMAGES/parsed';
+    return _interceptorService.dio.get(preLoginUrl,
+        options: Options(
+          extra: {'context': context},
+          //headers: {'x-visibility-scope': Constants.xVisibilityScope}
+        ));
+  }
+
   Future generateOtp(GenerateOtpRequest generateOtpRequest) async {
     return _interceptorService.dio
         .post(ApiEndPoints.generateOtp, data: generateOtpRequest);
