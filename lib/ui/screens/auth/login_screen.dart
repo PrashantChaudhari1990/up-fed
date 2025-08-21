@@ -291,19 +291,19 @@ class _LoginScreenState extends State<LoginScreen> {
                                       },
                                       child: const Text("login.otp").tr(),
                                     ),
-                                    // RadioMenuButton(
-                                    //   value: LoginWith.pin,
-                                    //   groupValue: _loginWith,
-                                    //   onChanged: (value) {
-                                    //     setState(() {
-                                    //       _loginWith = LoginWith.pin;
-                                    //     });
-                                    //   },
-                                    //   style: const ButtonStyle(
-                                    //       splashFactory:
-                                    //           NoSplash.splashFactory),
-                                    //   child: const Text("login.pin").tr(),
-                                    // ),
+                                    RadioMenuButton(
+                                      value: LoginWith.pin,
+                                      groupValue: _loginWith,
+                                      onChanged: (value) {
+                                        setState(() {
+                                          _loginWith = LoginWith.pin;
+                                        });
+                                      },
+                                      style: const ButtonStyle(
+                                          splashFactory:
+                                              NoSplash.splashFactory),
+                                      child: const Text("login.pin").tr(),
+                                    ),
                                   ],
                                 ))
                           ],

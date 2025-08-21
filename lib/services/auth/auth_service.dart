@@ -24,6 +24,11 @@ class AuthService {
         .post(ApiEndPoints.generateOtp, data: generateOtpRequest);
   }
 
+  Future resendOtp(GenerateOtpRequest generateOtpRequest) async {
+    return _interceptorService.dio
+        .post(ApiEndPoints.resendOtp, data: generateOtpRequest);
+  }
+
   Future forgotPin(GenerateOtpRequest generateOtpRequest) async {
     return _interceptorService.dio
         .post(ApiEndPoints.forgotPin, data: generateOtpRequest);
