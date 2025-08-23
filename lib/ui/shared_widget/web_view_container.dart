@@ -1,3 +1,7 @@
+import 'dart:convert';
+import 'dart:io';
+import 'dart:typed_data';
+
 import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
 import 'package:bttoa_ui/constant/web_app_routes.dart';
@@ -10,7 +14,9 @@ import 'package:bttoa_ui/utils/webview_controller_utils.dart';
 import 'package:bttoa_ui/web_handler.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_inappwebview/flutter_inappwebview.dart';
+import 'package:path_provider/path_provider.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'package:open_file/open_file.dart';
 import '../../config/server_config.dart';
 import '../../constant/session_keys.dart';
 import '../../utils/app_session_storage.dart';
@@ -72,6 +78,7 @@ class WebViewContainerState extends State<WebViewContainer> {
             _pullToRefreshController?.endRefreshing();
           });
     }
+
     super.initState();
   }
 
@@ -91,6 +98,8 @@ class WebViewContainerState extends State<WebViewContainer> {
         handlerName: 'toggleAppBar');
     _inAppWebViewController?.removeJavaScriptHandler(
         handlerName: 'toggleBottomNavigation');
+    _inAppWebViewController?.removeJavaScriptHandler(
+        handlerName: 'downloadFile');
     super.dispose();
   }
 
@@ -116,6 +125,7 @@ class WebViewContainerState extends State<WebViewContainer> {
         await _inAppWebViewController?.clearHistory();
       }
     });
+
   }
 
   handleCustomSchemaRoute(BuildContext context, String url) {
@@ -123,6 +133,7 @@ class WebViewContainerState extends State<WebViewContainer> {
       case "dashboard":
         Navigator.pushNamedAndRemoveUntil(
             context, Routes.home, (route) => false);
+
         break;
       default:
         return;
@@ -161,6 +172,9 @@ class WebViewContainerState extends State<WebViewContainer> {
     _inAppWebViewController?.addJavaScriptHandler(
         handlerName: 'toggleBottomNavigation',
         callback: (dynamic data) => toggleBottomNavigation(data));
+    _inAppWebViewController?.addJavaScriptHandler(
+        handlerName: 'downloadFile',
+        callback: (dynamic args) => _handleDownloadFile(args));
     WebViewControllerUtils.controller = controller;
     widget.onWebViewCreated?.call(controller);
   }
@@ -361,5 +375,73 @@ class WebViewContainerState extends State<WebViewContainer> {
           WebAppRoutes.offers,
           WebAppRoutes.support
         ].contains(uri?.path.toString());
+  }
+
+  Future<Map<String, dynamic>> _handleDownloadFile(List<dynamic> args) async {
+    try {
+      if (args.length < 2) {
+        return {'success': false, 'message': 'Invalid arguments'};
+      }
+
+      String base64Data = args[0].toString();
+      String fileName = args[1].toString();
+
+      // Remove data URL prefix if present (data:mime/type;base64,)
+      if (base64Data.contains(',')) {
+        base64Data = base64Data.split(',').last;
+      }
+
+      // Decode base64 data
+      Uint8List bytes = base64Decode(base64Data);
+
+      // Get app documents directory
+      final dir = await getApplicationDocumentsDirectory();
+      final downloadsDir = Directory('${dir.path}/Downloads');
+      
+      // Create Downloads directory if it doesn't exist
+      if (!await downloadsDir.exists()) {
+        await downloadsDir.create(recursive: true);
+      }
+
+      // Create file path
+      final filePath = '${downloadsDir.path}/$fileName';
+      final file = File(filePath);
+
+      // Write file
+      await file.writeAsBytes(bytes);
+      print('testa');
+
+      // Show success message
+      if (mounted) {
+        ToastMessage.show('File downloaded: $fileName');
+      }
+
+      // Try to open the file
+      try {
+        final result = await OpenFile.open(filePath);
+        debugPrint('Open file result: ${result.message}');
+      } catch (e) {
+        debugPrint('Could not open file: $e');
+        // File saved but couldn't open - still a success
+      }
+
+      debugPrint('File saved at: $filePath');
+      
+      return {
+        'success': true,
+        'message': 'File downloaded successfully',
+        'filePath': filePath
+      };
+
+    } catch (error) {
+      debugPrint('Download error: $error');
+      if (mounted) {
+        ToastMessage.show('Download failed: ${error.toString()}');
+      }
+      return {
+        'success': false,
+        'message': 'Download failed: ${error.toString()}'
+      };
+    }
   }
 }
