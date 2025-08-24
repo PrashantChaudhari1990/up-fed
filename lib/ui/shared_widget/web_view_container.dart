@@ -473,19 +473,12 @@ class WebViewContainerState extends State<WebViewContainer> {
       await file.writeAsBytes(bytes);
       debugPrint('Sample Excel file saved to: $filePath');
       
-      // Show success message
+      // Show success message with path
       if (mounted) {
-        ToastMessage.show('Excel downloaded: $fileName');
+        ToastMessage.show('Excel downloaded to:\n${downloadsDir.path}/$fileName');
       }
       
-      // Try to open the Excel file
-      try {
-        final result = await OpenFile.open(filePath);
-        debugPrint('Open Excel result: ${result.message}');
-      } catch (e) {
-        debugPrint('Could not auto-open Excel: $e');
-        // Still a success even if we can't open it
-      }
+      // File downloaded successfully - no auto-open to avoid asking user
       
       return {
         'success': true,
