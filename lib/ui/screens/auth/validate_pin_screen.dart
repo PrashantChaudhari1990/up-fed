@@ -33,15 +33,14 @@ class _ValidatePinScreenState extends State<ValidatePinScreen> {
   _onSubmitPin(String phoneNumber) async {
     final deviceDetails = await DeviceInfo.getDetail();
     LoginRequest loginRequest = LoginRequest(
-        username: "+91$phoneNumber",
-        password: _pinController.text,
-        deviceDetail: deviceDetails);
+        mobileNumber: phoneNumber,
+        loginPin: _pinController.text);
     _authService.login(loginRequest).then((response) async {
       if (response != null) {
-        final userResponse = User.fromJson(response.data);
-        if (userResponse.data!.loginResponse!.userId != null) {
+       // final userResponse = jsonEncode(response.data["data"]);
+        if (response.data["data"]["userId"] != null) {
           await AppSessionStorage()
-              .setString(SessionKeys.user, jsonEncode(response.data));
+              .setString(SessionKeys.user, jsonEncode(response.data["data"]));
           if (mounted) {
             Navigator.pushNamedAndRemoveUntil(
                 context, Routes.home, (route) => false);

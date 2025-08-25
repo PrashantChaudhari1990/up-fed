@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 
 class ThemeColors {
   static MaterialColor primaryColor =
-      MaterialColor(0xff008B4B, const Color(0xff008B4B).toSwatch());
+      MaterialColor(0xff6B46C1, const Color(0xff6B46C1).toSwatch());
   static dynamic black = Colors.black;
   static dynamic white = Colors.white;
   static dynamic errorColor = Colors.red;

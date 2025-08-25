@@ -1,13 +1,13 @@
 class LoginRequest {
-  String? username;
-  String? password;
+  String? mobileNumber;
+  String? loginPin;
   DeviceDetails? deviceDetail;
 
-  LoginRequest({this.username, this.password, this.deviceDetail});
+  LoginRequest({this.mobileNumber, this.loginPin, this.deviceDetail});
 
   LoginRequest.fromJson(Map<String, dynamic> json) {
-    username = json['username'];
-    password = json['password'];
+    mobileNumber = json['mobileNumber'];
+    loginPin = json['loginPin'];
     deviceDetail = json['deviceDetail'] != null
         ? DeviceDetails.fromJson(json['deviceDetail'])
         : null;
@@ -15,8 +15,8 @@ class LoginRequest {
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = <String, dynamic>{};
-    data['username'] = username;
-    data['password'] = password;
+    data['mobileNumber'] = mobileNumber;
+    data['loginPin'] = loginPin;
     if (deviceDetail != null) {
       data['deviceDetail'] = deviceDetail!.toJson();
     }

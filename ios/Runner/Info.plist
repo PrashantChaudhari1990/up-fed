@@ -26,6 +26,8 @@
 	<string>$(FLUTTER_BUILD_NUMBER)</string>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
+	<key>NSInAppPurchaseUsageDescription</key>
+    <string>This app uses in-app purchases to allow users to buy memberships and access additional services.</string>
 	<key>NSCameraUsageDescription</key>
 	<string>We need access to your camera to capture photos.</string>
 	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>

@@ -1,6 +1,6 @@
-import 'package:mhassoc_ui/routes.dart';
-import 'package:mhassoc_ui/themes/styles/theme_colors.dart';
-import 'package:mhassoc_ui/utils/app_session.dart';
+import 'package:bttoa_ui/routes.dart';
+import 'package:bttoa_ui/themes/styles/theme_colors.dart';
+import 'package:bttoa_ui/utils/app_session.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -41,15 +41,15 @@ class _SplashScreenState extends State<SplashScreen> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-            Flexible(
-                flex: 2,
-                child: Center(
-                    child: SizedBox(
-                        width: MediaQuery.of(context).size.width / 4,
-                        height: MediaQuery.of(context).size.width / 4,
-                        child: Image.asset(
-                          'assets/images/png/ic_launcher.png',
-                        )),))
+              Flexible(
+                  flex: 2,
+                  child: Center(
+                      child: SizedBox(
+                          width: MediaQuery.of(context).size.width / 4,
+                          height: MediaQuery.of(context).size.width / 4,
+                          child: Image.asset(
+                            'assets/images/png/ic_launcher.png',
+                          )),))
             ],
           ),
         ),

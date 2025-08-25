@@ -96,7 +96,7 @@ class _OtpVerificationScreenState extends State<OtpVerificationScreen> {
     _resendOtpCountDown.value = 59;
     _startOtpCountdown();
     _authService
-        .generateOtp(GenerateOtpRequest(mobileNumber: "91$phoneNumber"))
+        .resendOtp(GenerateOtpRequest(mobileNumber: "$phoneNumber"))
         .then((response) {
       if (response != null && response.data != null) {
         ToastMessage.show(tr('otp_verification.resend_message'));
