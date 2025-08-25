@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:convert';
 
 import 'package:bttoa_ui/enums/enums.dart';
@@ -36,6 +37,8 @@ class _LoginScreenState extends State<LoginScreen> {
 
   List<Map<String, dynamic>> _sliderData = [];
   int _currentSliderIndex = 0;
+  PageController _pageController = PageController();
+  Timer? _autoScrollTimer;
 
   @override
   void initState() {
@@ -72,18 +75,42 @@ class _LoginScreenState extends State<LoginScreen> {
 
       if (mounted) {
         setState(() {});
+        _startAutoScroll();
       }
     } catch (error) {
       // Handle API error - keep dummy data
       if (mounted) {
         setState(() {});
+        _startAutoScroll();
       }
     }
+  }
+
+  void _startAutoScroll() {
+    if (_sliderData.length > 1) {
+      _autoScrollTimer = Timer.periodic(const Duration(seconds: 3), (timer) {
+        if (_pageController.hasClients) {
+          int nextIndex = (_currentSliderIndex + 1) % _sliderData.length;
+          _pageController.animateToPage(
+            nextIndex,
+            duration: const Duration(milliseconds: 300),
+            curve: Curves.easeInOut,
+          );
+        }
+      });
+    }
+  }
+
+  void _stopAutoScroll() {
+    _autoScrollTimer?.cancel();
+    _autoScrollTimer = null;
   }
 
   @override
   void dispose() {
     _phoneNumberController.dispose();
+    _pageController.dispose();
+    _stopAutoScroll();
     super.dispose();
   }
 
@@ -234,6 +261,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         Container(
                           height: MediaQuery.of(context).size.height * 0.43,
                           child: PageView.builder(
+                            controller: _pageController,
                             itemCount: _sliderData.length,
                             onPageChanged: (index) {
                               setState(() {
@@ -348,7 +376,7 @@ class _LoginScreenState extends State<LoginScreen> {
                             ),
                           ),
                         const SizedBox(
-                          height: 75,
+                          height: 40,
                         ),
                         Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
@@ -491,6 +519,9 @@ class _LoginScreenState extends State<LoginScreen> {
                         //         child: const Text('validate_pin.forgot_pin').tr()),
                         //   ),
                       ],
+                    ),
+                    const SizedBox(
+                      height: 25,
                     ),
                     Column(
                       children: [
