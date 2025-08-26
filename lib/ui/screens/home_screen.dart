@@ -1,17 +1,13 @@
 import 'package:permission_handler/permission_handler.dart';
-import 'package:bttoa_ui/constant/web_app_routes.dart';
-import 'package:bttoa_ui/themes/styles/theme_colors.dart';
-import 'package:bttoa_ui/themes/styles/typography.dart';
-import 'package:bttoa_ui/ui/shared_widget/dynamic_app_bar.dart';
-import 'package:bttoa_ui/ui/shared_widget/kh_app_bar.dart';
-import 'package:bttoa_ui/ui/shared_widget/web_view_container.dart';
+import 'package:mhassoc_ui/constant/web_app_routes.dart';
+import 'package:mhassoc_ui/themes/styles/theme_colors.dart';
+import 'package:mhassoc_ui/ui/shared_widget/kh_app_bar.dart';
+import 'package:mhassoc_ui/ui/shared_widget/web_view_container.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
 import '../../constant/common_constants.dart';
 import '../../constant/session_keys.dart';
 import '../../utils/app_session_storage.dart';
-import '../../utils/global_notifier.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});

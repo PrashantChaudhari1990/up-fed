@@ -1,9 +1,10 @@
-import 'package:bttoa_ui/routes.dart';
-import 'package:bttoa_ui/themes/styles/theme_colors.dart';
-import 'package:bttoa_ui/utils/app_session.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+
+import '../../routes.dart';
+import '../../themes/styles/theme_colors.dart';
+import '../../utils/app_session.dart';
 
 
 class SplashScreen extends StatefulWidget {
