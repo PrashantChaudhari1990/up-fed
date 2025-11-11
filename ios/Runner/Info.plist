@@ -29,15 +29,13 @@
 	<key>NSInAppPurchaseUsageDescription</key>
     <string>This app uses in-app purchases to allow users to buy memberships and access additional services.</string>
 	<key>NSCameraUsageDescription</key>
-	<string>We need access to your camera to capture photos.</string>
-	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
+	<string>We need access to your camera to capture and upload documents required for completing your profile.</string>
+    <key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
 	<string>This app needs access to location when mark check-in and check-out.</string>
 	<key>NSLocationAlwaysUsageDescription</key>
 	<string>This app needs access to location when mark check-in and check-out.</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
 	<string>This app needs access to location when mark check-in and check-out.</string>
-	<key>NSMicrophoneUsageDescription</key>
-	<string>We need microphone access for recording audio.</string>
 	<key>NSPhotoLibraryAddUsageDescription</key>
 	<string>We need permission to save photos to your gallery.</string>
 	<key>NSPhotoLibraryUsageDescription</key>
