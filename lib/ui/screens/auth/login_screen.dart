@@ -241,7 +241,7 @@ class _LoginScreenState extends State<LoginScreen> {
                           child: Text.rich(
                               TextSpan(text: ''.tr(), children: [
                                 TextSpan(
-                                    text: 'MH ASSOCIATION',
+                                    text: 'MH FEDERATION',
                                     style: const TextStyle().copyWith(
                                         color: ThemeColors.primaryColor))
                               ]),

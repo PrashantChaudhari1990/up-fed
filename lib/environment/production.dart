@@ -5,5 +5,6 @@ class Production extends Environment {
       : super(
       baseUrl: 'https://vas-connect-api.oorjaa.tech',
       webAppUrl: 'https://bttoa-connect.oorjaa.tech',
+      //webAppUrl: 'http://10.190.191.91:4400',
       appUpdate: true);
 }

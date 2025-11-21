@@ -20,6 +20,7 @@ import 'package:open_file/open_file.dart';
 import 'package:http/http.dart' as http;
 import '../../config/server_config.dart';
 import '../../constant/session_keys.dart';
+import '../../constant/common_constants.dart';
 import '../../utils/app_session_storage.dart';
 import '../../utils/global_notifier.dart';
 
@@ -102,6 +103,8 @@ class WebViewContainerState extends State<WebViewContainer> {
     _inAppWebViewController?.removeJavaScriptHandler(
         handlerName: 'downloadFile');
     _inAppWebViewController?.removeJavaScriptHandler(
+        handlerName: 'getTenantId');
+    _inAppWebViewController?.removeJavaScriptHandler(
         handlerName: 'downloadExcel');
     super.dispose();
   }
@@ -178,6 +181,9 @@ class WebViewContainerState extends State<WebViewContainer> {
     _inAppWebViewController?.addJavaScriptHandler(
         handlerName: 'downloadFile',
         callback: (dynamic args) => _handleDownloadFile(args));
+    _inAppWebViewController?.addJavaScriptHandler(
+        handlerName: 'getTenantId',
+        callback: (dynamic args) => getTenantId());
     _inAppWebViewController?.addJavaScriptHandler(
         handlerName: 'downloadExcel',
         callback: (dynamic args) {
@@ -833,5 +839,9 @@ class WebViewContainerState extends State<WebViewContainer> {
         ToastMessage.show('Download failed');
       }
     }
+  }
+
+  String getTenantId() {
+    return CommonConstants.tenantId;
   }
 }
