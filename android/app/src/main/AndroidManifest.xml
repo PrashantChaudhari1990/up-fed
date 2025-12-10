@@ -22,7 +22,9 @@
         android:networkSecurityConfig="@xml/network_security_config"
         android:usesCleartextTraffic="true"
         android:supportsRtl="true"
-        android:enableOnBackInvokedCallback="true">
+        android:enableOnBackInvokedCallback="true"
+        android:largeHeap="${supportsLargeHeap}"
+        android:vmSafeMode="true">
         <activity
             android:name=".MainActivity"
             android:exported="true"

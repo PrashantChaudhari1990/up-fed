@@ -3,7 +3,7 @@ import 'package:mhassoc_ui/environment/production.dart';
 import 'package:mhassoc_ui/environment/staging.dart';
 import '../environment/environment.dart';
 
-const EnvironmentType _environmentType = EnvironmentType.production;
+const EnvironmentType _environmentType = EnvironmentType.develop;
 Environment get environment {
   switch (_environmentType) {
     case EnvironmentType.develop:

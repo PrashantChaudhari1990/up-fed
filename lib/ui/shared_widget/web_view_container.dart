@@ -47,6 +47,7 @@ class WebViewContainerState extends State<WebViewContainer> {
   InAppWebViewController? _inAppWebViewController;
 
   DateTime? backPressTime;
+  bool _isPaymentProcessing = false;
 
   InAppWebViewSettings inAppWebViewSettings = InAppWebViewSettings(
       useShouldOverrideUrlLoading: true,
@@ -106,6 +107,8 @@ class WebViewContainerState extends State<WebViewContainer> {
         handlerName: 'getTenantId');
     _inAppWebViewController?.removeJavaScriptHandler(
         handlerName: 'downloadExcel');
+    _inAppWebViewController?.removeJavaScriptHandler(
+        handlerName: 'backButtonControl');
     super.dispose();
   }
 
@@ -190,6 +193,29 @@ class WebViewContainerState extends State<WebViewContainer> {
           debugPrint('downloadExcel handler triggered');
           return _handleDownloadExcel(args);
         });
+    _inAppWebViewController?.addJavaScriptHandler(
+        handlerName: 'backButtonControl',
+        callback: (dynamic args) {
+          debugPrint('backButtonControl handler triggered with args: $args');
+
+          if (args.isNotEmpty && args[0] is Map) {
+            final action = args[0]['action'];
+
+            if (mounted) {
+              setState(() {
+                if (action == 'disable') {
+                  _isPaymentProcessing = true;
+                  debugPrint('Back button DISABLED - Payment in progress');
+                } else if (action == 'enable') {
+                  _isPaymentProcessing = false;
+                  debugPrint('Back button ENABLED - Payment completed');
+                }
+              });
+            }
+          }
+
+          return {'status': 'received', 'isPaymentProcessing': _isPaymentProcessing};
+        });
     WebViewControllerUtils.controller = controller;
     debugPrint('All JavaScript handlers registered successfully');
     widget.onWebViewCreated?.call(controller);
@@ -199,6 +225,13 @@ class WebViewContainerState extends State<WebViewContainer> {
     if (didPop) {
       return;
     }
+    
+    // Block back button if payment is processing
+    if (_isPaymentProcessing) {
+      _showPaymentInProgressDialog();
+      return;
+    }
+    
     final canWebGoBack = await _inAppWebViewController?.canGoBack();
     if (mounted) {
       if (canWebGoBack ?? false) {
@@ -839,6 +872,27 @@ class WebViewContainerState extends State<WebViewContainer> {
         ToastMessage.show('Download failed');
       }
     }
+  }
+
+  void _showPaymentInProgressDialog() {
+    showDialog(
+      context: context,
+      barrierDismissible: false,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: const Text('Payment In Progress'),
+          content: const Text(
+            'Please wait for the payment to complete. Do not press the back button.',
+          ),
+          actions: [
+            TextButton(
+              onPressed: () => Navigator.of(context).pop(),
+              child: const Text('OK'),
+            ),
+          ],
+        );
+      },
+    );
   }
 
   String getTenantId() {
