@@ -31,9 +31,9 @@ class WebViewContainer extends StatefulWidget {
 
   const WebViewContainer(
       {super.key,
-      this.url,
-      this.onWebViewCreated,
-      this.enablePullToRefresh = false});
+        this.url,
+        this.onWebViewCreated,
+        this.enablePullToRefresh = false});
 
   @override
   State<WebViewContainer> createState() => WebViewContainerState();
@@ -43,11 +43,17 @@ class WebViewContainerState extends State<WebViewContainer> {
   //final String _customSchema = 'kh-dealer-app:';
   final String _customSchema = 'bttoa:';
 
+  // ✅ ADDED: List of allowed app URLs (both yelo-vas and yeloplate)
+  final List<String> _allowedAppDomains = [
+    'oorjaa.tech',           // yelo-vas (all subdomains)
+    'datashastra.io',        // yeloplate (all subdomains)
+    'razorpay.com',         // payment
+  ];
+
   PullToRefreshController? _pullToRefreshController;
   InAppWebViewController? _inAppWebViewController;
 
   DateTime? backPressTime;
-  bool _isPaymentProcessing = false;
 
   InAppWebViewSettings inAppWebViewSettings = InAppWebViewSettings(
       useShouldOverrideUrlLoading: true,
@@ -76,7 +82,7 @@ class WebViewContainerState extends State<WebViewContainer> {
             } else if (defaultTargetPlatform == TargetPlatform.iOS) {
               await _inAppWebViewController?.loadUrl(
                   urlRequest:
-                      URLRequest(url: await _inAppWebViewController?.getUrl()));
+                  URLRequest(url: await _inAppWebViewController?.getUrl()));
             }
             _pullToRefreshController?.endRefreshing();
           });
@@ -107,8 +113,6 @@ class WebViewContainerState extends State<WebViewContainer> {
         handlerName: 'getTenantId');
     _inAppWebViewController?.removeJavaScriptHandler(
         handlerName: 'downloadExcel');
-    _inAppWebViewController?.removeJavaScriptHandler(
-        handlerName: 'backButtonControl');
     super.dispose();
   }
 
@@ -127,8 +131,8 @@ class WebViewContainerState extends State<WebViewContainer> {
     }
     _inAppWebViewController
         ?.loadUrl(
-            urlRequest: URLRequest(
-                url: WebUri("${environment.webAppUrl}${widget.url}")))
+        urlRequest: URLRequest(
+            url: WebUri("${environment.webAppUrl}${widget.url}")))
         .then((value) async {
       if (defaultTargetPlatform == TargetPlatform.android) {
         await _inAppWebViewController?.clearHistory();
@@ -193,29 +197,6 @@ class WebViewContainerState extends State<WebViewContainer> {
           debugPrint('downloadExcel handler triggered');
           return _handleDownloadExcel(args);
         });
-    _inAppWebViewController?.addJavaScriptHandler(
-        handlerName: 'backButtonControl',
-        callback: (dynamic args) {
-          debugPrint('backButtonControl handler triggered with args: $args');
-
-          if (args.isNotEmpty && args[0] is Map) {
-            final action = args[0]['action'];
-
-            if (mounted) {
-              setState(() {
-                if (action == 'disable') {
-                  _isPaymentProcessing = true;
-                  debugPrint('Back button DISABLED - Payment in progress');
-                } else if (action == 'enable') {
-                  _isPaymentProcessing = false;
-                  debugPrint('Back button ENABLED - Payment completed');
-                }
-              });
-            }
-          }
-
-          return {'status': 'received', 'isPaymentProcessing': _isPaymentProcessing};
-        });
     WebViewControllerUtils.controller = controller;
     debugPrint('All JavaScript handlers registered successfully');
     widget.onWebViewCreated?.call(controller);
@@ -225,13 +206,6 @@ class WebViewContainerState extends State<WebViewContainer> {
     if (didPop) {
       return;
     }
-    
-    // Block back button if payment is processing
-    if (_isPaymentProcessing) {
-      _showPaymentInProgressDialog();
-      return;
-    }
-    
     final canWebGoBack = await _inAppWebViewController?.canGoBack();
     if (mounted) {
       if (canWebGoBack ?? false) {
@@ -281,6 +255,27 @@ class WebViewContainerState extends State<WebViewContainer> {
         },
         onLoadStart: (controller, uri) async {
           AppLoader().show();
+
+          // ✅ Sync session when loading new page
+          if (uri != null) {
+            try {
+              final uriHost = uri.host.toLowerCase();
+              final isAllowed = _allowedAppDomains.any((domain) =>
+                  uriHost.contains(domain.toLowerCase())
+              );
+
+              if (isAllowed) {
+                final session = await AppSessionStorage().getString(SessionKeys.user);
+                if (session != null && session.isNotEmpty) {
+                  await controller.webStorage.localStorage
+                      .setItem(key: SessionKeys.user, value: session);
+                  debugPrint('✅ Session synced on load start');
+                }
+              }
+            } catch (e) {
+              debugPrint('Error syncing session on load start: $e');
+            }
+          }
         },
         onLoadStop: (controller, uri) async {
           final session = await AppSessionStorage().getString(SessionKeys.user);
@@ -303,23 +298,56 @@ class WebViewContainerState extends State<WebViewContainer> {
         },
         shouldOverrideUrlLoading: (webController, navigationAction) async {
           URLRequest urlRequest = navigationAction.request;
-          if (urlRequest.url.toString().contains(_customSchema)) {
-            handleCustomSchemaRoute(context, urlRequest.url.toString());
+          final requestUrl = urlRequest.url.toString();
+
+          debugPrint('🔍 shouldOverrideUrlLoading: $requestUrl');
+
+          // Handle custom schema
+          if (requestUrl.contains(_customSchema)) {
+            handleCustomSchemaRoute(context, requestUrl);
             return NavigationActionPolicy.CANCEL;
           }
-          if (urlRequest.url.toString().contains("https://api.razorpay.com/")) {
+
+          // ✅ UPDATED: Check if URL is from allowed app domains
+          bool isAllowedDomain = false;
+          try {
+            final uri = Uri.parse(requestUrl);
+            final host = uri.host.toLowerCase();
+
+            // Check if host contains any of our allowed domains
+            isAllowedDomain = _allowedAppDomains.any((domain) =>
+                host.contains(domain.toLowerCase())
+            );
+
+            debugPrint('Host: $host, Allowed: $isAllowedDomain');
+          } catch (e) {
+            debugPrint('Error parsing URL: $e');
+          }
+
+          // If it's an allowed app domain, keep it in WebView
+          if (isAllowedDomain) {
+            debugPrint('✅ Allowing navigation within WebView: $requestUrl');
+
+            // ✅ Sync session before navigating
+            final session = await AppSessionStorage().getString(SessionKeys.user);
+            if (session != null && session.isNotEmpty) {
+              await webController.webStorage.localStorage
+                  .setItem(key: SessionKeys.user, value: session);
+              debugPrint('✅ Session synced for navigation');
+            }
+
             return NavigationActionPolicy.ALLOW;
           }
-          if (!urlRequest.url.toString().contains(environment.webAppUrl)) {
-            final requestUri = Uri.parse(urlRequest.url.toString());
-            try {
-              await launchUrl(requestUri);
-            } catch (e) {
-              // ignore launch failures
-            }
-            return NavigationActionPolicy.CANCEL;
+
+          // For external URLs, open in external browser
+          debugPrint('🌐 Opening external browser: $requestUrl');
+          final requestUri = Uri.parse(requestUrl);
+          try {
+            await launchUrl(requestUri, mode: LaunchMode.externalApplication);
+          } catch (e) {
+            debugPrint('Failed to launch URL: $e');
           }
-          return NavigationActionPolicy.ALLOW;
+          return NavigationActionPolicy.CANCEL;
         },
         initialUrlRequest:
         URLRequest(url: WebUri("${environment.webAppUrl}${widget.url}")),
@@ -435,7 +463,7 @@ class WebViewContainerState extends State<WebViewContainer> {
       // Get app documents directory
       final dir = await getApplicationDocumentsDirectory();
       final downloadsDir = Directory('${dir.path}/Downloads');
-      
+
       // Create Downloads directory if it doesn't exist
       if (!await downloadsDir.exists()) {
         await downloadsDir.create(recursive: true);
@@ -464,7 +492,7 @@ class WebViewContainerState extends State<WebViewContainer> {
       }
 
       debugPrint('File saved at: $filePath');
-      
+
       return {
         'success': true,
         'message': 'File downloaded successfully',
@@ -485,55 +513,55 @@ class WebViewContainerState extends State<WebViewContainer> {
   Future<Map<String, dynamic>> _handleDownloadExcelLocal(List<dynamic> args) async {
     try {
       debugPrint('downloadExcel called - downloading sample Excel file');
-      
+
       // Load the sample Excel file from assets
       final ByteData data = await rootBundle.load('assets/sample_excel.xlsx');
       final List<int> bytes = data.buffer.asUint8List();
-      
+
       // Generate filename with timestamp to avoid conflicts
       final timestamp = DateTime.now().millisecondsSinceEpoch;
       final fileName = 'sample_excel_$timestamp.xlsx';
-      
+
       // Get app documents directory
       final dir = await getApplicationDocumentsDirectory();
       final downloadsDir = Directory('${dir.path}/Downloads');
-      
+
       // Create Downloads directory if it doesn't exist
       if (!await downloadsDir.exists()) {
         await downloadsDir.create(recursive: true);
         debugPrint('Created downloads directory: ${downloadsDir.path}');
       }
-      
+
       // Create file path
       final filePath = '${downloadsDir.path}/$fileName';
       final file = File(filePath);
-      
+
       // Write file
       await file.writeAsBytes(bytes);
       debugPrint('Sample Excel file saved to: $filePath');
-      
+
       // Show success message with path
       if (mounted) {
         ToastMessage.show('Excel downloaded to:\n${downloadsDir.path}/$fileName');
       }
-      
+
       // File downloaded successfully - no auto-open to avoid asking user
-      
+
       return {
         'success': true,
         'message': 'Sample Excel file downloaded successfully',
         'filePath': filePath,
         'fileName': fileName
       };
-      
+
     } catch (error, stackTrace) {
       debugPrint('Excel download error: $error');
       debugPrint('Stack trace: $stackTrace');
-      
+
       if (mounted) {
         ToastMessage.show('Excel download failed');
       }
-      
+
       return {
         'success': false,
         'message': 'Excel download failed: ${error.toString()}'
@@ -545,7 +573,7 @@ class WebViewContainerState extends State<WebViewContainer> {
     try {
       debugPrint('downloadExcel called with args: $args');
       debugPrint('Args length: ${args.length}');
-      
+
       if (args.isEmpty) {
         debugPrint('No arguments provided to downloadExcel');
         return {'success': false, 'message': 'No arguments provided'};
@@ -559,17 +587,17 @@ class WebViewContainerState extends State<WebViewContainer> {
         var firstArg = args[0];
         debugPrint('First argument type: ${firstArg.runtimeType}');
         debugPrint('First argument: $firstArg');
-        
+
         if (firstArg is String) {
           base64Data = firstArg;
         } else if (firstArg is Map) {
-          base64Data = firstArg['data']?.toString() ?? 
-                      firstArg['base64']?.toString() ?? 
-                      firstArg['content']?.toString();
-          fileName = firstArg['fileName']?.toString() ?? 
-                    firstArg['filename']?.toString() ?? 
-                    firstArg['name']?.toString() ?? 
-                    fileName;
+          base64Data = firstArg['data']?.toString() ??
+              firstArg['base64']?.toString() ??
+              firstArg['content']?.toString();
+          fileName = firstArg['fileName']?.toString() ??
+              firstArg['filename']?.toString() ??
+              firstArg['name']?.toString() ??
+              fileName;
         }
       }
 
@@ -581,7 +609,7 @@ class WebViewContainerState extends State<WebViewContainer> {
       }
 
       // Ensure .xlsx extension
-      if (!fileName.toLowerCase().endsWith('.xlsx') && 
+      if (!fileName.toLowerCase().endsWith('.xlsx') &&
           !fileName.toLowerCase().endsWith('.xls')) {
         fileName += '.xlsx';
       }
@@ -613,7 +641,7 @@ class WebViewContainerState extends State<WebViewContainer> {
       // Get app documents directory
       final dir = await getApplicationDocumentsDirectory();
       final downloadsDir = Directory('${dir.path}/Downloads');
-      
+
       // Create Downloads directory if it doesn't exist
       if (!await downloadsDir.exists()) {
         await downloadsDir.create(recursive: true);
@@ -641,7 +669,7 @@ class WebViewContainerState extends State<WebViewContainer> {
         debugPrint('Could not auto-open Excel: $e');
         // Still a success even if we can't open it
       }
-      
+
       return {
         'success': true,
         'message': 'Excel file downloaded successfully',
@@ -652,11 +680,11 @@ class WebViewContainerState extends State<WebViewContainer> {
     } catch (error, stackTrace) {
       debugPrint('Excel download error: $error');
       debugPrint('Stack trace: $stackTrace');
-      
+
       if (mounted) {
         ToastMessage.show('Excel download failed');
       }
-      
+
       return {
         'success': false,
         'message': 'Excel download failed: ${error.toString()}'
@@ -669,7 +697,7 @@ class WebViewContainerState extends State<WebViewContainer> {
     final suggestedFilename = downloadStartRequest.suggestedFilename ?? 'download';
     final mimeType = downloadStartRequest.mimeType ?? '';
     final contentLength = downloadStartRequest.contentLength;
-    
+
     debugPrint("Download requested: $url");
     debugPrint("Suggested filename: $suggestedFilename");
     debugPrint("MIME type: $mimeType");
@@ -679,7 +707,7 @@ class WebViewContainerState extends State<WebViewContainer> {
       // Handle blob URLs by injecting JavaScript to convert to base64
       if (url.startsWith('blob:')) {
         debugPrint("Handling blob URL download");
-        
+
         // Add a JavaScript handler to receive the blob data
         controller.addJavaScriptHandler(
           handlerName: 'blobDownloadCallback',
@@ -687,7 +715,7 @@ class WebViewContainerState extends State<WebViewContainer> {
             if (args.isNotEmpty) {
               String base64Data = args[0].toString();
               debugPrint("Received blob data via callback: ${base64Data.substring(0, 50)}...");
-              
+
               if (base64Data.startsWith('data:')) {
                 if (base64Data.contains(',')) {
                   base64Data = base64Data.split(',').last;
@@ -728,15 +756,15 @@ class WebViewContainerState extends State<WebViewContainer> {
         debugPrint("Executing JavaScript for blob conversion with callback");
         final result = await controller.evaluateJavascript(source: script);
         debugPrint("JavaScript immediate result: $result");
-        
+
         // Wait a bit for the callback to process
         await Future.delayed(const Duration(milliseconds: 1000));
-        
+
         // Remove the temporary handler
         controller.removeJavaScriptHandler(handlerName: 'blobDownloadCallback');
         return;
       }
-      
+
       // Handle regular HTTP URLs
       if (url.startsWith('http')) {
         debugPrint("Handling HTTP URL download");
@@ -762,7 +790,7 @@ class WebViewContainerState extends State<WebViewContainer> {
     try {
       // Decode base64
       final bytes = base64Decode(base64Data);
-      
+
       // Ensure proper file extension based on MIME type
       String finalFilename = filename;
       if (mimeType.contains('excel') || mimeType.contains('spreadsheet')) {
@@ -774,7 +802,7 @@ class WebViewContainerState extends State<WebViewContainer> {
       // Get downloads directory
       final dir = await getApplicationDocumentsDirectory();
       final downloadsDir = Directory('${dir.path}/Downloads');
-      
+
       if (!await downloadsDir.exists()) {
         await downloadsDir.create(recursive: true);
       }
@@ -809,21 +837,21 @@ class WebViewContainerState extends State<WebViewContainer> {
   Future<void> _downloadFromUrl(String url, String filename, String mimeType) async {
     try {
       debugPrint('Downloading from URL: $url');
-      
+
       // Get user session for authentication if needed
       final session = await AppSessionStorage().getString(SessionKeys.user);
       final headers = <String, String>{};
-      
+
       if (session != null) {
         // Add any auth headers if needed
         headers['Authorization'] = 'Bearer $session';
       }
 
       final response = await http.get(Uri.parse(url), headers: headers);
-      
+
       if (response.statusCode == 200) {
         final bytes = response.bodyBytes;
-        
+
         // Ensure proper file extension
         String finalFilename = filename;
         if (mimeType.contains('excel') || mimeType.contains('spreadsheet')) {
@@ -835,7 +863,7 @@ class WebViewContainerState extends State<WebViewContainer> {
         // Get downloads directory
         final dir = await getApplicationDocumentsDirectory();
         final downloadsDir = Directory('${dir.path}/Downloads');
-        
+
         if (!await downloadsDir.exists()) {
           await downloadsDir.create(recursive: true);
         }
@@ -872,27 +900,6 @@ class WebViewContainerState extends State<WebViewContainer> {
         ToastMessage.show('Download failed');
       }
     }
-  }
-
-  void _showPaymentInProgressDialog() {
-    showDialog(
-      context: context,
-      barrierDismissible: false,
-      builder: (BuildContext context) {
-        return AlertDialog(
-          title: const Text('Payment In Progress'),
-          content: const Text(
-            'Please wait for the payment to complete. Do not press the back button.',
-          ),
-          actions: [
-            TextButton(
-              onPressed: () => Navigator.of(context).pop(),
-              child: const Text('OK'),
-            ),
-          ],
-        );
-      },
-    );
   }
 
   String getTenantId() {
