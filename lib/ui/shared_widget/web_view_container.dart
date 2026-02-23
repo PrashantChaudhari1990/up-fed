@@ -67,7 +67,15 @@ class WebViewContainerState extends State<WebViewContainer> {
       isInspectable: kDebugMode,
       mediaPlaybackRequiresUserGesture: false,
       iframeAllow: "camera; microphone",
-      iframeAllowFullscreen: false);
+      iframeAllowFullscreen: false,
+      // File upload support
+      allowFileAccess: true,
+      allowFileAccessFromFileURLs: true,
+      allowUniversalAccessFromFileURLs: true,
+      allowContentAccess: true,
+      domStorageEnabled: true,
+      javaScriptEnabled: true,
+      useWideViewPort: true);
 
   @override
   void initState() {
