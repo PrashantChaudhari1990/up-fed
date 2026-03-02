@@ -7,6 +7,9 @@ abstract class WebHandlerNames {
   static const downloadFile = 'downloadFile';
   static const getTenantId = 'getTenantId';
   static const downloadExcel = 'downloadExcel';
+  static const showToast = 'showToast';
+  static const showErrorToast = 'showErrorToast';
+
 
   static List all = [
     getDeviceDetail,
@@ -16,7 +19,9 @@ abstract class WebHandlerNames {
     updateUserDetail,
     downloadFile,
     getTenantId,
-    downloadExcel
+    downloadExcel,
+    showToast,
+    showErrorToast
   ];
 
 }
