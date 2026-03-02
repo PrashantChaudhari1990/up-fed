@@ -15,7 +15,6 @@ class AuthService {
     return _interceptorService.dio.get(preLoginUrl,
         options: Options(
           extra: {'context': context},
-          //headers: {'x-visibility-scope': Constants.xVisibilityScope}
         ));
   }
 
@@ -23,8 +22,7 @@ class AuthService {
     String preLoginUrl = '/api/config/global/SLIDER_IMAGES/parsed';
     return _interceptorService.dio.get(preLoginUrl,
         options: Options(
-          extra: {'context': context},
-          //headers: {'x-visibility-scope': Constants.xVisibilityScope}
+          extra: {'context': context,'showLoader':false},
         ));
   }
 

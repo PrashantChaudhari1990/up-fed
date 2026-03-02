@@ -12,7 +12,5 @@ Environment get environment {
       return Staging();
     case EnvironmentType.production:
       return Production();
-    default:
-      return Development();
   }
 }

@@ -17,27 +17,6 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  final List<NavigationBarItem> _bottomNavigationTabs = [
-    NavigationBarItem(
-        iconUrl: 'assets/icons/home.svg',
-        label: "home_screen.home".tr(),
-        routeName: WebAppRoutes.dashboard),
-    NavigationBarItem(
-        iconUrl: 'assets/icons/notify_driver.svg',
-        label: "home_screen.notify_driver".tr(),
-        routeName: WebAppRoutes.coupon),
-    NavigationBarItem(
-        iconUrl: 'assets/icons/trips.svg',
-        label: "home_screen.trip_quick_view".tr(),
-        routeName: WebAppRoutes.offers),
-    NavigationBarItem(
-        iconUrl: 'assets/icons/request_view.svg',
-        label: "home_screen.request_view".tr(),
-        routeName: WebAppRoutes.support),
-    //NavigationBarItem(iconUrl: 'assets/icons/orders.svg', label: "home_screen.payments".tr(),routeName:WebAppRoutes.payments),
-    //NavigationBarItem(iconUrl: 'assets/icons/profile.svg', label: "home_screen.contract".tr(),routeName:WebAppRoutes.contract),
-  ];
-  int _currentTabIndex = 0;
 
   @override
   void initState() {
@@ -70,64 +49,14 @@ class _HomeScreenState extends State<HomeScreen> {
         statusBarColor: ThemeColors.white,
         statusBrightness: Brightness.dark,
       ),
-      /*bottomNavigationBar: ValueListenableBuilder<bool>(
-          valueListenable: homeBottomBarVisible,
-          builder: (context, value, _) {
-            return value
-                ? BottomNavigationBar(
-                    onTap: (value) async {
-                      if (_currentTabIndex == value) {
-                        _bottomNavigationTabs[_currentTabIndex]
-                            .key
-                            .currentState
-                            ?.loadWebView();
-                      } else {
-                        setState(() {
-                          _currentTabIndex = value;
-                        });
-                      }
-                    },
-                    currentIndex: _currentTabIndex,
-                    type: BottomNavigationBarType.fixed,
-                    showUnselectedLabels: true,
-                    selectedItemColor: ThemeColors.primaryColor,
-                    enableFeedback: false,
-                    unselectedItemColor: ThemeColors.gray4,
-                    selectedLabelStyle:
-                        menuTabTextStyle.copyWith(fontSize: 10),
-                    unselectedLabelStyle: menuTabTextStyle,
-                    items: List.generate(
-                        value ? _bottomNavigationTabs.length : 2, (index) {
-                      final navigationTab = _bottomNavigationTabs[index];
-                      return BottomNavigationBarItem(
-                          icon: SvgPicture.asset(
-                            navigationTab.iconUrl,
-                            colorFilter: index == _currentTabIndex
-                                ? ColorFilter.mode(
-                                    ThemeColors.primaryColor, BlendMode.srcIn)
-                                : null,
-                          ),
-                          label: navigationTab.label);
-                    }))
-                : Container(height: 0);
-          }),*/
       body: SafeArea(
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
-            // DynamicAppBar(
-            //   onBackButton: () {
-            //     _bottomNavigationTabs[_currentTabIndex]
-            //         .key
-            //         .currentState
-            //         ?.onPopInvoked(false, null);
-            //   },
-            // ),
             Flexible(
               child: WebViewContainer(
-                key: _bottomNavigationTabs[_currentTabIndex].key,
-                url: _bottomNavigationTabs[_currentTabIndex].routeName,
-                enablePullToRefresh: true,
+                url:'',
+                enablePullToRefresh: false,
                 onWebViewCreated: (controller) async {},
               ),
             ),
@@ -136,14 +65,4 @@ class _HomeScreenState extends State<HomeScreen> {
       ),
     );
   }
-}
-
-class NavigationBarItem {
-  final String iconUrl;
-  final String? label;
-  final String routeName;
-  final GlobalKey<WebViewContainerState> key = GlobalKey();
-
-  NavigationBarItem(
-      {required this.iconUrl, this.label, required this.routeName});
 }

@@ -1,6 +1,4 @@
 import 'dart:async';
-import 'dart:convert';
-
 import 'package:mhassoc_ui/enums/enums.dart';
 import 'package:mhassoc_ui/models/auth/generate_otp_request.dart';
 import 'package:mhassoc_ui/services/auth/auth_service.dart';
@@ -39,6 +37,7 @@ class _LoginScreenState extends State<LoginScreen> {
   int _currentSliderIndex = 0;
   PageController _pageController = PageController();
   Timer? _autoScrollTimer;
+  final ValueNotifier<bool> _isSliderLoading = ValueNotifier(false);
 
   @override
   void initState() {
@@ -52,14 +51,10 @@ class _LoginScreenState extends State<LoginScreen> {
   }
 
   Future<void> _loadSliderData() async {
-    AuthService authService = AuthService();
-    final jsonResponse = await authService.sliderImages(context);
-    // Decode JSON
-
-    // TODO: Replace with actual API call
     try {
-      //Example API call structure (uncomment when API is available):
+      _isSliderLoading.value = true;
       final response = await _authService.sliderImages(context);
+      _isSliderLoading.value = false;
       if (response != null && response.data != null) {
         final List<dynamic> sliderList = response.data['data'] ?? [];
         _sliderData = sliderList
@@ -71,16 +66,12 @@ class _LoginScreenState extends State<LoginScreen> {
                 })
             .toList();
       }
-      print(_sliderData);
-
       if (mounted) {
-        setState(() {});
         _startAutoScroll();
       }
     } catch (error) {
-      // Handle API error - keep dummy data
+      _isSliderLoading.value = false;
       if (mounted) {
-        setState(() {});
         _startAutoScroll();
       }
     }
@@ -110,6 +101,7 @@ class _LoginScreenState extends State<LoginScreen> {
   void dispose() {
     _phoneNumberController.dispose();
     _pageController.dispose();
+    _isSliderLoading.dispose();
     _stopAutoScroll();
     super.dispose();
   }
@@ -258,9 +250,14 @@ class _LoginScreenState extends State<LoginScreen> {
                         //   style: theme.textTheme.titleSmall
                         //       ?.copyWith(color: ThemeColors.gray4),
                         // ).tr(),
-                        Container(
-                          height: MediaQuery.of(context).size.height * 0.43,
-                          child: PageView.builder(
+                        ValueListenableBuilder<bool>(
+                          valueListenable: _isSliderLoading,
+                          builder: (context, isLoading, _) {
+                            return Container(
+                              height: MediaQuery.of(context).size.height * 0.43,
+                              child: isLoading
+                                  ? _buildSliderSkeleton(theme)
+                                  : PageView.builder(
                             controller: _pageController,
                             itemCount: _sliderData.length,
                             onPageChanged: (index) {
@@ -352,6 +349,8 @@ class _LoginScreenState extends State<LoginScreen> {
                               );
                             },
                           ),
+                            );
+                          },
                         ),
                         if (_sliderData.length > 1)
                           Container(
@@ -565,6 +564,105 @@ class _LoginScreenState extends State<LoginScreen> {
           ),
         ),
       ),
+    );
+  }
+
+  Widget _buildSliderSkeleton(ThemeData theme) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 8),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Expanded(
+            flex: 3,
+            child: _SkeletonBox(
+              borderRadius: BorderRadius.circular(12),
+            ),
+          ),
+          const SizedBox(height: 12),
+          Expanded(
+            flex: 1,
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 8),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  _SkeletonBox(
+                    height: 14,
+                    width: MediaQuery.of(context).size.width * 0.6,
+                    borderRadius: BorderRadius.circular(4),
+                  ),
+                  const SizedBox(height: 8),
+                  _SkeletonBox(
+                    height: 12,
+                    width: MediaQuery.of(context).size.width * 0.8,
+                    borderRadius: BorderRadius.circular(4),
+                  ),
+                  const SizedBox(height: 6),
+                  _SkeletonBox(
+                    height: 12,
+                    width: MediaQuery.of(context).size.width * 0.5,
+                    borderRadius: BorderRadius.circular(4),
+                  ),
+                ],
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class _SkeletonBox extends StatefulWidget {
+  final double? height;
+  final double? width;
+  final BorderRadius? borderRadius;
+
+  const _SkeletonBox({this.height, this.width, this.borderRadius});
+
+  @override
+  State<_SkeletonBox> createState() => _SkeletonBoxState();
+}
+
+class _SkeletonBoxState extends State<_SkeletonBox>
+    with SingleTickerProviderStateMixin {
+  late AnimationController _controller;
+  late Animation<double> _animation;
+
+  @override
+  void initState() {
+    super.initState();
+    _controller = AnimationController(
+      vsync: this,
+      duration: const Duration(milliseconds: 1200),
+    )..repeat(reverse: true);
+    _animation = Tween<double>(begin: 0.3, end: 0.6).animate(
+      CurvedAnimation(parent: _controller, curve: Curves.easeInOut),
+    );
+  }
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return AnimatedBuilder(
+      animation: _animation,
+      builder: (context, child) {
+        return Container(
+          height: widget.height,
+          width: widget.width ?? double.infinity,
+          decoration: BoxDecoration(
+            color: Colors.grey.shade400.withOpacity(_animation.value),
+            borderRadius: widget.borderRadius ?? BorderRadius.zero,
+          ),
+        );
+      },
     );
   }
 }
