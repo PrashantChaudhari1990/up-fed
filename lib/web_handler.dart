@@ -1,17 +1,11 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
-import 'package:mhassoc_ui/models/user.dart';
 import 'package:mhassoc_ui/routes.dart';
 import 'package:mhassoc_ui/utils/app_loader.dart';
 import 'package:mhassoc_ui/utils/app_session.dart';
-import 'package:mhassoc_ui/utils/app_session_storage.dart';
-import 'package:mhassoc_ui/utils/global_notifier.dart';
 import 'package:mhassoc_ui/utils/toast_message.dart';
 import 'package:mhassoc_ui/utils/webview_controller_utils.dart';
-import 'constant/session_keys.dart';
 import 'utils/device_info.dart';
-
-bool _isUnderApprovalScreen = false;
 
 Future<dynamic> getDeviceDetails(dynamic data) async {
   final deviceDetail = jsonEncode(await DeviceInfo.getDetail());
@@ -24,17 +18,6 @@ logout(BuildContext context) {
   Navigator.pushNamedAndRemoveUntil(context, Routes.login, (route) => false);
 }
 
-handleRegisterSuccess(BuildContext context, List<dynamic> data) async {
-  if (data.isNotEmpty) {
-    User user = User.fromJson(data[0]);
-    await AppSessionStorage().setString(SessionKeys.user, jsonEncode(user));
-    await WebViewControllerUtils.controller?.webStorage.localStorage
-        .setItem(key: SessionKeys.user, value: data[0]);
-    if (context.mounted) {
-      Navigator.pushNamedAndRemoveUntil(context, Routes.home, (route) => false);
-    }
-  }
-}
 
 appLoader(BuildContext context, List<dynamic> data) async {
   if (data.isNotEmpty) {
@@ -45,22 +28,6 @@ appLoader(BuildContext context, List<dynamic> data) async {
       } else {
         AppLoader().hide();
       }
-    }
-  }
-}
-
-onApprovalStatus(BuildContext context, List<dynamic> data) async {
-  if (data.isNotEmpty) {
-    String? currentRouteName = ModalRoute.of(context)?.settings.name;
-    if (context.mounted && data[0] == true) {
-      _isUnderApprovalScreen = false;
-      Navigator.pushNamedAndRemoveUntil(context, Routes.home, (route) => false);
-    } else if (currentRouteName != Routes.pendingVerification &&
-        !_isUnderApprovalScreen) {
-      _isUnderApprovalScreen = true;
-      ToastMessage.show(data[1] ?? '');
-      Navigator.pushNamedAndRemoveUntil(
-          context, Routes.pendingVerification, (route) => false);
     }
   }
 }
@@ -79,34 +46,14 @@ updateUserDetail(data) async {
   }
 }
 
-toggleAppBar(data) async {
+showToastMessage(data){
   if (data.isNotEmpty) {
-    final appBarVisible = data[0];
-    if (appBarVisible != null) {
-      appBarVisibleNotifier.value = appBarVisible;
-    }
+    ToastMessage.show(data[0]);
   }
 }
 
-toggleBottomNavigation(data) async {
+showErrorMessage(data){
   if (data.isNotEmpty) {
-    final bottomNavigation = data[0];
-    if (bottomNavigation != null) {
-      homeBottomBarVisible.value = bottomNavigation;
-    }
-  }
-}
-
-updateBadgeCount(data) async {
-  if (data.isNotEmpty) {
-    final badgeData = data[0] as Map<String, dynamic>?;
-    if (badgeData != null) {
-      if (badgeData.containsKey('cartCount')) {
-        cartCountNotifier.value = badgeData['cartCount'] ?? 0;
-      }
-      if (badgeData.containsKey('notificationCount')) {
-        notificationCountNotifier.value = badgeData['notificationCount'] ?? 0;
-      }
-    }
+    ToastMessage.error(data[0]);
   }
 }

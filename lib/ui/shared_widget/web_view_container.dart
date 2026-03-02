@@ -156,6 +156,8 @@ class WebViewContainerState extends State<WebViewContainer> {
     _inAppWebViewController?.addJavaScriptHandler(handlerName: WebHandlerNames.updateUserDetail, callback: (dynamic data) => updateUserDetail(data));
     _inAppWebViewController?.addJavaScriptHandler(handlerName: WebHandlerNames.downloadFile, callback: (dynamic args) => _handleDownloadFile(args));
     _inAppWebViewController?.addJavaScriptHandler(handlerName: WebHandlerNames.getTenantId, callback: (dynamic args) => getTenantId());
+    _inAppWebViewController?.addJavaScriptHandler(handlerName: WebHandlerNames.showToast, callback: (dynamic data) => showToastMessage(data));
+    _inAppWebViewController?.addJavaScriptHandler(handlerName: WebHandlerNames.showErrorToast, callback: (dynamic data) => showErrorMessage(data));
     _inAppWebViewController?.addJavaScriptHandler(
         handlerName: WebHandlerNames.downloadExcel,
         callback: (dynamic args) {
