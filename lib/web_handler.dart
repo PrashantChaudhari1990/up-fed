@@ -96,3 +96,17 @@ toggleBottomNavigation(data) async {
     }
   }
 }
+
+updateBadgeCount(data) async {
+  if (data.isNotEmpty) {
+    final badgeData = data[0] as Map<String, dynamic>?;
+    if (badgeData != null) {
+      if (badgeData.containsKey('cartCount')) {
+        cartCountNotifier.value = badgeData['cartCount'] ?? 0;
+      }
+      if (badgeData.containsKey('notificationCount')) {
+        notificationCountNotifier.value = badgeData['notificationCount'] ?? 0;
+      }
+    }
+  }
+}
