@@ -28,8 +28,10 @@ class InterceptorService {
       final loginUser = await AppSession().loginUser;
       requestOptions.headers['x-tenant-id'] = CommonConstants.tenantId;
       if (loginUser != null) {
-        User user = User.fromJson(jsonDecode(loginUser));
-        requestOptions.headers['Authorization'] = 'Bearer ${user.data!.loginResponse!.sessionToken}';
+        // User user = User.fromJson(jsonDecode(loginUser));
+        // requestOptions.headers['Authorization'] = 'Bearer ${user.data!.loginResponse!.sessionToken}';
+        LoginResponse loginResponse = LoginResponse.fromJson(jsonDecode(loginUser));
+        requestOptions.headers['Authorization'] = 'Bearer ${loginResponse.sessionToken}';
       }
       if (requestOptions.extra['showLoader'] ?? true) {
         AppLoader().show();
