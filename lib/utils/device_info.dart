@@ -9,6 +9,8 @@ class DeviceInfo {
   static Future<DeviceDetails?> getDetail() async {
     final DeviceInfoPlugin deviceInfoPlugin = DeviceInfoPlugin();
     final fcmToken = await NotificationConfig.fcmToken;
+    print('fcmToken');
+    print(fcmToken);
     PackageInfo packageInfo = await PackageInfo.fromPlatform();
     switch (defaultTargetPlatform) {
       case TargetPlatform.android:
