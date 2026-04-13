@@ -1,8 +1,6 @@
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:package_info_plus/package_info_plus.dart';
 import 'package:mhassoc_ui/config/server_config.dart';
 
 import '../../routes.dart';
@@ -22,8 +20,9 @@ class _SplashScreenState extends State<SplashScreen> {
   @override
   initState() {
     try {
-      checkForUpdate();
-      checkUpdateForIOS();
+      if(environment.appUpdate) {
+        AppUpdate.checkForForceUpdate();
+      }
     } catch(ex) {}
     Future.delayed(const Duration(seconds: 2), () async {
       final bool isLoggedIn = await AppSession().isLogin;
@@ -32,19 +31,6 @@ class _SplashScreenState extends State<SplashScreen> {
       Navigator.of(context).pushReplacementNamed(routeName);
     });
     super.initState();
-  }
-
-  void checkForUpdate() {
-    if(environment.appUpdate) {
-      AppUpdate().checkForForceUpdate();
-    }
-  }
-
-  Future<void> checkUpdateForIOS() async {
-    PackageInfo packageInfo = await PackageInfo.fromPlatform();
-    if (defaultTargetPlatform == TargetPlatform.iOS && (packageInfo.version != '8.0.0')) {
-      AppUpdate().gotoIOSStore();
-    }
   }
 
   @override
