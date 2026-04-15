@@ -9,11 +9,12 @@ class NotificationConfig {
 
   final AndroidNotificationChannel _androidNotificationChannel =
       const AndroidNotificationChannel(
-    'high_importance_channel',
-    'KH Dealer Notification',
-    description: 'This channel use to default notification.', // description
+    'mh_notification_channel',
+    'MH Notification',
+    description: 'This channel use to default notification.',
     importance: Importance.max,
     playSound: true,
+    sound: RawResourceAndroidNotificationSound('mh_notification'),
     enableVibration: true,
     showBadge: true,
   );
@@ -65,17 +66,20 @@ class NotificationConfig {
           notification.body,
           NotificationDetails(
               android: AndroidNotificationDetails(
-                  android?.channelId ?? _androidNotificationChannel.id,
+                  _androidNotificationChannel.id,
                   _androidNotificationChannel.name,
                   priority: Priority.max,
                   channelDescription: _androidNotificationChannel.description,
                   icon: android?.smallIcon ?? '@mipmap/ic_launcher',
-                  importance: _androidNotificationChannel.importance),
+                  importance: _androidNotificationChannel.importance,
+                  sound: const RawResourceAndroidNotificationSound('mh_notification'),
+                  playSound: true),
               iOS: const DarwinNotificationDetails(
                   presentAlert: true,
                   presentBadge: true,
                   presentSound: true,
-                  presentBanner: true)));
+                  presentBanner: true,
+                  sound: 'mh_notification.wav')));
     }
   }
 

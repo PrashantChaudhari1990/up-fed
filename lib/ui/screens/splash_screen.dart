@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:mhassoc_ui/config/server_config.dart';
 
 import '../../routes.dart';
 import '../../themes/styles/theme_colors.dart';
 import '../../utils/app_session.dart';
+import '../../utils/app_update.dart';
 
 
 class SplashScreen extends StatefulWidget {
@@ -17,6 +19,11 @@ class SplashScreen extends StatefulWidget {
 class _SplashScreenState extends State<SplashScreen> {
   @override
   initState() {
+    try {
+      if(environment.appUpdate) {
+        AppUpdate.checkForForceUpdate();
+      }
+    } catch(ex) {}
     Future.delayed(const Duration(seconds: 2), () async {
       final bool isLoggedIn = await AppSession().isLogin;
       final routeName = isLoggedIn ? Routes.home : Routes.login;

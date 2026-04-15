@@ -396,11 +396,11 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = Runner/Runner.entitlements;
-				CURRENT_PROJECT_VERSION = 12;
+				CURRENT_PROJECT_VERSION = 14;
 				DEVELOPMENT_TEAM = 69S53K4D6K;
 				ENABLE_BITCODE = NO;
-				FLUTTER_BUILD_NAME = 7.0.0;
-				FLUTTER_BUILD_NUMBER = 12;
+				FLUTTER_BUILD_NAME = 8.0.0;
+				FLUTTER_BUILD_NUMBER = 14;
 				INFOPLIST_FILE = Runner/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = "MH FEDERATION";
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.business";
@@ -408,7 +408,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 7.0.0;
+				MARKETING_VERSION = 8.0.0;
 				PRODUCT_BUNDLE_IDENTIFIER = tech.oorjaa.vas.mhassoc;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "Runner/Runner-Bridging-Header.h";
@@ -536,11 +536,11 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = Runner/Runner.entitlements;
-				CURRENT_PROJECT_VERSION = 12;
+				CURRENT_PROJECT_VERSION = 14;
 				DEVELOPMENT_TEAM = 69S53K4D6K;
 				ENABLE_BITCODE = NO;
-				FLUTTER_BUILD_NAME = 7.0.0;
-				FLUTTER_BUILD_NUMBER = 12;
+				FLUTTER_BUILD_NAME = 8.0.0;
+				FLUTTER_BUILD_NUMBER = 14;
 				INFOPLIST_FILE = Runner/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = "MH FEDERATION";
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.business";
@@ -548,7 +548,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 7.0.0;
+				MARKETING_VERSION = 8.0.0;
 				PRODUCT_BUNDLE_IDENTIFIER = tech.oorjaa.vas.mhassoc;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "Runner/Runner-Bridging-Header.h";
@@ -565,11 +565,11 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = Runner/Runner.entitlements;
-				CURRENT_PROJECT_VERSION = 12;
+				CURRENT_PROJECT_VERSION = 14;
 				DEVELOPMENT_TEAM = 69S53K4D6K;
 				ENABLE_BITCODE = NO;
-				FLUTTER_BUILD_NAME = 7.0.0;
-				FLUTTER_BUILD_NUMBER = 12;
+				FLUTTER_BUILD_NAME = 8.0.0;
+				FLUTTER_BUILD_NUMBER = 14;
 				INFOPLIST_FILE = Runner/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = "MH FEDERATION";
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.business";
@@ -577,7 +577,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 7.0.0;
+				MARKETING_VERSION = 8.0.0;
 				PRODUCT_BUNDLE_IDENTIFIER = tech.oorjaa.vas.mhassoc;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "Runner/Runner-Bridging-Header.h";
