@@ -2,6 +2,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter_inappwebview/flutter_inappwebview.dart';
 import 'package:mhassoc_ui/config/theme_colors_config.dart';
 import 'package:mhassoc_ui/services/interceptor_service.dart';
+import 'package:mhassoc_ui/services/deep_link_service.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
@@ -19,6 +20,7 @@ Future<void> main() async {
   }
   await EasyLocalization.ensureInitialized();
   InterceptorService().initialize();
+  await DeepLinkService().init();
   runApp(EasyLocalization(
       path: LocalizationConfig.translationPath,
       supportedLocales: LocalizationConfig.supportedLocales,

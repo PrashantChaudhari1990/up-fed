@@ -3,6 +3,7 @@ import 'package:mhassoc_ui/constant/web_app_routes.dart';
 import 'package:mhassoc_ui/themes/styles/theme_colors.dart';
 import 'package:mhassoc_ui/ui/shared_widget/kh_app_bar.dart';
 import 'package:mhassoc_ui/ui/shared_widget/web_view_container.dart';
+import 'package:mhassoc_ui/services/deep_link_service.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import '../../constant/common_constants.dart';
@@ -17,13 +18,24 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+  String _initialUrl = '';
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
+    _checkForDeepLink();
     getTenentId();
   }
+
+  void _checkForDeepLink() {
+    // Check if there's a pending deep link from cold start
+    final pendingPath = DeepLinkService().consumePendingDeepLinkPath();
+    if (pendingPath != null && pendingPath.isNotEmpty) {
+      debugPrint('Loading pending deep link path: $pendingPath');
+      _initialUrl = pendingPath;
+    }
+  }
+
   Future<void> requestLocationPermission() async {
     var status = await Permission.location.status;
     if (!status.isGranted) {
@@ -55,7 +67,7 @@ class _HomeScreenState extends State<HomeScreen> {
           children: [
             Flexible(
               child: WebViewContainer(
-                url:'',
+                url: _initialUrl,
                 enablePullToRefresh: false,
                 onWebViewCreated: (controller) async {},
               ),

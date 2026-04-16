@@ -4,5 +4,9 @@
 <dict>
 	<key>aps-environment</key>
 	<string>development</string>
+	<key>com.apple.developer.associated-domains</key>
+	<array>
+		<string>applinks:bttoa-connect.oorjaa.tech</string>
+	</array>
 </dict>
 </plist>
