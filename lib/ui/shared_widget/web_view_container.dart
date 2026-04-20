@@ -164,8 +164,58 @@ class WebViewContainerState extends State<WebViewContainer> {
           debugPrint('downloadExcel handler triggered');
           return _handleDownloadExcel(args);
         });
+
+    // ── DigiLocker: open Aadhaar verification URL in system browser ─────────
+    // Angular's DigilockerService tries these handler names in order:
+    //   openExternalBrowser → launchUrl → openUrl
+    // All three must open the URL OUTSIDE the WebView (Chrome / Safari), so
+    // DigiLocker OAuth runs in the system browser and the user is returned
+    // to the app via the visibilitychange listener on the Angular side.
+    _inAppWebViewController?.addJavaScriptHandler(
+        handlerName: 'openExternalBrowser',
+        callback: (dynamic args) => _openUrlExternally(args));
+    _inAppWebViewController?.addJavaScriptHandler(
+        handlerName: 'launchUrl',
+        callback: (dynamic args) => _openUrlExternally(args));
+    _inAppWebViewController?.addJavaScriptHandler(
+        handlerName: 'openUrl',
+        callback: (dynamic args) => _openUrlExternally(args));
+
     WebViewControllerUtils.controller = controller;
     widget.onWebViewCreated?.call(controller);
+  }
+
+  /// Opens the provided URL in the system/external browser.
+  /// Used by DigiLocker Aadhaar verification flow.
+  Future<Map<String, dynamic>> _openUrlExternally(List<dynamic> args) async {
+    try {
+      if (args.isEmpty || args[0] == null) {
+        return {'success': false, 'message': 'No URL provided'};
+      }
+
+      final String url = args[0].toString();
+      debugPrint('Opening URL externally: $url');
+
+      final uri = Uri.parse(url);
+      final canLaunch = await canLaunchUrl(uri);
+      if (!canLaunch) {
+        debugPrint('canLaunchUrl returned false for: $url');
+        return {'success': false, 'message': 'Cannot launch URL'};
+      }
+
+      final launched = await launchUrl(
+        uri,
+        mode: LaunchMode.externalApplication,
+      );
+
+      return {
+        'success': launched,
+        'message': launched ? 'URL opened' : 'Failed to open URL',
+      };
+    } catch (e) {
+      debugPrint('openUrlExternally error: $e');
+      return {'success': false, 'message': e.toString()};
+    }
   }
 
   onPopInvoked(didPop, _) async {
