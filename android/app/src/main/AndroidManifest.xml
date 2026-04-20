@@ -58,16 +58,18 @@
                 <category android:name="android.intent.category.BROWSABLE" />
                 <data
                     android:scheme="https"
-                    android:host="bttoa-connect.oorjaa.tech" />
+                    android:host="bttoa-connect.oorjaa.tech"
+                    android:pathPrefix="/mh-fed"/>
             </intent-filter>
-            <!-- Deep Link yp/ App Links intent filter -->
+            <!-- Deep Link for yeloplate-mobile.datashastra.io/mh-fed -->
             <intent-filter android:autoVerify="true">
                 <action android:name="android.intent.action.VIEW" />
                 <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="android.intent.category.BROWSABLE" />
                 <data
                     android:scheme="https"
-                    android:host="yeloplate-mobile.datashastra.io" />
+                    android:host="yeloplate-mobile.datashastra.io"
+                    android:pathPrefix="/mh-fed"/>
             </intent-filter>
         </activity>
         <!-- Don't delete the meta-data below.
