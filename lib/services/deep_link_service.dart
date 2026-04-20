@@ -47,14 +47,23 @@ class DeepLinkService {
     debugPrint('Deep link received: $uri');
 
     // Extract path from incoming link
-    // e.g. https://bttoa-connect.oorjaa.tech/product/123?color=red
-    final path = uri.path; // /product/123
-    final query = uri.query; // color=red
+    String path = uri.path;
+    final query = uri.query;
+
+    // Strip the /mh-fed prefix - it's only used to trigger the app
+    // When app opens, we load the home page (base URL)
+    if (path.startsWith('/mh-fed')) {
+      path = path.replaceFirst('/mh-fed', '');
+      // If path is empty after stripping, set to root
+      if (path.isEmpty) {
+        path = '/';
+      }
+    }
 
     // Build the full path with query string
     final fullPath = query.isNotEmpty ? '$path?$query' : path;
 
-    debugPrint('Deep link path: $fullPath');
+    debugPrint('Deep link path (after stripping /mh-fed): $fullPath');
 
     // Check if WebView controller exists (app is already running with HomeScreen)
     if (WebViewControllerUtils.controller != null) {
