@@ -46,7 +46,8 @@ Create file at: `src/.well-known/assetlinks.json`
       "namespace": "android_app",
       "package_name": "tech.oorjaa.vas.mhassoc",
       "sha256_cert_fingerprints": [
-        "8F:9E:A1:6E:CA:DA:78:13:7A:77:C5:75:59:80:2E:FA:C6:67:66:5C:0E:75:DE:85:BB:7D:6A:DF:F3:42:8C:94"
+        "8F:9E:A1:6E:CA:DA:78:13:7A:77:C5:75:59:80:2E:FA:C6:67:66:5C:0E:75:DE:85:BB:7D:6A:DF:F3:42:8C:94",
+        "F8:47:13:0F:5D:76:E0:58:3E:EF:29:54:91:83:76:CF:AE:7A:9A:96:1D:CC:30:34:DF:69:0F:3A:1D:10:B0:CD"
       ]
     }
   }
