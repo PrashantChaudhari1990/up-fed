@@ -11,7 +11,7 @@ abstract class CommonConstants {
     }
   }
 
-  static String tenantId = '2';
+  static String tenantId = '3';
 
   static String testingWebUrlIp = "192.168.1.109";
 }
