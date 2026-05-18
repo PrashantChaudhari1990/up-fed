@@ -1,7 +1,7 @@
 
 ## bttoa Mobile Application📱
 
-This project for dealer mobile application for MH Association.
+This project for dealer mobile application for ABCOF Federation.
 
 
 ### Supported Versions

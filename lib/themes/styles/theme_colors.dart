@@ -1,5 +1,5 @@
-import 'package:mhassoc_ui/utils/color_extensions.dart';
-import 'package:mhassoc_ui/utils/color_utility.dart';
+import 'package:abcof_ui/utils/color_extensions.dart';
+import 'package:abcof_ui/utils/color_utility.dart';
 import 'package:flutter/material.dart';
 
 class ThemeColors {

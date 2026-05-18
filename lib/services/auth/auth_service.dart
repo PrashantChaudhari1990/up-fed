@@ -1,10 +1,10 @@
 import 'package:flutter/cupertino.dart';
-import 'package:mhassoc_ui/constant/api_end_points.dart';
-import 'package:mhassoc_ui/models/auth/generate_otp_request.dart';
-import 'package:mhassoc_ui/models/auth/login_request.dart';
-import 'package:mhassoc_ui/models/auth/set_pin_request.dart';
-import 'package:mhassoc_ui/models/auth/validate_otp_request.dart';
-import 'package:mhassoc_ui/services/interceptor_service.dart';
+import 'package:abcof_ui/constant/api_end_points.dart';
+import 'package:abcof_ui/models/auth/generate_otp_request.dart';
+import 'package:abcof_ui/models/auth/login_request.dart';
+import 'package:abcof_ui/models/auth/set_pin_request.dart';
+import 'package:abcof_ui/models/auth/validate_otp_request.dart';
+import 'package:abcof_ui/services/interceptor_service.dart';
 import 'package:dio/dio.dart';
 
 class AuthService {

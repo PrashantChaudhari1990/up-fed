@@ -1,6 +1,6 @@
 import 'package:app_links/app_links.dart';
 import 'package:flutter/material.dart';
-import 'package:mhassoc_ui/utils/webview_controller_utils.dart';
+import 'package:abcof_ui/utils/webview_controller_utils.dart';
 import 'package:flutter_inappwebview/flutter_inappwebview.dart';
 import '../config/server_config.dart';
 

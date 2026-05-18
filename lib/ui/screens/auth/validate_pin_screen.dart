@@ -1,10 +1,10 @@
 import 'dart:convert';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:mhassoc_ui/models/auth/login_request.dart';
-import 'package:mhassoc_ui/services/auth/auth_service.dart';
-import 'package:mhassoc_ui/themes/styles/theme_colors.dart';
-import 'package:mhassoc_ui/utils/device_info.dart';
+import 'package:abcof_ui/models/auth/login_request.dart';
+import 'package:abcof_ui/services/auth/auth_service.dart';
+import 'package:abcof_ui/themes/styles/theme_colors.dart';
+import 'package:abcof_ui/utils/device_info.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import '../../../constant/session_keys.dart';

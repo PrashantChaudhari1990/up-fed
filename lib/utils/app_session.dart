@@ -1,5 +1,5 @@
-import 'package:mhassoc_ui/constant/session_keys.dart';
-import 'package:mhassoc_ui/utils/app_session_storage.dart';
+import 'package:abcof_ui/constant/session_keys.dart';
+import 'package:abcof_ui/utils/app_session_storage.dart';
 
 class AppSession {
   static final AppSession _instance = AppSession._internal();

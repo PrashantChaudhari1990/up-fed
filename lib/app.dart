@@ -1,9 +1,9 @@
-import 'package:mhassoc_ui/constant/web_app_routes.dart';
-import 'package:mhassoc_ui/routes.dart';
-import 'package:mhassoc_ui/themes/dart_theme.dart';
-import 'package:mhassoc_ui/themes/light_theme.dart';
-import 'package:mhassoc_ui/ui/screens/auth/sign_up_screen.dart';
-import 'package:mhassoc_ui/ui/screens/slider/slider_screen.dart';
+import 'package:abcof_ui/constant/web_app_routes.dart';
+import 'package:abcof_ui/routes.dart';
+import 'package:abcof_ui/themes/dart_theme.dart';
+import 'package:abcof_ui/themes/light_theme.dart';
+import 'package:abcof_ui/ui/screens/auth/sign_up_screen.dart';
+import 'package:abcof_ui/ui/screens/slider/slider_screen.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'ui/screens/auth/login_screen.dart';

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:mhassoc_ui/config/server_config.dart';
+import 'package:abcof_ui/config/server_config.dart';
 
 import '../../routes.dart';
 import '../../themes/styles/theme_colors.dart';

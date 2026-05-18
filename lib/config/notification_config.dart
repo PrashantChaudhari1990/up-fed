@@ -10,7 +10,7 @@ class NotificationConfig {
   final AndroidNotificationChannel _androidNotificationChannel =
       const AndroidNotificationChannel(
     'mh_notification_channel',
-    'MH Notification',
+    'ABCOF Notification',
     description: 'This channel use to default notification.',
     importance: Importance.max,
     playSound: true,

@@ -1,10 +1,10 @@
-import 'package:mhassoc_ui/models/auth/generate_otp_request.dart';
-import 'package:mhassoc_ui/models/auth/generate_otp_response.dart';
-import 'package:mhassoc_ui/models/auth/validate_otp_request.dart';
-import 'package:mhassoc_ui/services/auth/auth_service.dart';
-import 'package:mhassoc_ui/themes/styles/theme_colors.dart';
-import 'package:mhassoc_ui/ui/screens/auth/set_pin_screen.dart';
-import 'package:mhassoc_ui/ui/shared_widget/pin_input_field.dart';
+import 'package:abcof_ui/models/auth/generate_otp_request.dart';
+import 'package:abcof_ui/models/auth/generate_otp_response.dart';
+import 'package:abcof_ui/models/auth/validate_otp_request.dart';
+import 'package:abcof_ui/services/auth/auth_service.dart';
+import 'package:abcof_ui/themes/styles/theme_colors.dart';
+import 'package:abcof_ui/ui/screens/auth/set_pin_screen.dart';
+import 'package:abcof_ui/ui/shared_widget/pin_input_field.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';

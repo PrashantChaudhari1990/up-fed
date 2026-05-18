@@ -1,4 +1,4 @@
-# Deep Link Setup — Angular Project (MH Association)
+# Deep Link Setup — Angular Project (ABCOF Federation)
 
 > This file covers the **server/hosting side** of Universal Links (iOS) and App Links (Android).
 > Your Angular app acts as the domain host for the `.well-known` verification files.
@@ -10,8 +10,8 @@
 | Setting | Value |
 |---------|-------|
 | Domain | `bttoa-connect.oorjaa.tech` |
-| Android Package Name | `tech.oorjaa.vas.mhassoc` |
-| iOS Bundle ID | `tech.oorjaa.vas.mhassoc` |
+| Android Package Name | `tech.oorjaa.vas.abcof` |
+| iOS Bundle ID | `tech.oorjaa.vas.abcof` |
 | iOS Team ID | `6751527920` |
 
 ---
@@ -44,7 +44,7 @@ Create file at: `src/.well-known/assetlinks.json`
     "relation": ["delegate_permission/common.handle_all_urls"],
     "target": {
       "namespace": "android_app",
-      "package_name": "tech.oorjaa.vas.mhassoc",
+      "package_name": "tech.oorjaa.vas.abcof",
       "sha256_cert_fingerprints": [
         "8F:9E:A1:6E:CA:DA:78:13:7A:77:C5:75:59:80:2E:FA:C6:67:66:5C:0E:75:DE:85:BB:7D:6A:DF:F3:42:8C:94",
         "F8:47:13:0F:5D:76:E0:58:3E:EF:29:54:91:83:76:CF:AE:7A:9A:96:1D:CC:30:34:DF:69:0F:3A:1D:10:B0:CD"
@@ -68,7 +68,7 @@ Create file at: `src/.well-known/apple-app-site-association`
     "apps": [],
     "details": [
       {
-        "appID": "6751527920.tech.oorjaa.vas.mhassoc",
+        "appID": "6751527920.tech.oorjaa.vas.abcof",
         "paths": ["*"]
       }
     ]
@@ -244,7 +244,7 @@ Add this script in the `<head>` section of `src/index.html`:
     var isIOS = /iPad|iPhone|iPod/.test(userAgent) && !window.MSStream;
 
     // Store URLs
-    var playStoreUrl = 'https://play.google.com/store/apps/details?id=tech.oorjaa.vas.mhassoc';
+    var playStoreUrl = 'https://play.google.com/store/apps/details?id=tech.oorjaa.vas.abcof';
     var appStoreUrl = 'https://apps.apple.com/app/id6751527920';
 
     // Check if on mobile and app didn't open (fallback)
@@ -262,7 +262,7 @@ Add this script in the `<head>` section of `src/index.html`:
           // Option B: Show a banner (less aggressive)
           var banner = document.createElement('div');
           banner.innerHTML = '<div style="position:fixed;bottom:0;left:0;right:0;background:#1a73e8;color:white;padding:15px;text-align:center;z-index:9999;font-family:sans-serif;">' +
-            '<span>Get the MH Federation App</span>' +
+            '<span>Get the ABCOF Federation App</span>' +
             '<a href="' + storeUrl + '" style="background:white;color:#1a73e8;padding:8px 16px;margin-left:15px;border-radius:5px;text-decoration:none;font-weight:bold;">Download</a>' +
             '<span onclick="this.parentElement.parentElement.remove()" style="position:absolute;right:15px;cursor:pointer;">✕</span>' +
             '</div>';
@@ -297,7 +297,7 @@ import { Platform } from '@angular/cdk/platform';
   selector: 'app-download',
   template: `
     <div class="download-page">
-      <h1>Download MH Federation App</h1>
+      <h1>Download ABCOF Federation App</h1>
       <p>Redirecting to store...</p>
       <div class="store-buttons">
         <a [href]="playStoreUrl" class="store-btn android">
@@ -311,7 +311,7 @@ import { Platform } from '@angular/cdk/platform';
   `
 })
 export class DownloadComponent implements OnInit {
-  playStoreUrl = 'https://play.google.com/store/apps/details?id=tech.oorjaa.vas.mhassoc';
+  playStoreUrl = 'https://play.google.com/store/apps/details?id=tech.oorjaa.vas.abcof';
   appStoreUrl = 'https://apps.apple.com/app/id6751527920';
 
   constructor(private platform: Platform) {}
@@ -329,11 +329,11 @@ export class DownloadComponent implements OnInit {
 
 ---
 
-## Store URLs for MH Association
+## Store URLs for ABCOF Federation
 
 | Store | URL |
 |-------|-----|
-| Play Store | `https://play.google.com/store/apps/details?id=tech.oorjaa.vas.mhassoc` |
+| Play Store | `https://play.google.com/store/apps/details?id=tech.oorjaa.vas.abcof` |
 | App Store | `https://apps.apple.com/app/id6751527920` |
 
 ---
@@ -361,13 +361,13 @@ export class DownloadComponent implements OnInit {
 adb shell am start \
   -W -a android.intent.action.VIEW \
   -d "https://bttoa-connect.oorjaa.tech/product/123" \
-  tech.oorjaa.vas.mhassoc
+  tech.oorjaa.vas.abcof
 
 # Test with query params
 adb shell am start \
   -W -a android.intent.action.VIEW \
   -d "https://bttoa-connect.oorjaa.tech/profile/john?ref=share" \
-  tech.oorjaa.vas.mhassoc
+  tech.oorjaa.vas.abcof
 ```
 
 ### iOS (Simulator)

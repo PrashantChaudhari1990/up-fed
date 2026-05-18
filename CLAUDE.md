@@ -45,7 +45,7 @@ The environment configurations are in:
 ## Architecture Overview
 
 ### Project Structure
-This is a Flutter mobile application for MH Association with a hybrid approach using WebView for business logic and native Flutter for authentication and core app functionality.
+This is a Flutter mobile application for ABCOF Federation with a hybrid approach using WebView for business logic and native Flutter for authentication and core app functionality.
 
 **Key Architecture Components:**
 

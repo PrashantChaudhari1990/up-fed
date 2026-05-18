@@ -1,13 +1,13 @@
 import 'dart:async';
-import 'package:mhassoc_ui/enums/enums.dart';
-import 'package:mhassoc_ui/models/auth/generate_otp_request.dart';
-import 'package:mhassoc_ui/services/auth/auth_service.dart';
-import 'package:mhassoc_ui/themes/styles/theme_colors.dart';
+import 'package:abcof_ui/enums/enums.dart';
+import 'package:abcof_ui/models/auth/generate_otp_request.dart';
+import 'package:abcof_ui/services/auth/auth_service.dart';
+import 'package:abcof_ui/themes/styles/theme_colors.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:mhassoc_ui/ui/screens/auth/tenant_selection_popup.dart';
-import 'package:mhassoc_ui/utils/app_loader.dart';
+import 'package:abcof_ui/ui/screens/auth/tenant_selection_popup.dart';
+import 'package:abcof_ui/utils/app_loader.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import '../../../constant/common_constants.dart';
 import '../../../constant/session_keys.dart';
@@ -233,7 +233,7 @@ class _LoginScreenState extends State<LoginScreen> {
                           child: Text.rich(
                               TextSpan(text: ''.tr(), children: [
                                 TextSpan(
-                                    text: 'MH FEDERATION',
+                                    text: 'ABCOF FEDERATION',
                                     style: const TextStyle().copyWith(
                                         color: ThemeColors.primaryColor))
                               ]),
